@@ -1,0 +1,11 @@
+[
+  {
+    "firstname": "User",
+    "lastname": "Test",
+    "userId": "123",
+    "city": "Hamburg",
+    "email": "usertest@googlemail.com",
+    "advertisements": ["1"],
+    "favourites": ["2"]
+  }
+]
