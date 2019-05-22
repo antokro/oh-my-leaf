@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
-import ListingFeed from '../components/FeedPage/ListingFeed.js';
+import ListingFeed from '../components/FeedPage/ListingFeed';
+import CreateListing from '../components/CreateListingPage/CreateListing';
 import Footer from '../components/Footer/Footer';
+const listingsArray = require('./mockListings.json');
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -28,6 +30,7 @@ const GridHeader = styled.header`
 
 const GridMain = styled.main`
   grid-row: 2;
+  padding: 5px;
   overflow: scroll;
 `;
 
@@ -36,7 +39,8 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  //const [adList, setAdList] = useState(ads);
+  const [listings, setListings] = useState(listingsArray || []);
+
   return (
     <GridBody>
       <GlobalStyles />
@@ -44,7 +48,8 @@ function App() {
         <Header />
       </GridHeader>
       <GridMain>
-        <ListingFeed />
+        <ListingFeed listings={listings} />
+        <CreateListing />
       </GridMain>
       <GridFooter>
         <Footer />

@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ListingItem from './ListingItem';
-const listingsArray = require('../FeedPage/mockAdvertisements.json');
 
 const StyledAdFeed = styled.section`
-  margin: 10px;
   display: flex;
 `;
 
-function ListingFeed() {
-  const [listings, setListings] = useState(listingsArray || []);
-
+function ListingFeed({ listings }) {
   return (
     <StyledAdFeed>
       {listings.map(listing => (

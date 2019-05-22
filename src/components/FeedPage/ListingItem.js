@@ -5,9 +5,9 @@ import img from '../../img/mike-marquez-445115-unsplash.jpg';
 
 const StyledListing = styled.div`
   background: #fcfbf6;
-  height: 250px;
+  height: 255px;
   display: grid;
-  grid-template-rows: 119px 40px 35px 35px;
+  grid-template-rows: 120px 60px 35px 40px;
   width: 156px;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
@@ -35,6 +35,7 @@ const StyledUser = styled.p`
   grid-row: 4;
   font-size: 15px;
   margin: 3px 9px;
+  align-self: center;
 `;
 
 function ListingItem(props) {
@@ -42,7 +43,7 @@ function ListingItem(props) {
   return (
     <StyledListing>
       <StyledImg>
-        <img src={img} alt="a plant" style={{ height: 119 }} />
+        <img src={img} alt="a plant" style={{ height: 120 }} />
       </StyledImg>
       <StyledTitle>{title}</StyledTitle>
       <StyledType>{type}</StyledType>
