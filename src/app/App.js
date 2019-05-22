@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
-import AdFeed from '../components/FeedPage/AdFeed.js';
+import ListingFeed from '../components/FeedPage/ListingFeed.js';
 import Footer from '../components/Footer/Footer';
 
 const GlobalStyles = createGlobalStyle`
@@ -44,7 +44,7 @@ function App() {
         <Header />
       </GridHeader>
       <GridMain>
-        <AdFeed />
+        <ListingFeed />
       </GridMain>
       <GridFooter>
         <Footer />

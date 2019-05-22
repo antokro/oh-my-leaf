@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import img from '../../img/mike-marquez-445115-unsplash.jpg';
 
-const StyledAd = styled.div`
+const StyledListing = styled.div`
   background: #fcfbf6;
-  height: 229px;
+  height: 250px;
   display: grid;
   grid-template-rows: 119px 40px 35px 35px;
   width: 156px;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
+  margin: 15px 10px;
 `;
 const StyledImg = styled.div`
   grid-row: 1;
@@ -29,31 +30,38 @@ const StyledType = styled.span`
   margin: 3px 9px;
   padding: 5px 6px;
 `;
+
 const StyledUser = styled.p`
   grid-row: 4;
-  margin: 9px;
   font-size: 15px;
+  margin: 3px 9px;
 `;
 
-function AdItem(props) {
+function ListingItem(props) {
   const { title, type } = props.content;
   return (
-    <StyledAd>
+    <StyledListing>
       <StyledImg>
         <img src={img} alt="a plant" style={{ height: 119 }} />
       </StyledImg>
       <StyledTitle>{title}</StyledTitle>
       <StyledType>{type}</StyledType>
-      <StyledUser>{'User 1, Hamburg'}</StyledUser>
-    </StyledAd>
+      <StyledUser>
+        User 1
+        <i
+          className="fas fa-map-marker-alt"
+          style={{ marginLeft: 3, marginRight: 3 }}
+        />
+        Hamburg
+      </StyledUser>
+    </StyledListing>
   );
 }
 
-AdItem.propTypes = {
+ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  user: PropTypes.string,
-  image: PropTypes.string
+  user: PropTypes.string
 };
 
-export default AdItem;
+export default ListingItem;
