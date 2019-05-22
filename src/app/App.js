@@ -41,6 +41,11 @@ const GridFooter = styled.footer`
 function App() {
   const [listings, setListings] = useState(listingsArray || []);
 
+  function handlePublish(title, listingType) {
+    console.log(title);
+    console.log(listingType);
+  }
+
   return (
     <GridBody>
       <GlobalStyles />
@@ -49,7 +54,7 @@ function App() {
       </GridHeader>
       <GridMain>
         <ListingFeed listings={listings} />
-        <CreateListing />
+        <CreateListing handlePublish={handlePublish} />
       </GridMain>
       <GridFooter>
         <Footer />

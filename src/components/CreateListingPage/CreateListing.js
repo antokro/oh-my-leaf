@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -25,7 +25,7 @@ const StyledInputButton = styled.input`
   border-radius: 11px;
   padding: 8px;
   margin: 8px;
-  background-color: transparent;
+  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   font-family: 'PT Mono', monospace;
 `;
 
@@ -38,16 +38,22 @@ const StyledButton = styled.button`
   margin-top: 15px;
 `;
 
-function CreateListing() {
-  function onClickPublish(event) {
+function CreateListing({ handlePublish }) {
+  const [listingType, setListingType] = useState('give away');
+
+  function onPublish(event) {
     event.preventDefault();
-    const form = event.target;
-    const title = form.title;
-    console.log(title.value);
+    const title = event.target.title.value;
+    handlePublish(title, listingType);
+  }
+
+  function handleTypeButtonClick(event) {
+    const type = event.target.value;
+    setListingType(type);
   }
 
   return (
-    <StyledForm onSubmit={onClickPublish}>
+    <StyledForm onSubmit={onPublish}>
       <StyledLabel htmlFor="title">Title</StyledLabel>
       <StyledInput
         type="text"
@@ -57,9 +63,24 @@ function CreateListing() {
       />
       <StyledLabel>Listing Type</StyledLabel>
       <StyledInputButtonGroup>
-        <StyledInputButton type="button" value="give away" />
-        <StyledInputButton type="button" value="swap" />
-        <StyledInputButton type="button" value="for sale" />
+        <StyledInputButton
+          onClick={handleTypeButtonClick}
+          type="button"
+          value="give away"
+          filling={listingType === 'give away' ? true : false}
+        />
+        <StyledInputButton
+          onClick={(event, props) => handleTypeButtonClick(event, props)}
+          type="button"
+          value="swap"
+          filling={listingType === 'swap' ? true : false}
+        />
+        <StyledInputButton
+          onClick={(event, props) => handleTypeButtonClick(event, props)}
+          type="button"
+          value="for sale"
+          filling={listingType === 'for sale' ? true : false}
+        />
       </StyledInputButtonGroup>
       <StyledButton>PUBLISH</StyledButton>
     </StyledForm>

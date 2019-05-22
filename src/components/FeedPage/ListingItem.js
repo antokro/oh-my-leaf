@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import img from '../../img/mike-marquez-445115-unsplash.jpg';
+import img from '../../img/kara-eads-547179-unsplash.jpg';
 
 const StyledListing = styled.div`
   background: #fcfbf6;
@@ -38,12 +38,16 @@ const StyledUser = styled.p`
   align-self: center;
 `;
 
+const Image = styled.img`
+  width: 100%;
+`;
+
 function ListingItem(props) {
   const { title, type } = props.content;
   return (
     <StyledListing>
       <StyledImg>
-        <img src={img} alt="a plant" style={{ height: 120 }} />
+        <Image src={img} alt="a plant" />
       </StyledImg>
       <StyledTitle>{title}</StyledTitle>
       <StyledType>{type}</StyledType>
