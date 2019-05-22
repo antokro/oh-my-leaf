@@ -1,8 +1,9 @@
 ---
-name: ListingItem
+name: ListingFeed
 ---
 
 import ListingItem from './ListingItem.js';
+import ListingFeed from './ListingFeed.js';
 import { Playground, Props } from 'docz';
 
 # Layout of an Listing
@@ -11,6 +12,10 @@ import { Playground, Props } from 'docz';
   <ListingItem content={{ title: 'Monstera', type: 'give away' }} />
 </Playground>
 
-## Properties
+## Properties of Listing Feed
+
+<Props of={ListingFeed} />
+
+## Properties of one individual Listing
 
 <Props of={ListingItem} />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledForm = styled.form`
   display: flex;
@@ -70,13 +71,13 @@ function CreateListing({ handlePublish }) {
           filling={listingType === 'give away' ? true : false}
         />
         <StyledInputButton
-          onClick={(event, props) => handleTypeButtonClick(event, props)}
+          onClick={handleTypeButtonClick}
           type="button"
           value="swap"
           filling={listingType === 'swap' ? true : false}
         />
         <StyledInputButton
-          onClick={(event, props) => handleTypeButtonClick(event, props)}
+          onClick={handleTypeButtonClick}
           type="button"
           value="for sale"
           filling={listingType === 'for sale' ? true : false}
@@ -86,5 +87,7 @@ function CreateListing({ handlePublish }) {
     </StyledForm>
   );
 }
-
+CreateListing.propTypes = {
+  handlePublish: PropTypes.func
+};
 export default CreateListing;

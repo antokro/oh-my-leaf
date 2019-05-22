@@ -20,7 +20,7 @@ body {
 
 const GridBody = styled.section`
   display: grid;
-  grid-template-rows: 55px auto 55px;
+  grid-template-rows: 58px auto 55px;
   height: 100vh;
 `;
 
@@ -42,8 +42,8 @@ function App() {
   const [listings, setListings] = useState(listingsArray || []);
 
   function handlePublish(title, listingType) {
-    console.log(title);
-    console.log(listingType);
+    const newListing = { title: title, type: listingType, id: '3' };
+    setListings([...listings, newListing]);
   }
 
   return (

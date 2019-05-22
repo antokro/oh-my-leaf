@@ -24,7 +24,7 @@ const StyledTitle = styled.p`
 `;
 const StyledType = styled.span`
   grid-row: 3;
-  width: 60%;
+  width: 65%;
   border-radius: 11px;
   background: #ffd084;
   margin: 3px 9px;
