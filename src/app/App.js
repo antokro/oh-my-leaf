@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import Header from '../components/Header/Header';
 import AdFeed from '../components/FeedPage/AdFeed.js';
+import Footer from '../components/Footer/Footer';
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -10,41 +12,44 @@ const GlobalStyles = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inconsolata', monospace;
+  font-family: 'PT Mono', monospace;
 }
 `;
 
-const StyledBody = styled.section`
+const GridBody = styled.section`
   display: grid;
   grid-template-rows: 55px auto 55px;
-  text-align: center;
   height: 100vh;
 `;
 
-const StyledHeader = styled.header`
+const GridHeader = styled.header`
   grid-row: 1;
 `;
 
-const StyledMain = styled.main`
+const GridMain = styled.main`
   grid-row: 2;
   overflow: scroll;
 `;
 
-const StyledFooter = styled.footer`
+const GridFooter = styled.footer`
   grid-row: 3;
 `;
 
 function App() {
   //const [adList, setAdList] = useState(ads);
   return (
-    <StyledBody>
+    <GridBody>
       <GlobalStyles />
-      <StyledHeader>{'Header'}</StyledHeader>
-      <StyledMain>
+      <GridHeader>
+        <Header />
+      </GridHeader>
+      <GridMain>
         <AdFeed />
-      </StyledMain>
-      <StyledFooter>{'Footer'}</StyledFooter>
-    </StyledBody>
+      </GridMain>
+      <GridFooter>
+        <Footer />
+      </GridFooter>
+    </GridBody>
   );
 }
 
