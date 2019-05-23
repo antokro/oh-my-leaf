@@ -1,25 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
+import GlobalStyles from '../Styles/GlobalStyles';
 import Header from '../components/Header/Header';
 import ListingFeed from '../components/FeedPage/ListingFeed';
 import CreateListing from '../components/CreateListingPage/CreateListing';
 import ListingDetails from '../components/DetailsPage/ListingDetails';
 import Footer from '../components/Footer/Footer';
 const listingsArray = require('./mockListings.json');
-
-const GlobalStyles = createGlobalStyle`
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'PT Mono', monospace;
-  color: #201F1D;
-}
-`;
 
 const GridBody = styled.section`
   display: grid;
@@ -33,8 +21,8 @@ const GridHeader = styled.header`
 
 const GridMain = styled.main`
   grid-row: 2;
-  padding: 5px;
   overflow: scroll;
+  padding: 5px;
 `;
 
 const GridFooter = styled.footer`
@@ -44,8 +32,13 @@ const GridFooter = styled.footer`
 function App() {
   const [listings, setListings] = useState(listingsArray || []);
 
-  function handlePublish(title, listingType) {
-    const newListing = { title: title, type: listingType, id: '3' };
+  function handlePublish(title, description, listingType) {
+    const newListing = {
+      title: title,
+      description: description,
+      type: listingType,
+      id: '3'
+    };
     setListings([...listings, newListing]);
   }
 

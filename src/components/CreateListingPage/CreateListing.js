@@ -8,9 +8,9 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  height: 32px;
   border: 2px solid #abc38e;
   border-radius: 11px;
+  height: 32px;
   margin: 5px 0;
   padding: 5px;
 `;
@@ -22,21 +22,21 @@ const StyledLabel = styled.label`
 `;
 
 const StyledInputButton = styled.input`
+  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   border: 2px solid #ffd084;
   border-radius: 11px;
-  padding: 8px;
-  margin: 8px;
-  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   font-family: 'PT Mono', monospace;
+  margin: 8px;
+  padding: 8px;
 `;
 
 const StyledButton = styled.button`
   background-color: #abc38e;
   border-radius: 11px;
-  padding: 9px;
-  font-size: 18px;
   font-family: 'PT Mono', monospace;
+  font-size: 18px;
   margin-top: 15px;
+  padding: 9px;
 `;
 
 function CreateListing({ handlePublish, history }) {
@@ -46,7 +46,8 @@ function CreateListing({ handlePublish, history }) {
     event.preventDefault();
     const form = event.target;
     const title = event.target.title.value;
-    handlePublish(title, listingType);
+    const description = event.target.description.value;
+    handlePublish(title, description, listingType);
     form.reset();
     history.push('/home');
   }
@@ -64,6 +65,13 @@ function CreateListing({ handlePublish, history }) {
         placeholder="type title here..."
         id="title"
         name="title"
+      />
+      <StyledLabel htmlFor="description">Description</StyledLabel>
+      <StyledInput
+        type="textarea"
+        placeholder="type description here..."
+        id="description"
+        name="description"
       />
       <StyledLabel>Listing Type</StyledLabel>
       <StyledInputButtonGroup>

@@ -12,15 +12,15 @@ const StyledTitle = styled.p`
 `;
 
 const StyledType = styled.span`
-  border-radius: 11px;
   background: #ffd084;
+  border-radius: 11px;
   margin: 10px;
   padding: 5px 6px;
 `;
 
 const StyledDescription = styled.p`
-  padding: 15px 3px;
   line-height: 1.5em;
+  padding: 15px 3px;
 `;
 
 const Image = styled.img`
@@ -28,14 +28,14 @@ const Image = styled.img`
 `;
 
 const StyledUser = styled.p`
+  align-self: center;
   font-size: 15px;
   margin: 3px 9px;
-  align-self: center;
 `;
 
 const StyledUserIcon = styled.i`
-  margin: 0 5px;
   font-size: 30px;
+  margin: 0 5px;
 `;
 
 const StyledIcon = styled.i`

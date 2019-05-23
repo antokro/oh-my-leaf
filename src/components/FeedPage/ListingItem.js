@@ -5,45 +5,45 @@ import img from '../../img/kara-eads-547179-unsplash.jpg';
 import { Link as Listing } from 'react-router-dom';
 
 const StyledListing = styled(Listing)`
-  text-decoration: none;
   color: #201f1d;
   background: #fcfbf6;
-  height: 255px;
-  display: grid;
-  grid-template-rows: 120px 60px 35px 40px;
-  width: 156px;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
+  display: grid;
+  text-decoration: none;
+  grid-template-rows: 120px 60px 35px 40px;
+  height: 255px;
   margin: 15px auto;
+  width: 156px;
 
   &:visited {
-    text-decoration: none;
     color: #201f1d;
+    text-decoration: none;
   }
 `;
 const StyledImg = styled.div`
   grid-row: 1;
 `;
 const StyledTitle = styled.p`
-  grid-row: 2;
   font-size: 20px;
+  grid-row: 2;
   margin: 9px;
   text-align: start;
 `;
 const StyledType = styled.span`
-  grid-row: 3;
-  width: 65%;
-  border-radius: 11px;
   background: #ffd084;
+  border-radius: 11px;
   margin: 3px 9px;
+  grid-row: 3;
   padding: 5px 6px;
+  width: 65%;
 `;
 
 const StyledUser = styled.p`
-  grid-row: 4;
-  font-size: 15px;
-  margin: 3px 9px;
   align-self: center;
+  font-size: 15px;
+  grid-row: 4;
+  margin: 3px 9px;
 `;
 
 const Image = styled.img`
