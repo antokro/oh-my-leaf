@@ -11,7 +11,7 @@ const StyledListing = styled.div`
   width: 156px;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
-  margin: 15px 10px;
+  margin: 15px auto;
 `;
 const StyledImg = styled.div`
   grid-row: 1;
@@ -42,10 +42,15 @@ const Image = styled.img`
   width: 100%;
 `;
 
+const StyledIcon = styled.i`
+  margin: 0 3px;
+`;
+
 function ListingItem(props) {
   const { title, type } = props.content;
+  const { showDetails } = props;
   return (
-    <StyledListing>
+    <StyledListing onClick={showDetails}>
       <StyledImg>
         <Image src={img} alt="a plant" />
       </StyledImg>
@@ -53,10 +58,7 @@ function ListingItem(props) {
       <StyledType>{type}</StyledType>
       <StyledUser>
         User 1
-        <i
-          className="fas fa-map-marker-alt"
-          style={{ marginLeft: 3, marginRight: 3 }}
-        />
+        <StyledIcon className="fas fa-map-marker-alt" />
         Hamburg
       </StyledUser>
     </StyledListing>
@@ -66,7 +68,8 @@ function ListingItem(props) {
 ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  user: PropTypes.string
+  user: PropTypes.string,
+  showDetails: PropTypes.func
 };
 
 export default ListingItem;

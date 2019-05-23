@@ -8,18 +8,23 @@ const StyledAdFeed = styled.section`
   flex-wrap: wrap;
 `;
 
-function ListingFeed({ listings }) {
+function ListingFeed({ listings, showDetails }) {
   return (
     <StyledAdFeed>
       {listings.map(listing => (
-        <ListingItem key={listing.id} content={listing} />
+        <ListingItem
+          showDetails={showDetails}
+          key={listing.id}
+          content={listing}
+        />
       ))}
     </StyledAdFeed>
   );
 }
 
 ListingFeed.propTypes = {
-  listings: PropTypes.array
+  listings: PropTypes.array,
+  showDetails: PropTypes.func
 };
 
 export default ListingFeed;

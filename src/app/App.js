@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
 import ListingFeed from '../components/FeedPage/ListingFeed';
 import CreateListing from '../components/CreateListingPage/CreateListing';
+import ListingDetails from '../components/DetailsPage/ListingDetails';
 import Footer from '../components/Footer/Footer';
 const listingsArray = require('./mockListings.json');
 
@@ -46,6 +47,10 @@ function App() {
     setListings([...listings, newListing]);
   }
 
+  function showDetailsPage() {
+    console.log('DetailsPage');
+  }
+
   return (
     <GridBody>
       <GlobalStyles />
@@ -53,8 +58,9 @@ function App() {
         <Header />
       </GridHeader>
       <GridMain>
-        <ListingFeed listings={listings} />
+        <ListingFeed listings={listings} showDetails={showDetailsPage} />
         <CreateListing handlePublish={handlePublish} />
+        <ListingDetails content={listings[0]} />
       </GridMain>
       <GridFooter>
         <Footer />
