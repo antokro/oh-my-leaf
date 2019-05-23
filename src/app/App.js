@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { getLocal, setLocal } from '../services';
+import uid from 'uid';
 import GlobalStyles from '../Styles/GlobalStyles';
 import Header from '../components/Header/Header';
 import ListingFeed from '../components/FeedPage/ListingFeed';
 import CreateListing from '../components/CreateListingPage/CreateListing';
 import ListingDetails from '../components/DetailsPage/ListingDetails';
 import Footer from '../components/Footer/Footer';
-const listingsArray = require('./mockListings.json');
+const user = require('./mockUsers.json');
 
 const GridBody = styled.section`
   display: grid;
@@ -30,17 +32,20 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  const [listings, setListings] = useState(listingsArray || []);
+  const [listings, setListings] = useState(getLocal('listings') || []);
+  const [favourites, setFavourites] = useState(getLocal('favourites') || []);
 
   function handlePublish(title, description, listingType) {
     const newListing = {
       title: title,
       description: description,
       type: listingType,
-      id: '3'
+      id: uid(),
+      user: user[0].userId
     };
     setListings([...listings, newListing]);
   }
+  useEffect(() => setLocal('listings', listings), [listings]);
 
   return (
     <BrowserRouter>
@@ -53,7 +58,12 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => <ListingFeed listings={listings} />}
+            render={props => (
+              <ListingFeed
+                listings={listings}
+                user={{ userName: user[0].firstname, city: user[0].city }}
+              />
+            )}
           />
           <Route
             path="/create"

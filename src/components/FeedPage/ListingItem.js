@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 import img from '../../img/kara-eads-547179-unsplash.jpg';
 import { Link as Listing } from 'react-router-dom';
 
+const Wrapper = styled.div`
+  position: relative;
+  height: 255px;
+  margin: 15px auto;
+  width: 156px;
+`;
+
 const StyledListing = styled(Listing)`
   color: #201f1d;
   background: #fcfbf6;
@@ -12,9 +19,6 @@ const StyledListing = styled(Listing)`
   display: grid;
   text-decoration: none;
   grid-template-rows: 120px 60px 35px 40px;
-  height: 255px;
-  margin: 15px auto;
-  width: 156px;
 
   &:visited {
     color: #201f1d;
@@ -23,6 +27,9 @@ const StyledListing = styled(Listing)`
 `;
 const StyledImg = styled.div`
   grid-row: 1;
+`;
+const Image = styled.img`
+  width: 100%;
 `;
 const StyledTitle = styled.p`
   font-size: 20px;
@@ -46,36 +53,51 @@ const StyledUser = styled.p`
   margin: 3px 9px;
 `;
 
-const Image = styled.img`
-  width: 100%;
-`;
-
 const StyledIcon = styled.i`
   margin: 0 3px;
 `;
 
+const StyledHeart = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #201f1d;
+  font-size: 20px;
+  z-index: 2;
+`;
+
 function ListingItem(props) {
   const { title, type, id } = props.content;
+  const { userName, city } = props.user;
+  //<i class="fas fa-heart" />
+
+  function onClick() {
+    console.log('heart');
+  }
   return (
-    <StyledListing to={`/details/${id}`}>
-      <StyledImg>
-        <Image src={img} alt="a plant" />
-      </StyledImg>
-      <StyledTitle>{title}</StyledTitle>
-      <StyledType>{type}</StyledType>
-      <StyledUser>
-        User 1
-        <StyledIcon className="fas fa-map-marker-alt" />
-        Hamburg
-      </StyledUser>
-    </StyledListing>
+    <Wrapper>
+      <StyledHeart onClick={onClick} className="far fa-heart" />
+      <StyledListing to={`/details/${id}`}>
+        <StyledImg>
+          <Image src={img} alt="a plant" />
+        </StyledImg>
+        <StyledTitle>{title}</StyledTitle>
+        <StyledType>{type}</StyledType>
+        <StyledUser>
+          {userName}
+          <StyledIcon className="fas fa-map-marker-alt" />
+          {city}
+        </StyledUser>
+      </StyledListing>
+    </Wrapper>
   );
 }
 
 ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  user: PropTypes.string,
+  firstname: PropTypes.string,
+  city: PropTypes.string,
   id: PropTypes.string
 };
 

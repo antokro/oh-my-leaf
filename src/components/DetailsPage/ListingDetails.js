@@ -43,6 +43,7 @@ const StyledIcon = styled.i`
 `;
 
 function ListingDetails(props) {
+  console.log(props);
   const listing = props.content.find(listing => listing.id === props.detailId);
   return (
     <StyledListingDetails>
