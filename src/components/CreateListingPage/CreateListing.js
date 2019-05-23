@@ -39,13 +39,16 @@ const StyledButton = styled.button`
   margin-top: 15px;
 `;
 
-function CreateListing({ handlePublish }) {
+function CreateListing({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
 
   function onPublish(event) {
     event.preventDefault();
+    const form = event.target;
     const title = event.target.title.value;
     handlePublish(title, listingType);
+    form.reset();
+    history.push('/home');
   }
 
   function handleTypeButtonClick(event) {

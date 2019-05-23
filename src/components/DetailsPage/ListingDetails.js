@@ -43,13 +43,13 @@ const StyledIcon = styled.i`
 `;
 
 function ListingDetails(props) {
-  const { title, description, type } = props.content;
+  const listing = props.content.find(listing => listing.id === props.detailId);
   return (
     <StyledListingDetails>
       <Image src={img} alt="a plant" />
-      <StyledTitle>{title}</StyledTitle>
-      <StyledType>{type}</StyledType>
-      <StyledDescription>{description}</StyledDescription>
+      <StyledTitle>{listing.title}</StyledTitle>
+      <StyledType>{listing.type}</StyledType>
+      <StyledDescription>{listing.description}</StyledDescription>
       <StyledUser>
         <StyledUserIcon className="far fa-smile" />
         User 1

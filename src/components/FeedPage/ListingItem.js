@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import img from '../../img/kara-eads-547179-unsplash.jpg';
-import {Link as Listing} from 'react-router-dom';
+import { Link as Listing } from 'react-router-dom';
 
 const StyledListing = styled(Listing)`
   text-decoration: none;
-  color: black;
+  color: #201f1d;
   background: #fcfbf6;
   height: 255px;
   display: grid;
@@ -16,7 +16,10 @@ const StyledListing = styled(Listing)`
   box-shadow: 3px 3px 9px -2px #c9cac8;
   margin: 15px auto;
 
-  &:visited {text-decoration:none; color:black}
+  &:visited {
+    text-decoration: none;
+    color: #201f1d;
+  }
 `;
 const StyledImg = styled.div`
   grid-row: 1;
@@ -53,7 +56,6 @@ const StyledIcon = styled.i`
 
 function ListingItem(props) {
   const { title, type, id } = props.content;
-  const { showDetails } = props;
   return (
     <StyledListing to={`/details/${id}`}>
       <StyledImg>
@@ -74,7 +76,7 @@ ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   user: PropTypes.string,
-  showDetails: PropTypes.func
+  id: PropTypes.string
 };
 
 export default ListingItem;

@@ -12,11 +12,7 @@ function ListingFeed({ listings, showDetails }) {
   return (
     <StyledAdFeed>
       {listings.map(listing => (
-        <ListingItem
-          showDetails={showDetails}
-          key={listing.id}
-          content={listing}
-        />
+        <ListingItem key={listing.id} content={listing} />
       ))}
     </StyledAdFeed>
   );
