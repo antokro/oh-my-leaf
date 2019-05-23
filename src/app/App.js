@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
-import AdFeed from '../components/FeedPage/AdFeed.js';
+import ListingFeed from '../components/FeedPage/ListingFeed';
+import CreateListing from '../components/CreateListingPage/CreateListing';
 import Footer from '../components/Footer/Footer';
+const listingsArray = require('./mockListings.json');
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -18,7 +20,7 @@ body {
 
 const GridBody = styled.section`
   display: grid;
-  grid-template-rows: 55px auto 55px;
+  grid-template-rows: 58px auto 55px;
   height: 100vh;
 `;
 
@@ -28,6 +30,7 @@ const GridHeader = styled.header`
 
 const GridMain = styled.main`
   grid-row: 2;
+  padding: 5px;
   overflow: scroll;
 `;
 
@@ -36,7 +39,13 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  //const [adList, setAdList] = useState(ads);
+  const [listings, setListings] = useState(listingsArray || []);
+
+  function handlePublish(title, listingType) {
+    const newListing = { title: title, type: listingType, id: '3' };
+    setListings([...listings, newListing]);
+  }
+
   return (
     <GridBody>
       <GlobalStyles />
@@ -44,7 +53,8 @@ function App() {
         <Header />
       </GridHeader>
       <GridMain>
-        <AdFeed />
+        <ListingFeed listings={listings} />
+        <CreateListing handlePublish={handlePublish} />
       </GridMain>
       <GridFooter>
         <Footer />

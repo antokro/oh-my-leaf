@@ -7,7 +7,6 @@ const StyledHeader = styled.header`
   font-size: 28px;
   font-family: 'Give You Glory', cursive;
   text-align: center;
-  padding: 5px 0;
 `;
 
 function Header() {
