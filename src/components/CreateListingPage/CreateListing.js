@@ -13,6 +13,7 @@ const StyledInput = styled.input`
   height: 32px;
   margin: 10px 0;
   padding: 5px;
+  font-size: 18px;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -21,6 +22,7 @@ const StyledTextarea = styled.textarea`
   height: 150px;
   margin: 10px 0;
   padding: 5px;
+  font-size: 18px;
 `;
 
 const StyledInputButtonGroup = styled.div``;
