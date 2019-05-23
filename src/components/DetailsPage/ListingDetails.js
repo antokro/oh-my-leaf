@@ -62,7 +62,9 @@ function ListingDetails(props) {
 ListingDetails.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  listing: PropTypes.array,
+  detailId: PropTypes.string
 };
 
 export default ListingDetails;

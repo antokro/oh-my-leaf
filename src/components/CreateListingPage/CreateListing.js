@@ -11,7 +11,15 @@ const StyledInput = styled.input`
   border: 2px solid #abc38e;
   border-radius: 11px;
   height: 32px;
-  margin: 5px 0;
+  margin: 10px 0;
+  padding: 5px;
+`;
+
+const StyledTextarea = styled.textarea`
+  border: 2px solid #abc38e;
+  border-radius: 11px;
+  height: 150px;
+  margin: 10px 0;
   padding: 5px;
 `;
 
@@ -28,13 +36,14 @@ const StyledInputButton = styled.input`
   font-family: 'PT Mono', monospace;
   margin: 8px;
   padding: 8px;
+  font-size: 15px;
 `;
 
 const StyledButton = styled.button`
   background-color: #abc38e;
   border-radius: 11px;
   font-family: 'PT Mono', monospace;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 15px;
   padding: 9px;
 `;
@@ -67,7 +76,7 @@ function CreateListing({ handlePublish, history }) {
         name="title"
       />
       <StyledLabel htmlFor="description">Description</StyledLabel>
-      <StyledInput
+      <StyledTextarea
         type="textarea"
         placeholder="type description here..."
         id="description"
@@ -99,6 +108,7 @@ function CreateListing({ handlePublish, history }) {
   );
 }
 CreateListing.propTypes = {
-  handlePublish: PropTypes.func
+  handlePublish: PropTypes.func,
+  history: PropTypes.object
 };
 export default CreateListing;

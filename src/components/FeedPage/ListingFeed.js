@@ -8,7 +8,7 @@ const StyledAdFeed = styled.section`
   flex-wrap: wrap;
 `;
 
-function ListingFeed({ listings, showDetails }) {
+function ListingFeed({ listings }) {
   return (
     <StyledAdFeed>
       {listings.map(listing => (
@@ -19,8 +19,7 @@ function ListingFeed({ listings, showDetails }) {
 }
 
 ListingFeed.propTypes = {
-  listings: PropTypes.array,
-  showDetails: PropTypes.func
+  listings: PropTypes.array
 };
 
 export default ListingFeed;
