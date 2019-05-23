@@ -60,7 +60,7 @@ function CreateListing({ handlePublish, history }) {
     const description = event.target.description.value;
     handlePublish(title, description, listingType);
     form.reset();
-    history.push('/home');
+    history.push('/');
   }
 
   function handleTypeButtonClick(event) {

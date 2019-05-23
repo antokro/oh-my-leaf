@@ -19,7 +19,7 @@ const StyledIcon = styled(NavLink)`
 function Footer() {
   return (
     <StyledFooter>
-      <StyledIcon to="/home" className="fas fa-home" />
+      <StyledIcon to="/" className="fas fa-home" />
       <StyledIcon to="/create" className="fas fa-plus" />
     </StyledFooter>
   );

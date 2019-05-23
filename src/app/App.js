@@ -51,7 +51,8 @@ function App() {
         </GridHeader>
         <GridMain>
           <Route
-            path="/home"
+            exact
+            path="/"
             render={props => <ListingFeed listings={listings} />}
           />
           <Route
