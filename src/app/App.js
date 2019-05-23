@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {BrowserRouter, Route} from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
 import ListingFeed from '../components/FeedPage/ListingFeed';
@@ -52,20 +53,22 @@ function App() {
   }
 
   return (
+    <BrowserRouter>
     <GridBody>
       <GlobalStyles />
       <GridHeader>
         <Header />
       </GridHeader>
       <GridMain>
-        <ListingFeed listings={listings} showDetails={showDetailsPage} />
-        <CreateListing handlePublish={handlePublish} />
-        <ListingDetails content={listings[0]} />
+        <Route path='/home' render={props => <ListingFeed listings={listings} showDetails={showDetailsPage} /> } />
+        <Route path='/create' render={props => <CreateListing handlePublish={handlePublish}  /> }/>
+        <Route path='/details/:id' render={props => <ListingDetails content={listings[0]} />} /> 
       </GridMain>
       <GridFooter>
         <Footer />
       </GridFooter>
     </GridBody>
+    </BrowserRouter>
   );
 }
 
