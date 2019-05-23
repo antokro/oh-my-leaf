@@ -1,11 +1,16 @@
 [
   {
-    "firstname": "Nadia",
+    "firstname": "Sabine",
     "lastname": "Test",
     "userId": "User1",
     "city": "Hamburg",
-    "email": "nadiatest@googlemail.com",
-    "advertisements": ["1"],
-    "favourites": ["2"]
+    "email": "sabinetest@googlemail.com"
+  },
+  {
+    "firstname": "Antonia",
+    "lastname": "Krohn",
+    "userId": "User2",
+    "city": "Hamburg",
+    "email": "antoniatest@googlemail.com"
   }
 ]

@@ -43,8 +43,8 @@ const StyledIcon = styled.i`
 `;
 
 function ListingDetails(props) {
-  console.log(props);
   const listing = props.content.find(listing => listing.id === props.detailId);
+  const user = props.users.find(user => user.userId === listing.user);
   return (
     <StyledListingDetails>
       <Image src={img} alt="a plant" />
@@ -53,9 +53,9 @@ function ListingDetails(props) {
       <StyledDescription>{listing.description}</StyledDescription>
       <StyledUser>
         <StyledUserIcon className="far fa-smile" />
-        User 1
+        {user.firstname}
         <StyledIcon className="fas fa-map-marker-alt" />
-        Hamburg
+        {user.city}
       </StyledUser>
     </StyledListingDetails>
   );

@@ -1,16 +1,16 @@
 [
   {
-    "title": "Monstera",
-    "description": "Hello you plant lovers, I’m giving away propagations of my Monstera plant. They all have roots and are ready to be potted. Pick up only!",
-    "type": "give away",
-    "id": "1",
-    "userid": "123"
+    "description": "Hello all, I'm swaping my Pilea for a pearl of string plant. Anybody up for a swap?",
+    "id": "kefabvq",
+    "title": "Pilea for pearl of string",
+    "type": "swap",
+    "user": "User1"
   },
   {
-    "title": "Big Cactus",
-    "description": "Giant Cactus for Sale. Price: 50€",
-    "type": "for sale",
-    "id": "2",
-    "userid": "123"
+    "description": "I'm swapping my very picky peperomia (watermelon) against an easier plant. Any suggestions are welcome",
+    "id": "00k047c",
+    "title": "watermelon peperomia",
+    "type": "swap",
+    "user": "User1"
   }
 ]

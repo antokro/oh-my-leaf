@@ -9,7 +9,8 @@ import ListingFeed from '../components/FeedPage/ListingFeed';
 import CreateListing from '../components/CreateListingPage/CreateListing';
 import ListingDetails from '../components/DetailsPage/ListingDetails';
 import Footer from '../components/Footer/Footer';
-const user = require('./mockUsers.json');
+const users = require('./mockUsers.json');
+const mockListings = require('./mockListings.json');
 
 const GridBody = styled.section`
   display: grid;
@@ -32,7 +33,9 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  const [listings, setListings] = useState(getLocal('listings') || []);
+  const [listings, setListings] = useState(
+    getLocal('listings') || mockListings
+  );
   const [favourites, setFavourites] = useState(getLocal('favourites') || []);
 
   function handlePublish(title, description, listingType) {
@@ -41,7 +44,7 @@ function App() {
       description: description,
       type: listingType,
       id: uid(),
-      user: user[0].userId
+      user: users[1].userId
     };
     setListings([...listings, newListing]);
   }
@@ -58,12 +61,7 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => (
-              <ListingFeed
-                listings={listings}
-                user={{ userName: user[0].firstname, city: user[0].city }}
-              />
-            )}
+            render={props => <ListingFeed listings={listings} users={users} />}
           />
           <Route
             path="/create"
@@ -77,6 +75,7 @@ function App() {
               <ListingDetails
                 content={listings}
                 detailId={props.match.params.id}
+                users={users}
               />
             )}
           />

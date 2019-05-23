@@ -8,11 +8,15 @@ const StyledAdFeed = styled.section`
   flex-wrap: wrap;
 `;
 
-function ListingFeed({ listings, user }) {
+function ListingFeed({ listings, users }) {
   return (
     <StyledAdFeed>
       {listings.map(listing => (
-        <ListingItem key={listing.id} content={listing} user={user} />
+        <ListingItem
+          key={listing.id}
+          content={listing}
+          user={users.find(user => user.userId === listing.user)}
+        />
       ))}
     </StyledAdFeed>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import img from '../../img/kara-eads-547179-unsplash.jpg';
@@ -61,30 +61,36 @@ const StyledHeart = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
-  color: #201f1d;
+  color: ${props => props.color};
   font-size: 20px;
-  z-index: 2;
 `;
 
 function ListingItem(props) {
+  const [favourite, setFavourite] = useState(false);
   const { title, type, id } = props.content;
-  const { userName, city } = props.user;
+  const { city } = props.user;
   //<i class="fas fa-heart" />
 
   function onClick() {
-    console.log('heart');
+    setFavourite(!favourite);
   }
+
   return (
     <Wrapper>
-      <StyledHeart onClick={onClick} className="far fa-heart" />
+      <StyledHeart
+        onClick={onClick}
+        className={favourite ? 'fas fa-heart' : 'far fa-heart'}
+        color={favourite ? '#E79796' : '#201f1d'}
+      />
       <StyledListing to={`/details/${id}`}>
         <StyledImg>
           <Image src={img} alt="a plant" />
         </StyledImg>
-        <StyledTitle>{title}</StyledTitle>
+        <StyledTitle>
+          {title.length > 15 ? title.slice(0, 15) + '...' : title}
+        </StyledTitle>
         <StyledType>{type}</StyledType>
         <StyledUser>
-          {userName}
           <StyledIcon className="fas fa-map-marker-alt" />
           {city}
         </StyledUser>
@@ -96,7 +102,6 @@ function ListingItem(props) {
 ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  firstname: PropTypes.string,
   city: PropTypes.string,
   id: PropTypes.string
 };
