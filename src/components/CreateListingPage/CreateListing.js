@@ -8,11 +8,21 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  height: 32px;
   border: 2px solid #abc38e;
   border-radius: 11px;
-  margin: 5px 0;
+  height: 32px;
+  margin: 10px 0;
   padding: 5px;
+  font-size: 18px;
+`;
+
+const StyledTextarea = styled.textarea`
+  border: 2px solid #abc38e;
+  border-radius: 11px;
+  height: 150px;
+  margin: 10px 0;
+  padding: 5px;
+  font-size: 18px;
 `;
 
 const StyledInputButtonGroup = styled.div``;
@@ -22,30 +32,35 @@ const StyledLabel = styled.label`
 `;
 
 const StyledInputButton = styled.input`
+  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   border: 2px solid #ffd084;
   border-radius: 11px;
-  padding: 8px;
-  margin: 8px;
-  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   font-family: 'PT Mono', monospace;
+  margin: 8px;
+  padding: 8px;
+  font-size: 15px;
 `;
 
 const StyledButton = styled.button`
   background-color: #abc38e;
   border-radius: 11px;
-  padding: 9px;
-  font-size: 18px;
   font-family: 'PT Mono', monospace;
+  font-size: 20px;
   margin-top: 15px;
+  padding: 9px;
 `;
 
-function CreateListing({ handlePublish }) {
+function CreateListing({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
 
   function onPublish(event) {
     event.preventDefault();
+    const form = event.target;
     const title = event.target.title.value;
-    handlePublish(title, listingType);
+    const description = event.target.description.value;
+    handlePublish(title, description, listingType);
+    form.reset();
+    history.push('/');
   }
 
   function handleTypeButtonClick(event) {
@@ -61,6 +76,13 @@ function CreateListing({ handlePublish }) {
         placeholder="type title here..."
         id="title"
         name="title"
+      />
+      <StyledLabel htmlFor="description">Description</StyledLabel>
+      <StyledTextarea
+        type="textarea"
+        placeholder="type description here..."
+        id="description"
+        name="description"
       />
       <StyledLabel>Listing Type</StyledLabel>
       <StyledInputButtonGroup>
@@ -88,6 +110,7 @@ function CreateListing({ handlePublish }) {
   );
 }
 CreateListing.propTypes = {
-  handlePublish: PropTypes.func
+  handlePublish: PropTypes.func,
+  history: PropTypes.object
 };
 export default CreateListing;

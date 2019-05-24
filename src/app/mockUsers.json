@@ -1,0 +1,16 @@
+[
+  {
+    "firstname": "Sabine",
+    "lastname": "Test",
+    "userId": "User1",
+    "city": "Hamburg",
+    "email": "sabinetest@googlemail.com"
+  },
+  {
+    "firstname": "Antonia",
+    "lastname": "Krohn",
+    "userId": "User2",
+    "city": "Hamburg",
+    "email": "antoniatest@googlemail.com"
+  }
+]

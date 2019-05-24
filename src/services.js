@@ -1,8 +1,7 @@
-/* export function getAds() {
-  return fetch('/models/mockAdvertisements')
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+export function setLocal(name, data) {
+  localStorage.setItem(name, JSON.stringify(data));
 }
 
-fs file systems */
+export function getLocal(name) {
+  return JSON.parse(localStorage.getItem(name));
+}
