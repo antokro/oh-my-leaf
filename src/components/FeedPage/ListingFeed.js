@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
 
-const StyledAdFeed = styled.section`
+const StyledListingFeed = styled.section`
   display: flex;
   flex-wrap: wrap;
 `;
 
 function ListingFeed({ listings, users, onFavourise, favourites }) {
   return (
-    <StyledAdFeed>
+    <StyledListingFeed>
       {listings.map(listing => (
         <ListingItem
           key={listing.id}
@@ -20,7 +20,7 @@ function ListingFeed({ listings, users, onFavourise, favourites }) {
           favourite={favourites.includes(listing)}
         />
       ))}
-    </StyledAdFeed>
+    </StyledListingFeed>
   );
 }
 

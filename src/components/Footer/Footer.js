@@ -14,12 +14,16 @@ const StyledIcon = styled(NavLink)`
   text-decoration: none;
   color: #fcfbf6;
   font-size: 35px;
+
+  &.active {
+    color: #201f1d;
+  }
 `;
 
 function Footer() {
   return (
     <StyledFooter>
-      <StyledIcon to="/" className="fas fa-home" />
+      <StyledIcon exact to="/" className="fas fa-home" />
       <StyledIcon to="/favourites" className="fas fa-heart" />
       <StyledIcon to="/create" className="fas fa-plus" />
     </StyledFooter>

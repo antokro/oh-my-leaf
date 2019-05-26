@@ -83,7 +83,7 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => (
+            render={() => (
               <ListingFeed
                 listings={listings}
                 users={users}
