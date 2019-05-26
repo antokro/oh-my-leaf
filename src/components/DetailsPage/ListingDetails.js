@@ -59,8 +59,10 @@ ListingDetails.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   description: PropTypes.string,
-  listing: PropTypes.array,
-  detailId: PropTypes.string
+  firstname: PropTypes.string,
+  city: PropTypes.string,
+  listing: PropTypes.object,
+  user: PropTypes.object
 };
 
 export default ListingDetails;

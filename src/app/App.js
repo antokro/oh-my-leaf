@@ -100,7 +100,7 @@ function App() {
           />
           <Route
             path="/favourites"
-            render={props => (
+            render={() => (
               <ListingFeed
                 listings={favourites}
                 users={users}

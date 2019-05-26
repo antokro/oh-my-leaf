@@ -100,7 +100,9 @@ ListingItem.propTypes = {
   type: PropTypes.string,
   city: PropTypes.string,
   id: PropTypes.string,
-  onFavourise: PropTypes.func
+  onFavourise: PropTypes.func,
+  content: PropTypes.object,
+  user: PropTypes.object
 };
 
 export default ListingItem;
