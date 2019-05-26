@@ -52,17 +52,17 @@ function App() {
     setListings([...listings, newListing]);
   }
 
-  function handleFavourise(listing) {
-    const index = favourites.indexOf(listing);
+  function handleFavourise(id) {
+    const index = favourites.indexOf(id);
 
-    setFavourites(findNewFavourites(index, listing));
+    setFavourites(NewFavourites(index, id));
   }
 
-  function findNewFavourites(index, listing) {
-    if (favourites.includes(listing)) {
+  function NewFavourites(index, id) {
+    if (favourites.includes(id)) {
       return [...favourites.slice(0, index), ...favourites.slice(index + 1)];
     } else {
-      return [...favourites, listing];
+      return [...favourites, id];
     }
   }
 
@@ -70,6 +70,13 @@ function App() {
     const listing = listings.find(listing => listing.id === id);
     const user = users.find(user => user.userId === listing.user);
     return { listing, user };
+  }
+
+  function findFavourites() {
+    const favouriteListings = listings
+      .slice()
+      .filter(listing => favourites.includes(listing.id));
+    return favouriteListings;
   }
 
   return (
@@ -102,7 +109,7 @@ function App() {
             path="/favourites"
             render={() => (
               <ListingFeed
-                listings={favourites}
+                listings={findFavourites()}
                 users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}

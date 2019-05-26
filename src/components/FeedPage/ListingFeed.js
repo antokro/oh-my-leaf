@@ -16,8 +16,8 @@ function ListingFeed({ listings, users, onFavourise, favourites }) {
           key={listing.id}
           content={listing}
           user={users.find(user => user.userId === listing.user)}
-          onFavourise={() => onFavourise(listing)}
-          favourite={favourites.includes(listing)}
+          onFavourise={() => onFavourise(listing.id)}
+          favourite={favourites.includes(listing.id)}
         />
       ))}
     </StyledListingFeed>
