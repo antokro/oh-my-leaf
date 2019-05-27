@@ -17,7 +17,7 @@ function ListingFeed({ listings, users, onFavourise, favourites }) {
           content={listing}
           user={users.find(user => user.userId === listing.user)}
           onFavourise={() => onFavourise(listing.id)}
-          favourite={favourites.includes(listing.id)}
+          isFavourite={favourites.includes(listing.id)}
         />
       ))}
     </StyledListingFeed>
@@ -28,7 +28,7 @@ ListingFeed.propTypes = {
   listings: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
-  favourites: PropTypes.array
+  isFavourites: PropTypes.bool
 };
 
 export default ListingFeed;

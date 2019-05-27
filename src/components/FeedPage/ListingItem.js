@@ -65,7 +65,7 @@ const StyledHeart = styled.div`
 function ListingItem(props) {
   const { title, type, id } = props.content;
   const { city } = props.user;
-  const { onFavourise } = props;
+  const { onFavourise, isFavourite } = props;
   function onClickFavouriteButton() {
     onFavourise();
   }
@@ -74,8 +74,8 @@ function ListingItem(props) {
     <Wrapper>
       <StyledHeart
         onClick={onClickFavouriteButton}
-        className={props.favourite ? 'fas fa-heart' : 'far fa-heart'}
-        color={props.favourite ? '#E79796' : '#201f1d'}
+        className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
+        color={isFavourite ? '#E79796' : '#201f1d'}
       />
       <StyledListing to={`/details/${id}`}>
         <StyledImgWrapper>
