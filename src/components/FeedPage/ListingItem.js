@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import img from '../../img/kara-eads-547179-unsplash.jpg';
 import { Link as Listing } from 'react-router-dom';
 import TypeTag from '../../misc/TypeTag';
 import Image from '../../misc/Image';
@@ -63,7 +62,7 @@ const StyledHeart = styled.div`
 `;
 
 function ListingItem(props) {
-  const { title, type, id } = props.content;
+  const { title, type, id, img } = props.content;
   const { city } = props.user;
   const { onFavourise, isFavourite } = props;
 

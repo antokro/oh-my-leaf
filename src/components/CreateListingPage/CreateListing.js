@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
 import axios from 'axios';
+import Image from '../../misc/Image';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -44,21 +45,37 @@ const StyledButton = styled.button`
   padding: 9px;
 `;
 
-const StyledImgButton = styled.i`
+const StyledImgIcon = styled.i`
   color: #abc38e;
   font-size: 30px;
 `;
 
-const StyledAddImg = styled.div``;
+const StyledAddImg = styled.div`
+  padding: 5px;
+  display: flex;
+  align-items: center;
+`;
 
-const StyledFileInput = styled(Input)`
+const StyledFileInput = styled.input`
   color: #201f1d;
+  border: 2px solid #abc38e;
+  border-radius: 11px;
+  font-size: 12px;
+  margin: 0 5px;
+`;
+
+const ImgPreview = styled.div`
+  height: 60px;
 `;
 
 function CreateListing({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
-  const [image, setImage] = useState('');
-  const [addImage, setAddImage] = useState(false);
+  const [image, setImage] = useState(
+    'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
+  );
+  const [isAddImage, setAddImage] = useState(false);
+  const [isUploadSuccess, setUploadSuccess] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   function onPublish(event) {
     event.preventDefault();
@@ -77,16 +94,15 @@ function CreateListing({ handlePublish, history }) {
   }
 
   function onAddImage() {
-    setAddImage(!addImage);
+    setAddImage(!isAddImage);
   }
 
   function uploadImage(event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
-
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
     formData.append('upload_preset', PRESET);
-
+    setIsImageUploading(true);
     axios
       .post(url, formData, {
         headers: { 'Content-type': 'multipart/form-data' }
@@ -96,6 +112,8 @@ function CreateListing({ handlePublish, history }) {
   }
 
   function onImageSave(response) {
+    setIsImageUploading(false);
+    setUploadSuccess(!isUploadSuccess);
     setImage(response.data.url);
   }
 
@@ -109,8 +127,14 @@ function CreateListing({ handlePublish, history }) {
         name="title"
       />
       <StyledAddImg>
-        <StyledImgButton onClick={onAddImage} className="far fa-images" />
-        <div>{addImage ? <StyledFileInput type="file" /> : ''}</div>
+        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
+        {isAddImage && (
+          <StyledFileInput onChange={uploadImage} type="file" name="file" />
+        )}
+        {isImageUploading && 'Loading'}
+        <ImgPreview>
+          {isUploadSuccess && <Image src={image} alt="listings img" />}
+        </ImgPreview>
       </StyledAddImg>
       <StyledLabel htmlFor="description">Description</StyledLabel>
       <StyledTextarea
