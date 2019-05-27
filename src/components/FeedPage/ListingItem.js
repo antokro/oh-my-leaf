@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import img from '../../img/kara-eads-547179-unsplash.jpg';
 import { Link as Listing } from 'react-router-dom';
+import TypeTag from '../../misc/TypeTag';
+import Image from '../../misc/Image';
 
 const Wrapper = styled.div`
   position: relative;
@@ -17,32 +19,27 @@ const StyledListing = styled(Listing)`
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
   display: grid;
-  text-decoration: none;
   grid-template-rows: 120px 60px 35px 40px;
+  text-decoration: none;
 
   &:visited {
     color: #201f1d;
     text-decoration: none;
   }
 `;
-const StyledImg = styled.div`
+const StyledImgWrapper = styled.div`
   grid-row: 1;
 `;
-const Image = styled.img`
-  width: 100%;
-`;
+
 const StyledTitle = styled.p`
   font-size: 20px;
   grid-row: 2;
   margin: 9px;
   text-align: start;
 `;
-const StyledType = styled.span`
-  background: #ffd084;
-  border-radius: 11px;
+const StyledType = styled(TypeTag)`
   margin: 3px 9px;
   grid-row: 3;
-  padding: 5px 6px;
   width: 65%;
 `;
 
@@ -66,28 +63,27 @@ const StyledHeart = styled.div`
 `;
 
 function ListingItem(props) {
-  const [favourite, setFavourite] = useState(false);
   const { title, type, id } = props.content;
   const { city } = props.user;
-  //<i class="fas fa-heart" />
+  const { onFavourise } = props;
 
-  function onClick() {
-    setFavourite(!favourite);
+  function onClickFavouriteButton() {
+    onFavourise();
   }
 
   return (
     <Wrapper>
       <StyledHeart
-        onClick={onClick}
-        className={favourite ? 'fas fa-heart' : 'far fa-heart'}
-        color={favourite ? '#E79796' : '#201f1d'}
+        onClick={onClickFavouriteButton}
+        className={props.favourite ? 'fas fa-heart' : 'far fa-heart'}
+        color={props.favourite ? '#E79796' : '#201f1d'}
       />
       <StyledListing to={`/details/${id}`}>
-        <StyledImg>
+        <StyledImgWrapper>
           <Image src={img} alt="a plant" />
-        </StyledImg>
+        </StyledImgWrapper>
         <StyledTitle>
-          {title.length > 15 ? title.slice(0, 15) + '...' : title}
+          {title.length > 18 ? title.slice(0, 18) + '...' : title}
         </StyledTitle>
         <StyledType>{type}</StyledType>
         <StyledUser>
@@ -103,7 +99,10 @@ ListingItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   city: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  onFavourise: PropTypes.func,
+  content: PropTypes.object,
+  user: PropTypes.object
 };
 
 export default ListingItem;

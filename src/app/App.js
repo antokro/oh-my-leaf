@@ -3,12 +3,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { getLocal, setLocal } from '../services';
 import uid from 'uid';
-import GlobalStyles from '../Styles/GlobalStyles';
-import Header from '../components/Header/Header';
-import ListingFeed from '../components/FeedPage/ListingFeed';
-import CreateListing from '../components/CreateListingPage/CreateListing';
-import ListingDetails from '../components/DetailsPage/ListingDetails';
-import Footer from '../components/Footer/Footer';
+import GlobalStyles from '../misc/GlobalStyles';
+import Header from '../components/header/Header';
+import ListingFeed from '../components/feedPage/ListingFeed';
+import CreateListing from '../components/createListingPage/CreateListing';
+import ListingDetails from '../components/detailsPage/ListingDetails';
+import Footer from '../components/footer/Footer';
 const users = require('./mockUsers.json');
 const mockListings = require('./mockListings.json');
 
@@ -38,6 +38,9 @@ function App() {
   );
   const [favourites, setFavourites] = useState(getLocal('favourites') || []);
 
+  useEffect(() => setLocal('listings', listings), [listings]);
+  useEffect(() => setLocal('favourites', favourites), [favourites]);
+
   function handlePublish(title, description, listingType) {
     const newListing = {
       title: title,
@@ -48,7 +51,26 @@ function App() {
     };
     setListings([...listings, newListing]);
   }
-  useEffect(() => setLocal('listings', listings), [listings]);
+
+  function handleFavourise(listing) {
+    const index = favourites.indexOf(listing);
+
+    setFavourites(findNewFavourites(index, listing));
+  }
+
+  function findNewFavourites(index, listing) {
+    if (favourites.includes(listing)) {
+      return [...favourites.slice(0, index), ...favourites.slice(index + 1)];
+    } else {
+      return [...favourites, listing];
+    }
+  }
+
+  function findDetails(id) {
+    const listing = listings.find(listing => listing.id === id);
+    const user = users.find(user => user.userId === listing.user);
+    return { listing, user };
+  }
 
   return (
     <BrowserRouter>
@@ -61,7 +83,14 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => <ListingFeed listings={listings} users={users} />}
+            render={props => (
+              <ListingFeed
+                listings={listings}
+                users={users}
+                onFavourise={handleFavourise}
+                favourites={favourites}
+              />
+            )}
           />
           <Route
             path="/create"
@@ -70,13 +99,20 @@ function App() {
             )}
           />
           <Route
+            path="/favourites"
+            render={() => (
+              <ListingFeed
+                listings={favourites}
+                users={users}
+                onFavourise={handleFavourise}
+                favourites={favourites}
+              />
+            )}
+          />
+          <Route
             path="/details/:id"
             render={props => (
-              <ListingDetails
-                content={listings}
-                detailId={props.match.params.id}
-                users={users}
-              />
+              <ListingDetails content={findDetails(props.match.params.id)} />
             )}
           />
         </GridMain>

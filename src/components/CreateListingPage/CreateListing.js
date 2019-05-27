@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Input, Textarea } from '../../misc/Input';
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled(Input)`
   border: 2px solid #abc38e;
-  border-radius: 11px;
   height: 32px;
   margin: 10px 0;
-  padding: 5px;
-  font-size: 18px;
 `;
 
-const StyledTextarea = styled.textarea`
-  border: 2px solid #abc38e;
-  border-radius: 11px;
+const StyledTextarea = styled(Textarea)`
   height: 150px;
   margin: 10px 0;
-  padding: 5px;
-  font-size: 18px;
 `;
 
 const StyledInputButtonGroup = styled.div``;
@@ -31,14 +25,10 @@ const StyledLabel = styled.label`
   padding: 5px;
 `;
 
-const StyledInputButton = styled.input`
+const StyledInputButton = styled(Input)`
   background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
   border: 2px solid #ffd084;
-  border-radius: 11px;
-  font-family: 'PT Mono', monospace;
   margin: 8px;
-  padding: 8px;
-  font-size: 15px;
 `;
 
 const StyledButton = styled.button`
