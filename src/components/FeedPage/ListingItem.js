@@ -66,6 +66,7 @@ function ListingItem(props) {
   const { title, type, id } = props.content;
   const { city } = props.user;
   const { onFavourise, isFavourite } = props;
+
   function onClickFavouriteButton() {
     onFavourise();
   }
