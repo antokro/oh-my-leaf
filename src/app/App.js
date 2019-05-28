@@ -42,13 +42,14 @@ function App() {
   useEffect(() => setLocal('listings', listings), [listings]);
   useEffect(() => setLocal('favourites', favourites), [favourites]);
 
-  function handlePublish(title, description, listingType) {
+  function handlePublish(title, description, listingType, img) {
     const newListing = {
       title: title,
       description: description,
       type: listingType,
       id: uid(),
-      user: users[1].userId
+      user: users[1].userId,
+      img: img
     };
     setListings([...listings, newListing]);
   }

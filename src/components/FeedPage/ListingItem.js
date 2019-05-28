@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import img from '../../img/kara-eads-547179-unsplash.jpg';
 import { Link as Listing } from 'react-router-dom';
 import TypeTag from '../../misc/TypeTag';
-import Image from '../../misc/Image';
 
 const Wrapper = styled.div`
   position: relative;
@@ -29,6 +27,8 @@ const StyledListing = styled(Listing)`
 `;
 const StyledImgWrapper = styled.div`
   grid-row: 1;
+  background-image: url(${props => props.img});
+  background-size: cover;
 `;
 
 const StyledTitle = styled.p`
@@ -63,24 +63,19 @@ const StyledHeart = styled.div`
 `;
 
 function ListingItem(props) {
-  const { title, type, id } = props.content;
+  const { title, type, id, img } = props.content;
   const { city } = props.user;
   const { onFavourise, isFavourite } = props;
-  function onClickFavouriteButton() {
-    onFavourise();
-  }
 
   return (
     <Wrapper>
       <StyledHeart
-        onClick={onClickFavouriteButton}
+        onClick={onFavourise}
         className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
         color={isFavourite ? '#E79796' : '#201f1d'}
       />
       <StyledListing to={`/details/${id}`}>
-        <StyledImgWrapper>
-          <Image src={img} alt="a plant" />
-        </StyledImgWrapper>
+        <StyledImgWrapper img={img} />
         <StyledTitle>
           {title.length > 18 ? title.slice(0, 18) + '...' : title}
         </StyledTitle>
@@ -99,6 +94,7 @@ ListingItem.propTypes = {
   type: PropTypes.string,
   city: PropTypes.string,
   id: PropTypes.string,
+  img: PropTypes.string,
   onFavourise: PropTypes.func,
   content: PropTypes.object,
   user: PropTypes.object
