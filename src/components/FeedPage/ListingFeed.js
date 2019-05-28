@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { getLocal, setLocal } from '../../services';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
@@ -26,21 +25,27 @@ const StyledListingList = styled.div`
   flex-wrap: wrap;
 `;
 
-function ListingFeed({ listings, users, onFavourise, favourites }) {
-  const [filteredListings, setFilteredListings] = useState(listings);
-  const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
+function ListingFeed({
+  listings,
+  users,
+  onFavourise,
+  favourites,
+  onTypeFilter,
+  typeFilter
+}) {
+  const [filteredListings, setFilteredListings] = useState(
+    listings.filter(
+      listing => typeFilter === 'all' || listing.type === typeFilter
+    )
+  );
 
-  function handleTypeFilter(event) {
+  function onChangeTypeSelect(event) {
     const filter = event.target.value;
-
-    setTypeFilter(filter);
-
+    onTypeFilter(filter);
     setFilteredListings(
       listings.filter(listing => filter === 'all' || listing.type === filter)
     );
   }
-
-  useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   return (
     <StyledListingFeed>
@@ -48,7 +53,11 @@ function ListingFeed({ listings, users, onFavourise, favourites }) {
         <Label htmlFor="filter">
           <i className="fas fa-search" /> Filter
         </Label>
-        <StyledSelect id="filter" onChange={handleTypeFilter}>
+        <StyledSelect
+          id="filter"
+          defaultValue={typeFilter}
+          onChange={onChangeTypeSelect}
+        >
           <option value="all">all</option>
           <option value="give away">give away</option>
           <option value="swap">swap</option>
