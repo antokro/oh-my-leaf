@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
 import axios from 'axios';
 import Image from '../../misc/Image';
+import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -53,7 +54,8 @@ const StyledImgIcon = styled.i`
 const StyledAddImg = styled.div`
   padding: 5px;
   display: flex;
-  align-items: center;
+  margin: 10px;
+  flex-direction: column;
 `;
 
 const StyledFileInput = styled.input`
@@ -61,11 +63,15 @@ const StyledFileInput = styled.input`
   border: 2px solid #abc38e;
   border-radius: 11px;
   font-size: 12px;
-  margin: 0 5px;
+  margin: 5px;
 `;
 
 const ImgPreview = styled.div`
-  height: 60px;
+  max-height: 60px;
+`;
+
+const StyledLoadIcon = styled(LoadIcon)`
+  height: 50px;
 `;
 
 function CreateListing({ handlePublish, history }) {
@@ -131,7 +137,7 @@ function CreateListing({ handlePublish, history }) {
         {isAddImage && (
           <StyledFileInput onChange={uploadImage} type="file" name="file" />
         )}
-        {isImageUploading && 'Loading'}
+        {isImageUploading && <StyledLoadIcon />}
         <ImgPreview>
           {isUploadSuccess && <Image src={image} alt="listings img" />}
         </ImgPreview>
