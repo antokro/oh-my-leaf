@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import img from '../../img/kara-eads-547179-unsplash.jpg';
 import PropTypes from 'prop-types';
 import TypeTag from '../../misc/TypeTag';
 import Image from '../../misc/Image';
@@ -38,7 +37,7 @@ const StyledIcon = styled.i`
 `;
 
 function ListingDetails({ content }) {
-  const { title, type, description } = content.listing;
+  const { title, type, description, img } = content.listing;
   const { firstname, city } = content.user;
   return (
     <StyledListingDetails>
