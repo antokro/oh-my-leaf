@@ -94,6 +94,7 @@ ListingItem.propTypes = {
   type: PropTypes.string,
   city: PropTypes.string,
   id: PropTypes.string,
+  img: PropTypes.string,
   onFavourise: PropTypes.func,
   content: PropTypes.object,
   user: PropTypes.object
