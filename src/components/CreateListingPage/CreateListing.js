@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
+import Label from '../../misc/Label';
 
 const StyledForm = styled.form`
   display: flex;
@@ -20,10 +21,6 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 const StyledInputButtonGroup = styled.div``;
-
-const StyledLabel = styled.label`
-  padding: 5px;
-`;
 
 const StyledInputButton = styled(Input)`
   background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
@@ -60,21 +57,21 @@ function CreateListing({ handlePublish, history }) {
 
   return (
     <StyledForm onSubmit={onPublish}>
-      <StyledLabel htmlFor="title">Title</StyledLabel>
+      <Label htmlFor="title">Title</Label>
       <StyledInput
         type="text"
         placeholder="type title here..."
         id="title"
         name="title"
       />
-      <StyledLabel htmlFor="description">Description</StyledLabel>
+      <Label htmlFor="description">Description</Label>
       <StyledTextarea
         type="textarea"
         placeholder="type description here..."
         id="description"
         name="description"
       />
-      <StyledLabel>Listing Type</StyledLabel>
+      <Label>Listing Type</Label>
       <StyledInputButtonGroup>
         <StyledInputButton
           onClick={handleTypeButtonClick}

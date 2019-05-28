@@ -6,6 +6,7 @@ import uid from 'uid';
 import GlobalStyles from '../misc/GlobalStyles';
 import Header from '../components/header/Header';
 import ListingFeed from '../components/feedPage/ListingFeed';
+import FavouritesFeed from '../components/feedPage/favouritesFeed';
 import CreateListing from '../components/createListingPage/CreateListing';
 import ListingDetails from '../components/detailsPage/ListingDetails';
 import Footer from '../components/footer/Footer';
@@ -108,7 +109,7 @@ function App() {
           <Route
             path="/favourites"
             render={() => (
-              <ListingFeed
+              <FavouritesFeed
                 listings={findFavourites()}
                 users={users}
                 onFavourise={handleFavourise}
