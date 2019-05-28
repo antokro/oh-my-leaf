@@ -31,7 +31,7 @@ const StyledImgWrapper = styled.div`
   background-size: cover;
 `;
 
-const StyledTitle = styled.p`
+const StyledTitle = styled.h3`
   font-size: 20px;
   grid-row: 2;
   margin: 9px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
 import axios from 'axios';
-import Image from '../../misc/Image';
+import Label from '../../misc/Label';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -62,7 +62,8 @@ const StyledFileInput = styled.input`
   margin: 5px;
 `;
 
-const ImgPreview = styled.div`
+const ImgPreview = styled.img`
+  max-width: 60px;
   max-height: 60px;
 `;
 
@@ -134,11 +135,10 @@ function CreateListing({ handlePublish, history }) {
           <StyledFileInput onChange={uploadImage} type="file" name="file" />
         )}
         {isImageUploading && <StyledLoadIcon />}
-        <ImgPreview>
-          {isUploadSuccess && <Image src={image} alt="listings img" />}
-        </ImgPreview>
+
+        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
       </StyledAddImg>
-      <StyledLabel htmlFor="description">Description</StyledLabel>
+      <Label htmlFor="description">Description</Label>
       <StyledTextarea
         type="textarea"
         placeholder="type description here..."
