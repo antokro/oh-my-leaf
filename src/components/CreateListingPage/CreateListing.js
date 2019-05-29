@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
 import axios from 'axios';
 import Label from '../../misc/Label';
+import TypeButton from './TypeButton';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -25,13 +26,7 @@ const StyledTextarea = styled(Textarea)`
   margin: 10px 0;
 `;
 
-const StyledInputButtonGroup = styled.div``;
-
-const StyledInputButton = styled(Input)`
-  background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
-  border: 2px solid #ffd084;
-  margin: 8px;
-`;
+const StyledTypeButtonGroup = styled.div``;
 
 const StyledButton = styled.button`
   background-color: #abc38e;
@@ -45,6 +40,7 @@ const StyledButton = styled.button`
 const StyledImgIcon = styled.i`
   color: #abc38e;
   font-size: 30px;
+  margin: 5px;
 `;
 
 const StyledAddImg = styled.div`
@@ -79,6 +75,8 @@ function CreateListing({ handlePublish, history }) {
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
+
+  const types = ['give away', 'swap', 'for sale'];
 
   function onPublish(event) {
     event.preventDefault();
@@ -129,15 +127,6 @@ function CreateListing({ handlePublish, history }) {
         id="title"
         name="title"
       />
-      <StyledAddImg>
-        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
-        {isAddImage && (
-          <StyledFileInput onChange={uploadImage} type="file" name="file" />
-        )}
-        {isImageUploading && <StyledLoadIcon />}
-
-        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
-      </StyledAddImg>
       <Label htmlFor="description">Description</Label>
       <StyledTextarea
         type="textarea"
@@ -145,27 +134,25 @@ function CreateListing({ handlePublish, history }) {
         id="description"
         name="description"
       />
+      <StyledAddImg>
+        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
+        {isAddImage && (
+          <StyledFileInput onChange={uploadImage} type="file" name="file" />
+        )}
+        {isImageUploading && <StyledLoadIcon />}
+        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
+      </StyledAddImg>
       <Label>Listing Type</Label>
-      <StyledInputButtonGroup>
-        <StyledInputButton
-          onClick={handleTypeButtonClick}
-          type="button"
-          value="give away"
-          filling={listingType === 'give away' ? true : false}
-        />
-        <StyledInputButton
-          onClick={handleTypeButtonClick}
-          type="button"
-          value="swap"
-          filling={listingType === 'swap' ? true : false}
-        />
-        <StyledInputButton
-          onClick={handleTypeButtonClick}
-          type="button"
-          value="for sale"
-          filling={listingType === 'for sale' ? true : false}
-        />
-      </StyledInputButtonGroup>
+      <StyledTypeButtonGroup>
+        {types.map(type => (
+          <TypeButton
+            handleClick={handleTypeButtonClick}
+            value={type}
+            key={type}
+            filled={listingType}
+          />
+        ))}
+      </StyledTypeButtonGroup>
       <StyledButton>PUBLISH</StyledButton>
     </StyledForm>
   );

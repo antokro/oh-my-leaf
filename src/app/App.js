@@ -44,13 +44,15 @@ function App() {
   useEffect(() => setLocal('favourites', favourites), [favourites]);
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
+  const user = users[1];
+
   function handlePublish(title, description, listingType, img) {
     const newListing = {
       title: title,
       description: description,
       type: listingType,
       id: uid(),
-      user: users[1].userId,
+      user: user.userId,
       img: img
     };
     setListings([...listings, newListing]);
@@ -85,6 +87,13 @@ function App() {
 
   function handleTypeFilter(type) {
     setTypeFilter(type);
+  }
+
+  function handleDelete(id, history) {
+    const index = listings.findIndex(listing => listing.id === id);
+    console.log(index);
+    setListings([...listings.slice(0, index), ...listings.slice(index + 1)]);
+    history.push('/');
   }
 
   return (
@@ -129,7 +138,12 @@ function App() {
           <Route
             path="/details/:id"
             render={props => (
-              <ListingDetails content={findDetails(props.match.params.id)} />
+              <ListingDetails
+                content={findDetails(props.match.params.id)}
+                creator={user.userId}
+                onDelete={handleDelete}
+                {...props}
+              />
             )}
           />
         </GridMain>

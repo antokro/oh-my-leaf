@@ -6,7 +6,7 @@ import Image from '../../misc/Image';
 
 const StyledListingDetails = styled.section``;
 
-const StyledTitle = styled.p`
+const StyledTitle = styled.h3`
   font-size: 30px;
   margin: 15px 0;
   text-align: start;
@@ -21,10 +21,10 @@ const StyledDescription = styled.p`
   padding: 15px 3px;
 `;
 
-const StyledUser = styled.p`
+const StyledUser = styled.div`
   align-self: center;
   font-size: 15px;
-  margin: 3px 9px;
+  margin: 3px 0;
 `;
 
 const StyledUserIcon = styled.i`
@@ -32,13 +32,24 @@ const StyledUserIcon = styled.i`
   margin: 0 5px;
 `;
 
-const StyledIcon = styled.i`
+const StyledLocationIcon = styled.i`
   margin: 0 3px 0 5px;
 `;
 
-function ListingDetails({ content }) {
-  const { title, type, description, img } = content.listing;
-  const { firstname, city } = content.user;
+const StyledDelete = styled.div`
+  font-size: 15px;
+  margin: 8px 0;
+`;
+
+const StyledDeleteIcon = styled.i`
+  color: #abc38e;
+  font-size: 30px;
+  margin: 5px;
+`;
+
+function ListingDetails({ content, creator, onDelete, history }) {
+  const { title, type, description, img, id } = content.listing;
+  const { firstname, city, userId } = content.user;
   return (
     <StyledListingDetails>
       <Image src={img} alt="a plant" />
@@ -48,9 +59,18 @@ function ListingDetails({ content }) {
       <StyledUser>
         <StyledUserIcon className="far fa-smile" />
         {firstname}
-        <StyledIcon className="fas fa-map-marker-alt" />
+        <StyledLocationIcon className="fas fa-map-marker-alt" />
         {city}
       </StyledUser>
+      {creator === userId && (
+        <StyledDelete>
+          <StyledDeleteIcon
+            className="far fa-trash-alt"
+            onClick={() => onDelete(id, history)}
+          />
+          Delete this listing
+        </StyledDelete>
+      )}
     </StyledListingDetails>
   );
 }
@@ -61,7 +81,9 @@ ListingDetails.propTypes = {
   firstname: PropTypes.string,
   city: PropTypes.string,
   listing: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  id: PropTypes.string,
+  onDelete: PropTypes.func
 };
 
 export default ListingDetails;
