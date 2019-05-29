@@ -50,6 +50,11 @@ const StyledDeleteIcon = styled.i`
 function ListingDetails({ content, creator, onDelete, history }) {
   const { title, type, description, img, id } = content.listing;
   const { firstname, city, userId } = content.user;
+
+  function handleDeleteClick() {
+    onDelete(id);
+    history.push('/');
+  }
   return (
     <StyledListingDetails>
       <Image src={img} alt="a plant" />
@@ -66,7 +71,7 @@ function ListingDetails({ content, creator, onDelete, history }) {
         <StyledDelete>
           <StyledDeleteIcon
             className="far fa-trash-alt"
-            onClick={() => onDelete(id, history)}
+            onClick={handleDeleteClick}
           />
           Delete this listing
         </StyledDelete>

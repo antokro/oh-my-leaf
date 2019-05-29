@@ -89,11 +89,19 @@ function App() {
     setTypeFilter(type);
   }
 
-  function handleDelete(id, history) {
-    const index = listings.findIndex(listing => listing.id === id);
-    console.log(index);
-    setListings([...listings.slice(0, index), ...listings.slice(index + 1)]);
-    history.push('/');
+  function handleDelete(id) {
+    const indexListing = listings.findIndex(listing => listing.id === id);
+    setListings([
+      ...listings.slice(0, indexListing),
+      ...listings.slice(indexListing + 1)
+    ]);
+
+    const indexFavourites = favourites.indexOf(id);
+    const updateFavourites = favourites.includes(id) && [
+      ...favourites.slice(0, indexFavourites),
+      ...favourites.slice(indexFavourites + 1)
+    ];
+    setFavourites(updateFavourites);
   }
 
   return (
