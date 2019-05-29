@@ -6,6 +6,7 @@ import uid from 'uid';
 import GlobalStyles from '../misc/GlobalStyles';
 import Header from '../components/header/Header';
 import ListingFeed from '../components/feedPage/ListingFeed';
+import FavouritesFeed from '../components/feedPage/FavouritesFeed';
 import CreateListing from '../components/createListingPage/CreateListing';
 import ListingDetails from '../components/detailsPage/ListingDetails';
 import Footer from '../components/footer/Footer';
@@ -37,9 +38,11 @@ function App() {
     getLocal('listings') || mockListings
   );
   const [favourites, setFavourites] = useState(getLocal('favourites') || []);
+  const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
 
   useEffect(() => setLocal('listings', listings), [listings]);
   useEffect(() => setLocal('favourites', favourites), [favourites]);
+  useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   function handlePublish(title, description, listingType, img) {
     const newListing = {
@@ -80,6 +83,10 @@ function App() {
     return favouriteListings;
   }
 
+  function handleTypeFilter(type) {
+    setTypeFilter(type);
+  }
+
   return (
     <BrowserRouter>
       <GridBody>
@@ -97,6 +104,8 @@ function App() {
                 users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
+                onTypeFilter={handleTypeFilter}
+                typeFilter={typeFilter}
               />
             )}
           />
@@ -109,7 +118,7 @@ function App() {
           <Route
             path="/favourites"
             render={() => (
-              <ListingFeed
+              <FavouritesFeed
                 listings={findFavourites()}
                 users={users}
                 onFavourise={handleFavourise}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Input, Textarea } from '../../misc/Input';
 import axios from 'axios';
-import Image from '../../misc/Image';
+import Label from '../../misc/Label';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -26,10 +26,6 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 const StyledInputButtonGroup = styled.div``;
-
-const StyledLabel = styled.label`
-  padding: 5px;
-`;
 
 const StyledInputButton = styled(Input)`
   background-color: ${props => (props.filling ? '#ffd084' : 'transparent')};
@@ -66,7 +62,8 @@ const StyledFileInput = styled.input`
   margin: 5px;
 `;
 
-const ImgPreview = styled.div`
+const ImgPreview = styled.img`
+  max-width: 60px;
   max-height: 60px;
 `;
 
@@ -125,7 +122,7 @@ function CreateListing({ handlePublish, history }) {
 
   return (
     <StyledForm onSubmit={onPublish}>
-      <StyledLabel htmlFor="title">Title</StyledLabel>
+      <Label htmlFor="title">Title</Label>
       <StyledInput
         type="text"
         placeholder="type title here..."
@@ -138,18 +135,17 @@ function CreateListing({ handlePublish, history }) {
           <StyledFileInput onChange={uploadImage} type="file" name="file" />
         )}
         {isImageUploading && <StyledLoadIcon />}
-        <ImgPreview>
-          {isUploadSuccess && <Image src={image} alt="listings img" />}
-        </ImgPreview>
+
+        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
       </StyledAddImg>
-      <StyledLabel htmlFor="description">Description</StyledLabel>
+      <Label htmlFor="description">Description</Label>
       <StyledTextarea
         type="textarea"
         placeholder="type description here..."
         id="description"
         name="description"
       />
-      <StyledLabel>Listing Type</StyledLabel>
+      <Label>Listing Type</Label>
       <StyledInputButtonGroup>
         <StyledInputButton
           onClick={handleTypeButtonClick}
