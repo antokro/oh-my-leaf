@@ -97,10 +97,13 @@ function App() {
     ]);
 
     const indexFavourites = favourites.indexOf(id);
-    const updateFavourites = favourites.includes(id) && [
-      ...favourites.slice(0, indexFavourites),
-      ...favourites.slice(indexFavourites + 1)
-    ];
+    let updateFavourites = favourites;
+    if (favourites.includes(id)) {
+      updateFavourites = [
+        ...favourites.slice(0, indexFavourites),
+        ...favourites.slice(indexFavourites + 1)
+      ];
+    }
     setFavourites(updateFavourites);
   }
 

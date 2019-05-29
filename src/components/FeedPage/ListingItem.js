@@ -77,7 +77,7 @@ function ListingItem(props) {
       <StyledListing to={`/details/${id}`}>
         <StyledImgWrapper img={img} />
         <StyledTitle>
-          {title.length >= 18 ? title.slice(0, 18) + '...' : title}
+          {title.length >= 15 ? title.slice(0, 15) + '...' : title}
         </StyledTitle>
         <StyledType>{type}</StyledType>
         <StyledUser>
