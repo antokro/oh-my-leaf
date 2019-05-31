@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Input, Textarea } from '../../misc/Input';
-import axios from 'axios';
+import { TextInput, Textarea } from '../../misc/Input';
 import Label from '../../misc/Label';
 import TypeButton from './TypeButton';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
+import axios from 'axios';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -15,8 +15,7 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const StyledInput = styled(Input)`
-  border: 2px solid #abc38e;
+const StyledInput = styled(TextInput)`
   height: 32px;
   margin: 10px 0;
 `;
@@ -50,10 +49,8 @@ const StyledAddImg = styled.div`
   flex-direction: column;
 `;
 
-const StyledFileInput = styled.input`
+const StyledFileInput = styled(TextInput)`
   color: #201f1d;
-  border: 2px solid #abc38e;
-  border-radius: 11px;
   font-size: 12px;
   margin: 5px;
 `;
@@ -66,6 +63,12 @@ const ImgPreview = styled.img`
 const StyledLoadIcon = styled(LoadIcon)`
   height: 50px;
 `;
+
+const StyledPriceInput = styled(TextInput)`
+  margin: 9px 0;
+`;
+
+const StyledPriceInputWrapper = styled.div``;
 
 function CreateListing({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
@@ -81,10 +84,11 @@ function CreateListing({ handlePublish, history }) {
   function onPublish(event) {
     event.preventDefault();
     const form = event.target;
-    const title = event.target.title.value;
-    const description = event.target.description.value;
+    const title = form.title.value;
+    const description = form.description.value;
+    const price = form.price.value || null;
     const img = image;
-    handlePublish(title, description, listingType, img);
+    handlePublish(title, description, listingType, img, price);
     form.reset();
     history.push('/');
   }
@@ -153,6 +157,12 @@ function CreateListing({ handlePublish, history }) {
           />
         ))}
       </StyledTypeButtonGroup>
+      {listingType === 'for sale' && (
+        <StyledPriceInputWrapper>
+          <Label>Price in €</Label>
+          <StyledPriceInput id="price" name="price" />
+        </StyledPriceInputWrapper>
+      )}
       <StyledButton>PUBLISH</StyledButton>
     </StyledForm>
   );

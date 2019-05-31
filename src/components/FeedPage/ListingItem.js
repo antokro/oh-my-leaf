@@ -37,11 +37,16 @@ const StyledTitle = styled.h3`
   margin: 9px;
   text-align: start;
 `;
+
+const StyledTypeWrapper = styled.div`
+  grid-row: 3;
+  margin: 8px 0;
+`;
 const StyledType = styled(TypeTag)`
   margin: 3px 9px;
-  grid-row: 3;
-  width: 65%;
 `;
+
+const StyledPrice = styled.span``;
 
 const StyledUser = styled.p`
   align-self: center;
@@ -63,7 +68,7 @@ const StyledHeart = styled.div`
 `;
 
 function ListingItem(props) {
-  const { title, type, id, img } = props.content;
+  const { title, type, id, img, price } = props.content;
   const { city } = props.user;
   const { onFavourise, isFavourite } = props;
 
@@ -79,7 +84,10 @@ function ListingItem(props) {
         <StyledTitle>
           {title.length >= 15 ? title.slice(0, 15) + '...' : title}
         </StyledTitle>
-        <StyledType>{type}</StyledType>
+        <StyledTypeWrapper>
+          <StyledType>{type}</StyledType>
+          {price !== '' && <StyledPrice>{price}€</StyledPrice>}
+        </StyledTypeWrapper>
         <StyledUser>
           <StyledIcon className="fas fa-map-marker-alt" />
           {city}
@@ -95,6 +103,7 @@ ListingItem.propTypes = {
   city: PropTypes.string,
   id: PropTypes.string,
   img: PropTypes.string,
+  price: PropTypes.string,
   onFavourise: PropTypes.func,
   content: PropTypes.object,
   user: PropTypes.object
