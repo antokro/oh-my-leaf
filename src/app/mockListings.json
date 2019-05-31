@@ -5,7 +5,8 @@
     "title": "Pilea for pearl of string",
     "type": "swap",
     "user": "User1",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559139915/david-vazquez-463841-unsplash_pag7kf.jpg"
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559139915/david-vazquez-463841-unsplash_pag7kf.jpg",
+    "price": ""
   },
   {
     "description": "I'm swapping my very picky peperomia (watermelon) against an easier plant. Any suggestions are welcome",
@@ -13,7 +14,8 @@
     "title": "watermelon peperomia",
     "type": "swap",
     "user": "User1",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png"
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
+    "price": ""
   },
   {
     "description": "Hello all, I'm giving away babies of my spider plant. They all have roots and are ready to be potted",
@@ -21,7 +23,8 @@
     "title": "Spider plant",
     "type": "give away",
     "user": "User3",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png"
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
+    "price": ""
   },
   {
     "description": "Hello, I'm giving away this pretty Zig Zag Cactus. It is really pretty when they bloom :)",
@@ -29,7 +32,8 @@
     "title": "Zig Zag Cactus",
     "type": "give away",
     "user": "User2",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559052687/IMG-20190527-WA0002_kcgixk.jpg"
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559052687/IMG-20190527-WA0002_kcgixk.jpg",
+    "price": ""
   },
   {
     "description": "I have this big Monstera for sale. I can't take it with me since I'm moving abroad. Price is 30€",
@@ -37,6 +41,7 @@
     "title": "Monstera for sale",
     "type": "for sale",
     "user": "User3",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg"
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg",
+    "price": "30"
   }
 ]

@@ -13,12 +13,16 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledType = styled(TypeTag)`
-  margin: 10px;
+  margin: 10px 0;
+`;
+
+const StyledPrice = styled.div`
+  margin: 10px 0;
+  font-size: 30px;
 `;
 
 const StyledDescription = styled.p`
   line-height: 1.5em;
-  padding: 15px 3px;
 `;
 
 const StyledUser = styled.div`
@@ -48,7 +52,7 @@ const StyledDeleteIcon = styled.i`
 `;
 
 function ListingDetails({ content, creator, onDelete, history }) {
-  const { title, type, description, img, id } = content.listing;
+  const { title, type, description, img, id, price } = content.listing;
   const { firstname, city, userId } = content.user;
 
   function handleDeleteClick() {
@@ -59,6 +63,7 @@ function ListingDetails({ content, creator, onDelete, history }) {
     <StyledListingDetails>
       <Image src={img} alt="a plant" />
       <StyledTitle>{title}</StyledTitle>
+      {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
