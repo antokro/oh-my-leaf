@@ -51,7 +51,7 @@ function ListingFeed({
     <StyledListingFeed>
       <StyledSearchBar>
         <Label htmlFor="filter">
-          <i className="fas fa-search" /> Filter
+          <i className="fas fa-search" /> Filter for type
         </Label>
         <StyledSelect
           id="filter"
@@ -81,9 +81,11 @@ function ListingFeed({
 
 ListingFeed.propTypes = {
   listings: PropTypes.array,
+  favourites: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
-  isFavourites: PropTypes.bool
+  onTypeFilter: PropTypes.func,
+  typeFilter: PropTypes.string
 };
 
 export default ListingFeed;

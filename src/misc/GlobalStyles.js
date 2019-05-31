@@ -10,5 +10,6 @@ body {
   padding: 0;
   font-family: 'PT Mono', monospace;
   color: #201F1D;
+  overflow:hidden;
 }
 `;

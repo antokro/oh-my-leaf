@@ -1,7 +1,7 @@
 [
   {
     "firstname": "Sabine",
-    "lastname": "Test",
+    "lastname": "Gerner",
     "userId": "User1",
     "city": "Hamburg",
     "email": "sabinetest@googlemail.com"
@@ -12,5 +12,12 @@
     "userId": "User2",
     "city": "Hamburg",
     "email": "antoniatest@googlemail.com"
+  },
+  {
+    "firstname": "Anna",
+    "lastname": "Rahm",
+    "userId": "User3",
+    "city": "München",
+    "email": "annatest@googlemail.com"
   }
 ]
