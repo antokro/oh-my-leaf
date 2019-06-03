@@ -10,6 +10,7 @@ import FavouritesFeed from '../components/feedPage/FavouritesFeed';
 import CreateListing from '../components/createListingPage/CreateListing';
 import ListingDetails from '../components/detailsPage/ListingDetails';
 import Footer from '../components/footer/Footer';
+import SearchResultFeed from '../components/feedPage/SearchResultFeed';
 const users = require('./mockUsers.json');
 const mockListings = require('./mockListings.json');
 
@@ -39,6 +40,7 @@ function App() {
   );
   const [favourites, setFavourites] = useState(getLocal('favourites') || []);
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
+  const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => setLocal('listings', listings), [listings]);
   useEffect(() => setLocal('favourites', favourites), [favourites]);
@@ -108,6 +110,11 @@ function App() {
     setFavourites(updateFavourites);
   }
 
+  function showSearchResults(results, history, searchParam) {
+    setSearchResult(results);
+    history.push(`/search/${searchParam}`);
+  }
+
   return (
     <BrowserRouter>
       <GridBody>
@@ -119,7 +126,7 @@ function App() {
           <Route
             exact
             path="/"
-            render={() => (
+            render={props => (
               <ListingFeed
                 listings={listings}
                 users={users}
@@ -127,6 +134,8 @@ function App() {
                 favourites={favourites}
                 onTypeFilter={handleTypeFilter}
                 typeFilter={typeFilter}
+                handleSearch={showSearchResults}
+                {...props}
               />
             )}
           />
@@ -155,6 +164,17 @@ function App() {
                 creator={user.userId}
                 onDelete={handleDelete}
                 {...props}
+              />
+            )}
+          />
+          <Route
+            path="/search/:seachParam"
+            render={() => (
+              <SearchResultFeed
+                listings={searchResult}
+                users={users}
+                onFavourise={handleFavourise}
+                favourites={favourites}
               />
             )}
           />

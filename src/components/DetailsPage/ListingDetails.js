@@ -51,6 +51,10 @@ const StyledDeleteIcon = styled.i`
   margin: 5px;
 `;
 
+const StyledGoBack = styled.div`
+  margin: 5px 0;
+`;
+
 function ListingDetails({ content, creator, onDelete, history }) {
   const { title, type, description, img, id, price } = content.listing;
   const { firstname, city, userId } = content.user;
@@ -59,8 +63,15 @@ function ListingDetails({ content, creator, onDelete, history }) {
     onDelete(id);
     history.push('/');
   }
+
+  function handleGoBack() {
+    history.goBack();
+  }
   return (
     <StyledListingDetails>
+      <StyledGoBack onClick={handleGoBack}>
+        <i className="fas fa-arrow-circle-left" /> Go Back
+      </StyledGoBack>
       <Image src={img} alt="a plant" />
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}

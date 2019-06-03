@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
 import Label from '../../misc/Label';
+import { TextInput } from '../../misc/Input';
+import Fuse from 'fuse.js';
 
 const StyledListingFeed = styled.section``;
 
@@ -31,7 +33,9 @@ function ListingFeed({
   onFavourise,
   favourites,
   onTypeFilter,
-  typeFilter
+  typeFilter,
+  handleSearch,
+  history
 }) {
   const [filteredListings, setFilteredListings] = useState(
     listings.filter(
@@ -45,6 +49,17 @@ function ListingFeed({
     setFilteredListings(
       listings.filter(listing => filter === 'all' || listing.type === filter)
     );
+  }
+
+  function onKeyPressSearch(event) {
+    const searchParam = event.target.value;
+    var options = {
+      keys: ['title', 'description'],
+      minMatchCharLength: 4
+    };
+    var fuse = new Fuse(filteredListings, options);
+    const results = fuse.search(searchParam);
+    handleSearch(results, history, searchParam);
   }
 
   return (
@@ -63,6 +78,12 @@ function ListingFeed({
           <option value="swap">swap</option>
           <option value="for sale">for sale</option>
         </StyledSelect>
+        <Label>Search For</Label>
+        <TextInput
+          type="text"
+          placeholder="Search here..."
+          onKeyPress={event => event.charCode === 13 && onKeyPressSearch(event)}
+        />
       </StyledSearchBar>
       <StyledListingList>
         {filteredListings.map(listing => (
