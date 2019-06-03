@@ -55,7 +55,10 @@ function ListingFeed({
     const searchParam = event.target.value;
     var options = {
       keys: ['title', 'description'],
-      minMatchCharLength: 4
+      minMatchCharLength: 3,
+      threshold: 0.3,
+      maxPatternLength: 32,
+      shouldSort: true
     };
     var fuse = new Fuse(filteredListings, options);
     const results = fuse.search(searchParam);
