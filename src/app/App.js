@@ -17,7 +17,7 @@ const mockListings = require('./mockListings.json');
 
 const GridBody = styled.section`
   display: grid;
-  grid-template-rows: 58px auto 55px;
+  grid-template-rows: 58px auto 50px;
   height: 100vh;
 `;
 

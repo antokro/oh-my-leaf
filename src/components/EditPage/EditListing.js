@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { TextInput, Textarea } from '../../misc/Input';
 import Label from '../../misc/Label';
-import TypeButton from './TypeButton';
+import TypeButton from '../createListingPage/TypeButton';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 import axios from 'axios';
 
@@ -70,7 +70,7 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function CreateListing({ handlePublish, history, match }) {
+function EditListing({ handlePublish, history, match }) {
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
@@ -121,7 +121,6 @@ function CreateListing({ handlePublish, history, match }) {
     setUploadSuccess(!isUploadSuccess);
     setImage(response.data.url);
   }
-
   return (
     <StyledForm onSubmit={onPublish}>
       <Label htmlFor="title">Title</Label>
@@ -167,8 +166,10 @@ function CreateListing({ handlePublish, history, match }) {
     </StyledForm>
   );
 }
-CreateListing.propTypes = {
+
+EditListing.propTypes = {
   handlePublish: PropTypes.func,
   history: PropTypes.object
 };
-export default CreateListing;
+
+export default EditListing;

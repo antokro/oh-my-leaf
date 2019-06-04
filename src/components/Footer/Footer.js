@@ -13,7 +13,7 @@ const StyledFooter = styled.footer`
 const StyledIcon = styled(NavLink)`
   text-decoration: none;
   color: #fcfbf6;
-  font-size: 35px;
+  font-size: 25px;
 
   &.active {
     color: #201f1d;
