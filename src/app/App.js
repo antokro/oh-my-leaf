@@ -29,6 +29,7 @@ const GridMain = styled.main`
   grid-row: 2;
   overflow: scroll;
   padding: 5px;
+  position: relative;
 `;
 
 const GridFooter = styled.footer`

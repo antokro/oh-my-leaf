@@ -13,6 +13,7 @@ const StyledListingWrapper = styled.div`
   padding: 5px;
   align-items: center;
   margin: 8px 0;
+  opacity: ${props => props.opacity};
 `;
 
 const StyledTitle = styled.h3`
@@ -29,20 +30,23 @@ const StyledShowIcon = styled(Listing)`
 
 function ListingUserFeed({ listings, onDelete, history }) {
   const [editMode, setEditMode] = useState(false);
+  const [editedListing, setEditedListing] = useState({});
 
   function handleDeleteClick(id) {
     onDelete(id);
     history.push('/');
   }
 
-  function handleEditClick() {
+  function handleEditClick(id) {
     setEditMode(!editMode);
+    const toEdit = listings.find(listing => listing.id === id);
+    setEditedListing(toEdit);
   }
 
   return (
     <StyledUserListings>
       {listings.map(listing => (
-        <StyledListingWrapper key={listing.id}>
+        <StyledListingWrapper key={listing.id} opacity={editMode ? '0.1' : '1'}>
           <StyledTitle>{listing.title}</StyledTitle>
           <Icon
             onClick={() => handleDeleteClick(listing.id)}
@@ -58,7 +62,7 @@ function ListingUserFeed({ listings, onDelete, history }) {
           />
         </StyledListingWrapper>
       ))}
-      {editMode === true && <EditListing />}
+      {editMode === true && <EditListing listing={editedListing} />}
     </StyledUserListings>
   );
 }

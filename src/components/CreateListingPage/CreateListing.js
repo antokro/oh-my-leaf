@@ -70,7 +70,7 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function CreateListing({ handlePublish, history, match }) {
+function CreateListing({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'

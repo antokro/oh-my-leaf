@@ -13,6 +13,15 @@ const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  right: 5%;
+  left: 5%;
+  border-radius: 11px;
+  padding: 5px;
+  box-shadow: 3px 3px 9px -2px #c9cac8;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -70,7 +79,8 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function EditListing({ handlePublish, history, match }) {
+function EditListing({ listing, handlePublish, history }) {
+  const [editedListing, setEditedListing] = useState(listing.title);
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
@@ -80,8 +90,8 @@ function EditListing({ handlePublish, history, match }) {
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const types = ['give away', 'swap', 'for sale'];
-
-  function onPublish(event) {
+  console.log(editedListing);
+  function onSave(event) {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -122,20 +132,28 @@ function EditListing({ handlePublish, history, match }) {
     setImage(response.data.url);
   }
   return (
-    <StyledForm onSubmit={onPublish}>
+    <StyledForm onSubmit={onSave}>
       <Label htmlFor="title">Title</Label>
       <StyledInput
+        onChange={event =>
+          setEditedListing(editedListing[title]: event.target.value )
+        }
         type="text"
         placeholder="type title here..."
         id="title"
         name="title"
+        value={listing.title}
       />
       <Label htmlFor="description">Description</Label>
       <StyledTextarea
+        onChange={event =>
+          setEditedListing({ description: event.target.description.value })
+        }
         type="textarea"
         placeholder="type description here..."
         id="description"
         name="description"
+        value={listing.description}
       />
       <StyledAddImg>
         <StyledImgIcon onClick={onAddImage} className="far fa-images" />
@@ -162,7 +180,7 @@ function EditListing({ handlePublish, history, match }) {
           <StyledPriceInput id="price" name="price" />
         </StyledPriceInputWrapper>
       )}
-      <StyledButton>PUBLISH</StyledButton>
+      <StyledButton>SAVE CHANGES</StyledButton>
     </StyledForm>
   );
 }
