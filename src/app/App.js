@@ -168,7 +168,7 @@ function App() {
             )}
           />
           <Route
-            path="/search/:seachParam"
+            path="/search/:searchParam"
             render={() => (
               <SearchResultFeed
                 listings={searchResult}

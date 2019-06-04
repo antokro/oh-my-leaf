@@ -72,7 +72,7 @@ function ListingDetails({ content, creator, onDelete, history }) {
       <StyledGoBack onClick={handleGoBack}>
         <i className="fas fa-arrow-circle-left" /> Go Back
       </StyledGoBack>
-      <Image src={img} alt="a plant" />
+      <Image src={img} alt="plant" />
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
