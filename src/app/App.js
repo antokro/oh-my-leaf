@@ -62,6 +62,11 @@ function App() {
     };
     setListings([...listings, newListing]);
   }
+
+  function handleChanges() {
+    console.log('app changes');
+  }
+
   function handleFavourise(id) {
     const index = favourites.indexOf(id);
 
@@ -190,6 +195,7 @@ function App() {
               <ListingsUserFeed
                 listings={findUserListings()}
                 onDelete={handleDelete}
+                handleSave={handleChanges}
                 {...props}
               />
             )}

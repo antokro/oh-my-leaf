@@ -22,6 +22,7 @@ const StyledForm = styled.form`
   border-radius: 11px;
   padding: 5px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
+  overflow: scroll;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -79,18 +80,15 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function EditListing({ listing, handlePublish, history }) {
-  const [editedListing, setEditedListing] = useState(listing.title);
+function EditListing({ listing, handleSave }) {
+  const [editedListing, setEditedListing] = useState(listing);
   const [listingType, setListingType] = useState('give away');
-  const [image, setImage] = useState(
-    'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
-  );
+  const [image, setImage] = useState(listing.img);
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const types = ['give away', 'swap', 'for sale'];
-  console.log(editedListing);
   function onSave(event) {
     event.preventDefault();
     const form = event.target;
@@ -98,9 +96,8 @@ function EditListing({ listing, handlePublish, history }) {
     const description = form.description.value;
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
-    handlePublish(title, description, listingType, img, price);
-    form.reset();
-    history.push('/');
+
+    handleSave(title, description, listingType, img, price);
   }
 
   function handleTypeButtonClick(event) {
@@ -136,24 +133,25 @@ function EditListing({ listing, handlePublish, history }) {
       <Label htmlFor="title">Title</Label>
       <StyledInput
         onChange={event =>
-          setEditedListing(editedListing[title]: event.target.value )
+          setEditedListing({ ...editedListing, title: event.target.value })
         }
         type="text"
-        placeholder="type title here..."
         id="title"
         name="title"
-        value={listing.title}
+        defaultValue={listing.title}
       />
       <Label htmlFor="description">Description</Label>
       <StyledTextarea
         onChange={event =>
-          setEditedListing({ description: event.target.description.value })
+          setEditedListing({
+            ...editedListing,
+            description: event.target.value
+          })
         }
         type="textarea"
-        placeholder="type description here..."
         id="description"
         name="description"
-        value={listing.description}
+        defaultValue={listing.description}
       />
       <StyledAddImg>
         <StyledImgIcon onClick={onAddImage} className="far fa-images" />

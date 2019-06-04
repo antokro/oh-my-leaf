@@ -28,7 +28,7 @@ const StyledShowIcon = styled(Listing)`
   text-decoration: none;
 `;
 
-function ListingUserFeed({ listings, onDelete, history }) {
+function ListingUserFeed({ listings, onDelete, history, handleSave }) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
 
@@ -62,7 +62,9 @@ function ListingUserFeed({ listings, onDelete, history }) {
           />
         </StyledListingWrapper>
       ))}
-      {editMode === true && <EditListing listing={editedListing} />}
+      {editMode === true && (
+        <EditListing listing={editedListing} handleSave={handleSave} />
+      )}
     </StyledUserListings>
   );
 }
