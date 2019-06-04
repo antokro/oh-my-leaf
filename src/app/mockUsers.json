@@ -1,22 +1,31 @@
 [
   {
-    "firstname": "Sabine",
-    "lastname": "Gerner",
-    "userId": "User1",
+    "name": {
+      "firstname": "Sabine",
+      "lastname": "Gerner"
+    },
+    "id_": "1000",
+    "username": "SabineHH",
     "city": "Hamburg",
     "email": "sabinetest@googlemail.com"
   },
   {
-    "firstname": "Antonia",
-    "lastname": "Krohn",
-    "userId": "User2",
+    "name": {
+      "firstname": "Antonia",
+      "lastname": "Krohn"
+    },
+    "id_": "2000",
+    "username": "Plant_Toni",
     "city": "Hamburg",
     "email": "antoniatest@googlemail.com"
   },
   {
-    "firstname": "Anna",
-    "lastname": "Rahm",
-    "userId": "User3",
+    "name": {
+      "firstname": "Anna",
+      "lastname": "Rahm"
+    },
+    "id_": "3000",
+    "username": "AnnaMUC",
     "city": "München",
     "email": "annatest@googlemail.com"
   }

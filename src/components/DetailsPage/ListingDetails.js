@@ -57,7 +57,7 @@ const StyledGoBack = styled.div`
 
 function ListingDetails({ content, creator, onDelete, history }) {
   const { title, type, description, img, id, price } = content.listing;
-  const { firstname, city, userId } = content.user;
+  const { name, city, id_ } = content.user;
 
   function handleDeleteClick() {
     onDelete(id);
@@ -79,11 +79,11 @@ function ListingDetails({ content, creator, onDelete, history }) {
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
         <StyledUserIcon className="far fa-smile" />
-        {firstname}
+        {name.firstname}
         <StyledLocationIcon className="fas fa-map-marker-alt" />
         {city}
       </StyledUser>
-      {creator === userId && (
+      {creator === id_ && (
         <StyledDelete>
           <StyledDeleteIcon
             className="far fa-trash-alt"

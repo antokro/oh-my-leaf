@@ -6,7 +6,7 @@ import Label from '../../misc/Label';
 import { TextInput } from '../../misc/Input';
 import Fuse from 'fuse.js';
 
-const StyledListingFeed = styled.section``;
+const StyledHomeFeed = styled.section``;
 
 const StyledSearchBar = styled.div`
   display: grid;
@@ -27,7 +27,7 @@ const StyledListingList = styled.div`
   flex-wrap: wrap;
 `;
 
-function ListingFeed({
+function HomeFeed({
   listings,
   users,
   onFavourise,
@@ -66,7 +66,7 @@ function ListingFeed({
   }
 
   return (
-    <StyledListingFeed>
+    <StyledHomeFeed>
       <StyledSearchBar>
         <Label htmlFor="filter">
           <i className="fas fa-search" /> Filter for type
@@ -93,17 +93,17 @@ function ListingFeed({
           <ListingItem
             key={listing.id}
             content={listing}
-            user={users.find(user => user.userId === listing.user)}
+            user={users.find(user => user.id_ === listing.user)}
             onFavourise={() => onFavourise(listing.id)}
             isFavourite={favourites.includes(listing.id)}
           />
         ))}
       </StyledListingList>
-    </StyledListingFeed>
+    </StyledHomeFeed>
   );
 }
 
-ListingFeed.propTypes = {
+HomeFeed.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
   users: PropTypes.array,
@@ -112,4 +112,4 @@ ListingFeed.propTypes = {
   typeFilter: PropTypes.string
 };
 
-export default ListingFeed;
+export default HomeFeed;

@@ -20,7 +20,7 @@ function SearchResultFeed({ listings, users, onFavourise, favourites }) {
           <ListingItem
             key={listing.id}
             content={listing}
-            user={users.find(user => user.userId === listing.user)}
+            user={users.find(user => user.id_ === listing.user)}
             onFavourise={() => onFavourise(listing.id)}
             isFavourite={favourites.includes(listing.id)}
           />

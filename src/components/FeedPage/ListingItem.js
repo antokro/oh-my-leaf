@@ -63,38 +63,92 @@ const StyledHeart = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
-  color: ${props => props.color};
+  color: ${props => (props.isFavourite ? '#E79796' : '#201f1d')};
   font-size: 20px;
+  ${props =>
+    props.animate
+      ? props.isFavourite
+        ? 'animation: isFavourite ease-in-out 0.5s'
+        : 'animation: isNotFavourite ease-in-out 0.5s'
+      : ''};
+
+  @keyframes isFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes isNotFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
-function ListingItem(props) {
-  const { title, type, id, img, price } = props.content;
-  const { city } = props.user;
-  const { onFavourise, isFavourite } = props;
+class ListingItem extends React.Component {
+  state = {
+    animate: false
+  };
 
-  return (
-    <Wrapper>
-      <StyledHeart
-        onClick={onFavourise}
-        className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
-        color={isFavourite ? '#E79796' : '#201f1d'}
-      />
-      <StyledListing to={`/details/${id}`}>
-        <StyledImgWrapper img={img} />
-        <StyledTitle>
-          {title.length >= 15 ? title.slice(0, 15) + '...' : title}
-        </StyledTitle>
-        <StyledTypeWrapper>
-          <StyledType>{type}</StyledType>
-          {price !== '' && <StyledPrice>{price}€</StyledPrice>}
-        </StyledTypeWrapper>
-        <StyledUser>
-          <StyledIcon className="fas fa-map-marker-alt" />
-          {city}
-        </StyledUser>
-      </StyledListing>
-    </Wrapper>
-  );
+  componentDidUpdate(prevProps) {
+    const { isFavourite } = this.props;
+    if (prevProps.isFavourite !== isFavourite) {
+      this.setState({ animate: true });
+    }
+  }
+
+  render() {
+    const { user, onFavourise, content, isFavourite } = this.props;
+    const { title, type, id, img, price } = content;
+    const { city } = user;
+    const { animate } = this.state;
+
+    function onClickFavourise(id) {
+      onFavourise(id);
+    }
+    return (
+      <Wrapper>
+        <StyledHeart
+          onClick={() => onClickFavourise(id)}
+          className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
+          isFavourite={isFavourite}
+          animate={animate}
+        />
+        <StyledListing to={`/details/${id}`}>
+          <StyledImgWrapper img={img} />
+          <StyledTitle>
+            {title.length >= 15 ? title.slice(0, 15) + '...' : title}
+          </StyledTitle>
+          <StyledTypeWrapper>
+            <StyledType>{type}</StyledType>
+            {price !== '' && <StyledPrice>{price}€</StyledPrice>}
+          </StyledTypeWrapper>
+          <StyledUser>
+            <StyledIcon className="fas fa-map-marker-alt" />
+            {city}
+          </StyledUser>
+        </StyledListing>
+      </Wrapper>
+    );
+  }
 }
 
 ListingItem.propTypes = {

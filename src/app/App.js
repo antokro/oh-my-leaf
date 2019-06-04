@@ -5,12 +5,13 @@ import { getLocal, setLocal } from '../services';
 import uid from 'uid';
 import GlobalStyles from '../misc/GlobalStyles';
 import Header from '../components/header/Header';
-import ListingFeed from '../components/feedPage/ListingFeed';
+import HomeFeed from '../components/feedPage/HomeFeed';
 import FavouritesFeed from '../components/feedPage/FavouritesFeed';
 import CreateListing from '../components/createListingPage/CreateListing';
 import ListingDetails from '../components/detailsPage/ListingDetails';
 import Footer from '../components/footer/Footer';
 import SearchResultFeed from '../components/feedPage/SearchResultFeed';
+import ListingsUserFeed from '../components/feedPage/ListingsUserFeed';
 const users = require('./mockUsers.json');
 const mockListings = require('./mockListings.json');
 
@@ -54,7 +55,7 @@ function App() {
       description: description,
       type: listingType,
       id: uid(),
-      user: user.userId,
+      user: user.id,
       img: img,
       price: price
     };
@@ -77,7 +78,7 @@ function App() {
 
   function findDetails(id) {
     const listing = listings.find(listing => listing.id === id);
-    const user = users.find(user => user.userId === listing.user);
+    const user = users.find(user => user.id_ === listing.user);
     return { listing, user };
   }
 
@@ -112,7 +113,7 @@ function App() {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`/search/${searchParam}`);
+    history.push(`${user.username}/search/${searchParam}`);
   }
 
   return (
@@ -125,9 +126,9 @@ function App() {
         <GridMain>
           <Route
             exact
-            path="/"
+            path="/:username"
             render={props => (
-              <ListingFeed
+              <HomeFeed
                 listings={listings}
                 users={users}
                 onFavourise={handleFavourise}
@@ -140,13 +141,13 @@ function App() {
             )}
           />
           <Route
-            path="/create"
+            path="/:username/create"
             render={props => (
               <CreateListing handlePublish={handlePublish} {...props} />
             )}
           />
           <Route
-            path="/favourites"
+            path="/:username/favourites"
             render={() => (
               <FavouritesFeed
                 listings={findFavourites()}
@@ -161,14 +162,14 @@ function App() {
             render={props => (
               <ListingDetails
                 content={findDetails(props.match.params.id)}
-                creator={user.userId}
+                creator={user.id_}
                 onDelete={handleDelete}
                 {...props}
               />
             )}
           />
           <Route
-            path="/search/:searchParam"
+            path="/:username/search/:searchParam"
             render={() => (
               <SearchResultFeed
                 listings={searchResult}
@@ -178,9 +179,13 @@ function App() {
               />
             )}
           />
+          <Route
+            path="/:username/listings"
+            render={() => <ListingsUserFeed />}
+          />
         </GridMain>
         <GridFooter>
-          <Footer />
+          <Footer user={user} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>
