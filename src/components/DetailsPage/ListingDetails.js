@@ -40,29 +40,13 @@ const StyledLocationIcon = styled.i`
   margin: 0 3px 0 5px;
 `;
 
-const StyledDelete = styled.div`
-  font-size: 15px;
-  margin: 8px 0;
-`;
-
-const StyledDeleteIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
-`;
-
 const StyledGoBack = styled.div`
   margin: 5px 0;
 `;
 
-function ListingDetails({ content, creator, onDelete, history }) {
-  const { title, type, description, img, id, price } = content.listing;
-  const { name, city, id_ } = content.user;
-
-  function handleDeleteClick() {
-    onDelete(id);
-    history.push('/');
-  }
+function ListingDetails({ content, history }) {
+  const { title, type, description, img, price } = content.listing;
+  const { name, city } = content.user;
 
   function handleGoBack() {
     history.goBack();
@@ -83,15 +67,6 @@ function ListingDetails({ content, creator, onDelete, history }) {
         <StyledLocationIcon className="fas fa-map-marker-alt" />
         {city}
       </StyledUser>
-      {creator === id_ && (
-        <StyledDelete>
-          <StyledDeleteIcon
-            className="far fa-trash-alt"
-            onClick={handleDeleteClick}
-          />
-          Delete this listing
-        </StyledDelete>
-      )}
     </StyledListingDetails>
   );
 }
@@ -102,9 +77,7 @@ ListingDetails.propTypes = {
   firstname: PropTypes.string,
   city: PropTypes.string,
   listing: PropTypes.object,
-  user: PropTypes.object,
-  id: PropTypes.string,
-  onDelete: PropTypes.func
+  user: PropTypes.object
 };
 
 export default ListingDetails;

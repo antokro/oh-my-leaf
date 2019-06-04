@@ -168,8 +168,6 @@ function App() {
             render={props => (
               <ListingDetails
                 content={findDetails(props.match.params.id)}
-                creator={user.id_}
-                onDelete={handleDelete}
                 {...props}
               />
             )}
@@ -187,10 +185,11 @@ function App() {
           />
           <Route
             path="/:username/listings"
-            render={() => (
+            render={props => (
               <ListingsUserFeed
-                listings={findUserListings}
+                listings={findUserListings()}
                 onDelete={handleDelete}
+                {...props}
               />
             )}
           />
