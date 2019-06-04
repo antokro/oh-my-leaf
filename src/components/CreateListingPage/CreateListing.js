@@ -70,7 +70,7 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function CreateListing({ handlePublish, history }) {
+function CreateListing({ handlePublish, history, match }) {
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
@@ -84,9 +84,10 @@ function CreateListing({ handlePublish, history }) {
   function onPublish(event) {
     event.preventDefault();
     const form = event.target;
+    console.log(form.price);
     const title = form.title.value;
     const description = form.description.value;
-    const price = form.price.value || null;
+    const price = form.price.value || '';
     const img = image;
     handlePublish(title, description, listingType, img, price);
     form.reset();
@@ -160,7 +161,7 @@ function CreateListing({ handlePublish, history }) {
       {listingType === 'for sale' && (
         <StyledPriceInputWrapper>
           <Label>Price in €</Label>
-          <StyledPriceInput id="price" name="price" />
+          <StyledPriceInput id="price" name="price" defaultValue="" />
         </StyledPriceInputWrapper>
       )}
       <StyledButton>PUBLISH</StyledButton>

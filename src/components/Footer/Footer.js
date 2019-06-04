@@ -24,7 +24,7 @@ function Footer({ user }) {
   const { username } = user;
   return (
     <StyledFooter>
-      <StyledIcon exact to={`/${username}`} className="fas fa-home" />
+      <StyledIcon exact to={'/'} className="fas fa-home" />
       <StyledIcon to={`/${username}/favourites`} className="fas fa-heart" />
       <StyledIcon to={`/${username}/listings`} className="fas fa-user" />
       <StyledIcon to={`/${username}/create`} className="fas fa-plus" />

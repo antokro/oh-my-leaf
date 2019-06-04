@@ -55,13 +55,12 @@ function App() {
       description: description,
       type: listingType,
       id: uid(),
-      user: user.id,
+      user: user.id_,
       img: img,
       price: price
     };
     setListings([...listings, newListing]);
   }
-
   function handleFavourise(id) {
     const index = favourites.indexOf(id);
 
@@ -87,6 +86,13 @@ function App() {
       .slice()
       .filter(listing => favourites.includes(listing.id));
     return favouriteListings;
+  }
+
+  function findUserListings() {
+    const userListings = listings
+      .slice()
+      .filter(listing => listing.user === user.id_);
+    return userListings;
   }
 
   function handleTypeFilter(type) {
@@ -126,7 +132,7 @@ function App() {
         <GridMain>
           <Route
             exact
-            path="/:username"
+            path="/"
             render={props => (
               <HomeFeed
                 listings={listings}
@@ -181,7 +187,12 @@ function App() {
           />
           <Route
             path="/:username/listings"
-            render={() => <ListingsUserFeed />}
+            render={() => (
+              <ListingsUserFeed
+                listings={findUserListings}
+                onDelete={handleDelete}
+              />
+            )}
           />
         </GridMain>
         <GridFooter>

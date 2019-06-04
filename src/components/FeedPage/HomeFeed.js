@@ -42,7 +42,6 @@ function HomeFeed({
       listing => typeFilter === 'all' || listing.type === typeFilter
     )
   );
-
   function onChangeTypeSelect(event) {
     const filter = event.target.value;
     onTypeFilter(filter);

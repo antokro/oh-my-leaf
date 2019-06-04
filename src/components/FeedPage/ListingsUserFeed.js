@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import Icon from '../../misc/Icon';
 
-function ListingUserFeed() {
+const StyledListingWrapper = styled.div`
+  display: flex;
+`;
+
+function ListingUserFeed({ listings }) {
   return (
-    <div>
-      <h3>ListingTitle</h3>
-      <i className="far fa-trash-alt" />
-      <i className="far fa-edit" />
-    </div>
+    <>
+      {listings.map(listing => (
+        <StyledListingWrapper>
+          <h3>{listing.title}</h3>
+          <Icon className="far fa-trash-alt" />
+          <Icon className="far fa-edit" />
+        </StyledListingWrapper>
+      ))}
+    </>
   );
 }
 

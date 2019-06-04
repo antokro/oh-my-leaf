@@ -4,7 +4,7 @@
     "id": "kefabvq",
     "title": "Pilea for pearl of string",
     "type": "swap",
-    "user": "1000",
+    "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559139915/david-vazquez-463841-unsplash_pag7kf.jpg",
     "price": ""
   },
@@ -13,7 +13,7 @@
     "id": "00k047c",
     "title": "watermelon peperomia",
     "type": "swap",
-    "user": "1000",
+    "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
     "price": ""
   },
@@ -22,7 +22,7 @@
     "id": "3untw1n",
     "title": "Spider plant",
     "type": "give away",
-    "user": "3000",
+    "user": "User3",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
     "price": ""
   },
@@ -31,7 +31,7 @@
     "id": "9ytj2t1",
     "title": "Zig Zag Cactus",
     "type": "give away",
-    "user": "2000",
+    "user": "User2",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559052687/IMG-20190527-WA0002_kcgixk.jpg",
     "price": ""
   },
@@ -40,7 +40,7 @@
     "id": "whsrua4",
     "title": "Monstera for sale",
     "type": "for sale",
-    "user": "3000",
+    "user": "User3",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg",
     "price": "30"
   }

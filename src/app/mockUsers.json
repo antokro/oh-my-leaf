@@ -4,7 +4,7 @@
       "firstname": "Sabine",
       "lastname": "Gerner"
     },
-    "id_": "1000",
+    "id_": "User1",
     "username": "SabineHH",
     "city": "Hamburg",
     "email": "sabinetest@googlemail.com"
@@ -14,7 +14,7 @@
       "firstname": "Antonia",
       "lastname": "Krohn"
     },
-    "id_": "2000",
+    "id_": "User2",
     "username": "Plant_Toni",
     "city": "Hamburg",
     "email": "antoniatest@googlemail.com"
@@ -24,7 +24,7 @@
       "firstname": "Anna",
       "lastname": "Rahm"
     },
-    "id_": "3000",
+    "id_": "User3",
     "username": "AnnaMUC",
     "city": "München",
     "email": "annatest@googlemail.com"
