@@ -6,6 +6,8 @@ import Label from '../../misc/Label';
 import TypeButton from '../createListingPage/TypeButton';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 import axios from 'axios';
+import Close from '../../misc/CircleCloseDelete';
+import Icon from '../../misc/Icon';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -22,7 +24,6 @@ const StyledForm = styled.form`
   border-radius: 11px;
   padding: 5px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
-  overflow: scroll;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -46,12 +47,6 @@ const StyledButton = styled.button`
   padding: 9px;
 `;
 
-const StyledImgIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
-`;
-
 const StyledAddImg = styled.div`
   padding: 5px;
   display: flex;
@@ -62,12 +57,17 @@ const StyledAddImg = styled.div`
 const StyledFileInput = styled(TextInput)`
   color: #201f1d;
   font-size: 12px;
-  margin: 5px;
+  margin: 5px 0;
 `;
 
 const ImgPreview = styled.img`
   max-width: 60px;
   max-height: 60px;
+`;
+
+const PreviewWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const StyledLoadIcon = styled(LoadIcon)`
@@ -80,16 +80,22 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function EditListing({ listing, handleSave }) {
+const StyledClose = styled(Close)`
+  top: 3px;
+  right: 3px;
+  position: absolute;
+`;
+
+function EditListing({ listing, onSave, onClose }) {
   const [editedListing, setEditedListing] = useState(listing);
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(listing.img);
-  const [isAddImage, setAddImage] = useState(false);
-  const [isUploadSuccess, setUploadSuccess] = useState(false);
+  const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const types = ['give away', 'swap', 'for sale'];
-  function onSave(event) {
+
+  function onClickSave(event) {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -97,7 +103,17 @@ function EditListing({ listing, handleSave }) {
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
 
-    handleSave(title, description, listingType, img, price);
+    const listingEdit = {
+      title,
+      description,
+      type: listingType,
+      img,
+      price,
+      id: editedListing.id,
+      user: editedListing.user
+    };
+
+    onSave(listingEdit);
   }
 
   function handleTypeButtonClick(event) {
@@ -105,8 +121,11 @@ function EditListing({ listing, handleSave }) {
     setListingType(type);
   }
 
-  function onAddImage() {
-    setAddImage(!isAddImage);
+  function onImgDelete() {
+    setImage(
+      'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
+    );
+    setUploadSuccess(!isUploadSuccess);
   }
 
   function uploadImage(event) {
@@ -128,8 +147,10 @@ function EditListing({ listing, handleSave }) {
     setUploadSuccess(!isUploadSuccess);
     setImage(response.data.url);
   }
+
   return (
-    <StyledForm onSubmit={onSave}>
+    <StyledForm onSubmit={onClickSave}>
+      <StyledClose onClick={onClose}>x</StyledClose>
       <Label htmlFor="title">Title</Label>
       <StyledInput
         onChange={event =>
@@ -154,12 +175,14 @@ function EditListing({ listing, handleSave }) {
         defaultValue={listing.description}
       />
       <StyledAddImg>
-        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
-        {isAddImage && (
-          <StyledFileInput onChange={uploadImage} type="file" name="file" />
-        )}
+        <StyledFileInput onChange={uploadImage} type="file" name="file" />
         {isImageUploading && <StyledLoadIcon />}
-        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
+        {isUploadSuccess && (
+          <PreviewWrapper>
+            <ImgPreview src={image} alt="uploaded image" />
+            <Icon onClick={onImgDelete} className="far fa-trash-alt" />
+          </PreviewWrapper>
+        )}
       </StyledAddImg>
       <Label>Listing Type</Label>
       <StyledTypeButtonGroup>

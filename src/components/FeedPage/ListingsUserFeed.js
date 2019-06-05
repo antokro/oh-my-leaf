@@ -28,7 +28,7 @@ const StyledShowIcon = styled(Listing)`
   text-decoration: none;
 `;
 
-function ListingUserFeed({ listings, onDelete, history, handleSave }) {
+function ListingUserFeed({ listings, onDelete, history, onSaveChanges }) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
 
@@ -41,6 +41,15 @@ function ListingUserFeed({ listings, onDelete, history, handleSave }) {
     setEditMode(!editMode);
     const toEdit = listings.find(listing => listing.id === id);
     setEditedListing(toEdit);
+  }
+
+  function handleSave(listing) {
+    setEditMode(!editMode);
+    onSaveChanges(listing);
+  }
+
+  function handleClose() {
+    setEditMode(!editMode);
   }
 
   return (
@@ -63,7 +72,11 @@ function ListingUserFeed({ listings, onDelete, history, handleSave }) {
         </StyledListingWrapper>
       ))}
       {editMode === true && (
-        <EditListing listing={editedListing} handleSave={handleSave} />
+        <EditListing
+          listing={editedListing}
+          onSave={listing => handleSave(listing)}
+          onClose={handleClose}
+        />
       )}
     </StyledUserListings>
   );

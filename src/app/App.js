@@ -63,8 +63,15 @@ function App() {
     setListings([...listings, newListing]);
   }
 
-  function handleChanges() {
-    console.log('app changes');
+  function handleChanges(editedListing) {
+    const indexListing = listings.findIndex(
+      listing => listing.id === editedListing.id
+    );
+    setListings([
+      ...listings.slice(0, indexListing),
+      editedListing,
+      ...listings.slice(indexListing + 1)
+    ]);
   }
 
   function handleFavourise(id) {
@@ -195,7 +202,7 @@ function App() {
               <ListingsUserFeed
                 listings={findUserListings()}
                 onDelete={handleDelete}
-                handleSave={handleChanges}
+                onSaveChanges={handleChanges}
                 {...props}
               />
             )}
