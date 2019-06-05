@@ -6,7 +6,8 @@
     "type": "swap",
     "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559139915/david-vazquez-463841-unsplash_pag7kf.jpg",
-    "price": ""
+    "price": "",
+    "tags": ""
   },
   {
     "description": "I'm swapping my very picky peperomia (watermelon) against an easier plant. Any suggestions are welcome",
@@ -15,7 +16,8 @@
     "type": "swap",
     "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
-    "price": ""
+    "price": "",
+    "tags": ""
   },
   {
     "description": "Hello all, I'm giving away babies of my spider plant. They all have roots and are ready to be potted",
@@ -24,7 +26,8 @@
     "type": "give away",
     "user": "User3",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
-    "price": ""
+    "price": "",
+    "tags": ""
   },
   {
     "description": "Hello, I'm giving away this pretty Zig Zag Cactus. It is really pretty when they bloom :)",
@@ -33,7 +36,8 @@
     "type": "give away",
     "user": "User2",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559052687/IMG-20190527-WA0002_kcgixk.jpg",
-    "price": ""
+    "price": "",
+    "tags": ""
   },
   {
     "description": "I have this big Monstera for sale. I can't take it with me since I'm moving abroad. Price is 30€",
@@ -42,6 +46,7 @@
     "type": "for sale",
     "user": "User3",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg",
-    "price": "30"
+    "price": "30",
+    "tags": ""
   }
 ]

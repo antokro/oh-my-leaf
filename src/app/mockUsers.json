@@ -7,7 +7,9 @@
     "id_": "User1",
     "username": "SabineHH",
     "city": "Hamburg",
-    "email": "sabinetest@googlemail.com"
+    "email": "sabinetest@googlemail.com",
+    "img": "",
+    "icon": ""
   },
   {
     "name": {
@@ -17,7 +19,9 @@
     "id_": "User2",
     "username": "Plant_Toni",
     "city": "Hamburg",
-    "email": "antoniatest@googlemail.com"
+    "email": "antoniatest@googlemail.com",
+    "img": "",
+    "icon": ""
   },
   {
     "name": {
@@ -27,6 +31,8 @@
     "id_": "User3",
     "username": "AnnaMUC",
     "city": "München",
-    "email": "annatest@googlemail.com"
+    "email": "annatest@googlemail.com",
+    "img": "",
+    "icon": ""
   }
 ]

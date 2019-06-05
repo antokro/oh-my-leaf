@@ -31,9 +31,12 @@ const StyledUser = styled.div`
   margin: 3px 0;
 `;
 
-const StyledUserIcon = styled.i`
-  font-size: 30px;
+const StyledUserIcon = styled.span`
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
   margin: 0 5px;
+  background: ${props => `hsl(${props.color}deg, 50%, 67%)`};
 `;
 
 const StyledLocationIcon = styled.i`
@@ -46,7 +49,7 @@ const StyledGoBack = styled.div`
 
 function ListingDetails({ content, history }) {
   const { title, type, description, img, price } = content.listing;
-  const { name, city } = content.user;
+  const { name, city, icon } = content.user;
 
   function handleGoBack() {
     history.goBack();
@@ -62,7 +65,7 @@ function ListingDetails({ content, history }) {
       <StyledType>{type}</StyledType>
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
-        <StyledUserIcon className="far fa-smile" />
+        <StyledUserIcon color={icon}>X</StyledUserIcon>
         {name.firstname}
         <StyledLocationIcon className="fas fa-map-marker-alt" />
         {city}
