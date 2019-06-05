@@ -1,16 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-
-const StyledFavouritesFeed = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-`;
+import FeedGrid from '../../misc/FeedGrid';
 
 function FavouritesFeed({ listings, users, onFavourise, favourites }) {
   return (
-    <StyledFavouritesFeed>
+    <FeedGrid>
       {listings.map(listing => (
         <ListingItem
           key={listing.id}
@@ -20,7 +15,7 @@ function FavouritesFeed({ listings, users, onFavourise, favourites }) {
           isFavourite={favourites.includes(listing.id)}
         />
       ))}
-    </StyledFavouritesFeed>
+    </FeedGrid>
   );
 }
 

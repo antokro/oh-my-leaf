@@ -6,9 +6,6 @@ import TypeTag from '../../misc/TypeTag';
 
 const Wrapper = styled.div`
   position: relative;
-  height: 255px;
-  margin: 15px auto;
-  width: 156px;
 `;
 
 const StyledListing = styled(Listing)`
@@ -139,7 +136,9 @@ class ListingItem extends React.Component {
         />
         <StyledListing to={`/details/${id}`}>
           <StyledImgWrapper img={img} />
-          <StyledTitle>{title}</StyledTitle>
+          <StyledTitle>
+            {title.length >= 40 ? title.slice(0, 39) + '...' : title}
+          </StyledTitle>
           {price !== '' && <StyledPrice>{price}€</StyledPrice>}
           <StyledTypeWrapper>
             <StyledType>{type}</StyledType>

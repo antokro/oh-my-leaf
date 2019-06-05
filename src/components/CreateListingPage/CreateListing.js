@@ -86,8 +86,8 @@ function CreateListing({ handlePublish, history }) {
   function onPublish(event) {
     event.preventDefault();
     const form = event.target;
-    const title = form.title.value;
-    const description = form.description.value;
+    const title = form.title.value.trim();
+    const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
     handlePublish(title, description, listingType, img, price, date);

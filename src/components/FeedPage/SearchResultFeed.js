@@ -3,19 +3,15 @@ import styled from 'styled-components';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
 import Label from '../../misc/Label';
+import FeedGrid from '../../misc/FeedGrid';
 
 const StyledSearchResultFeed = styled.section``;
-
-const StyledListingList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 function SearchResultFeed({ listings, users, onFavourise, favourites }) {
   return (
     <StyledSearchResultFeed>
       <Label>Search Results</Label>
-      <StyledListingList>
+      <FeedGrid>
         {listings.map(listing => (
           <ListingItem
             key={listing.id}
@@ -25,7 +21,7 @@ function SearchResultFeed({ listings, users, onFavourise, favourites }) {
             isFavourite={favourites.includes(listing.id)}
           />
         ))}
-      </StyledListingList>
+      </FeedGrid>
     </StyledSearchResultFeed>
   );
 }

@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import Label from '../../misc/Label';
 import { TextInput } from '../../misc/Input';
 import Fuse from 'fuse.js';
+import FeedGrid from '../../misc/FeedGrid';
 
-const StyledHomeFeed = styled.section``;
+const StyledHome = styled.section``;
 
 const StyledSearchBar = styled.div`
   display: grid;
@@ -20,11 +21,6 @@ const StyledSelect = styled.select`
   font-size: 15px;
   margin-top: 5px;
   padding: 3px;
-`;
-
-const StyledListingList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
 `;
 
 function HomeFeed({
@@ -65,7 +61,7 @@ function HomeFeed({
   }
 
   return (
-    <StyledHomeFeed>
+    <StyledHome>
       <StyledSearchBar>
         <Label htmlFor="filter">
           <i className="fas fa-search" /> Filter for type
@@ -87,7 +83,7 @@ function HomeFeed({
           onKeyPress={event => event.charCode === 13 && onKeyPressSearch(event)}
         />
       </StyledSearchBar>
-      <StyledListingList>
+      <FeedGrid>
         {filteredListings.map(listing => (
           <ListingItem
             key={listing.id}
@@ -97,8 +93,8 @@ function HomeFeed({
             isFavourite={favourites.includes(listing.id)}
           />
         ))}
-      </StyledListingList>
-    </StyledHomeFeed>
+      </FeedGrid>
+    </StyledHome>
   );
 }
 
