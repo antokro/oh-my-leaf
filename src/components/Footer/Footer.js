@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const StyledFooter = styled.footer`
   background: #abc38e;
@@ -31,5 +32,7 @@ function Footer({ user }) {
     </StyledFooter>
   );
 }
-
+Footer.propTypes = {
+  user: PropTypes.object
+};
 export default Footer;

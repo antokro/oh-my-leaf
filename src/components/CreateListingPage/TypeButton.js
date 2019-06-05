@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledInputButton = styled.input`
   border: 2px solid #ffd084;
@@ -22,5 +23,11 @@ function TypeButton(props) {
     />
   );
 }
+
+TypeButton.propTypes = {
+  handleClick: PropTypes.func,
+  value: PropTypes.string,
+  filled: PropTypes.string
+};
 
 export default TypeButton;

@@ -28,7 +28,7 @@ FavouritesFeed.propTypes = {
   listings: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
-  isFavourites: PropTypes.bool
+  favourites: PropTypes.array
 };
 
 export default FavouritesFeed;

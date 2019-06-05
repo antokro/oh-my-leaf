@@ -81,8 +81,6 @@ function CreateListing({ handlePublish, history }) {
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
-  console.log(date);
-
   const types = ['give away', 'swap', 'for sale'];
 
   function onPublish(event) {

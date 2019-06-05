@@ -85,11 +85,7 @@ function ListingDetails({ content, history }) {
   );
 }
 ListingDetails.propTypes = {
-  title: PropTypes.string,
-  type: PropTypes.string,
-  description: PropTypes.string,
-  firstname: PropTypes.string,
-  city: PropTypes.string,
+  history: PropTypes.object,
   listing: PropTypes.object,
   user: PropTypes.object
 };

@@ -207,8 +207,9 @@ function EditListing({ listing, onSave, onClose }) {
 }
 
 EditListing.propTypes = {
-  handlePublish: PropTypes.func,
-  history: PropTypes.object
+  listing: PropTypes.object,
+  onSave: PropTypes.func,
+  onClose: PropTypes.func
 };
 
 export default EditListing;

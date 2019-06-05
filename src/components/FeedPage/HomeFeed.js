@@ -108,7 +108,9 @@ HomeFeed.propTypes = {
   users: PropTypes.array,
   onFavourise: PropTypes.func,
   onTypeFilter: PropTypes.func,
-  typeFilter: PropTypes.string
+  typeFilter: PropTypes.string,
+  handleSearch: PropTypes.func,
+  history: PropTypes.object
 };
 
 export default HomeFeed;

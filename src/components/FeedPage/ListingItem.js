@@ -17,7 +17,7 @@ const StyledListing = styled(Listing)`
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
   display: grid;
-  grid-template-rows: 120px 60px 35px 40px;
+  grid-template-rows: 120px 60px 30px 35px 30px;
   text-decoration: none;
 
   &:visited {
@@ -32,26 +32,32 @@ const StyledImgWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h3`
-  font-size: 20px;
+  font-size: 15px;
   grid-row: 2;
-  margin: 9px;
+  margin: 3px 9px;
   text-align: start;
 `;
 
 const StyledTypeWrapper = styled.div`
-  grid-row: 3;
+  grid-row: 4;
   margin: 8px 0;
 `;
 const StyledType = styled(TypeTag)`
+  font-size: 13px;
   margin: 3px 9px;
 `;
 
-const StyledPrice = styled.span``;
-
-const StyledUser = styled.p`
+const StyledPrice = styled.div`
+  font-size: 13px;
+  grid-row: 3;
+  margin: 3px 9px;
   align-self: center;
-  font-size: 15px;
-  grid-row: 4;
+`;
+
+const StyledLocation = styled.p`
+  align-self: center;
+  font-size: 13px;
+  grid-row: 5;
   margin: 3px 9px;
 `;
 
@@ -133,17 +139,15 @@ class ListingItem extends React.Component {
         />
         <StyledListing to={`/details/${id}`}>
           <StyledImgWrapper img={img} />
-          <StyledTitle>
-            {title.length >= 15 ? title.slice(0, 15) + '...' : title}
-          </StyledTitle>
+          <StyledTitle>{title}</StyledTitle>
+          {price !== '' && <StyledPrice>{price}€</StyledPrice>}
           <StyledTypeWrapper>
             <StyledType>{type}</StyledType>
-            {price !== '' && <StyledPrice>{price}€</StyledPrice>}
           </StyledTypeWrapper>
-          <StyledUser>
+          <StyledLocation>
             <StyledIcon className="fas fa-map-marker-alt" />
             <span>{city}</span>
-          </StyledUser>
+          </StyledLocation>
         </StyledListing>
       </Wrapper>
     );
@@ -151,15 +155,11 @@ class ListingItem extends React.Component {
 }
 
 ListingItem.propTypes = {
-  title: PropTypes.string,
-  type: PropTypes.string,
-  city: PropTypes.string,
-  id: PropTypes.string,
-  img: PropTypes.string,
-  price: PropTypes.string,
   onFavourise: PropTypes.func,
   content: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  isFavourite: PropTypes.bool
 };
 
 export default ListingItem;
+/* title.length >= 13 ? title.slice(0, 13) + '...' : */

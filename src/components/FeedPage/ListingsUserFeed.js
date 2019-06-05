@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Icon from '../../misc/Icon';
 import { Link as Listing } from 'react-router-dom';
 import EditListing from '../EditPage/EditListing';
+import PropTypes from 'prop-types';
 
 const StyledUserListings = styled.section``;
 
@@ -81,5 +82,12 @@ function ListingUserFeed({ listings, onDelete, history, onSaveChanges }) {
     </StyledUserListings>
   );
 }
+
+ListingUserFeed.propTypes = {
+  listings: PropTypes.array,
+  onDelete: PropTypes.func,
+  history: PropTypes.object,
+  onSaveChanges: PropTypes.func
+};
 
 export default ListingUserFeed;
