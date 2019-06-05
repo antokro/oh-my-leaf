@@ -26,21 +26,25 @@ const StyledDescription = styled.p`
 `;
 
 const StyledUser = styled.div`
-  align-self: center;
-  font-size: 15px;
+  display: flex;
   margin: 3px 0;
 `;
 
-const StyledUserIcon = styled.span`
-  height: 50px;
-  width: 50px;
+const StyledUserIcon = styled.p`
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   margin: 0 5px;
+  align-items: center;
+  justify-content: center;
   background: ${props => `hsl(${props.color}deg, 50%, 67%)`};
+  color: white;
+  font-size: 20px;
+  display: flex;
 `;
 
-const StyledLocationIcon = styled.i`
-  margin: 0 3px 0 5px;
+const StyledUserInfo = styled.p`
+  margin: auto 5px;
 `;
 
 const StyledGoBack = styled.div`
@@ -65,10 +69,12 @@ function ListingDetails({ content, history }) {
       <StyledType>{type}</StyledType>
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
-        <StyledUserIcon color={icon}>X</StyledUserIcon>
-        {name.firstname}
-        <StyledLocationIcon className="fas fa-map-marker-alt" />
-        {city}
+        <StyledUserIcon color={icon}>
+          {name.firstname.slice(0, 1)}
+        </StyledUserIcon>
+        <StyledUserInfo>{name.firstname}</StyledUserInfo>
+        <StyledUserInfo className="fas fa-map-marker-alt" />
+        <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
     </StyledListingDetails>
   );
