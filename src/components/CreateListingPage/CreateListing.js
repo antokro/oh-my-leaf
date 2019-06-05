@@ -6,6 +6,7 @@ import Label from '../../misc/Label';
 import TypeButton from './TypeButton';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 import axios from 'axios';
+import moment from 'moment';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -75,9 +76,12 @@ function CreateListing({ handlePublish, history }) {
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
+  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
+
+  console.log(date);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -88,7 +92,7 @@ function CreateListing({ handlePublish, history }) {
     const description = form.description.value;
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
-    handlePublish(title, description, listingType, img, price);
+    handlePublish(title, description, listingType, img, price, date);
     form.reset();
     history.push('/');
   }

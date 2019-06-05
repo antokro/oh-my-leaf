@@ -50,7 +50,7 @@ function App() {
 
   const user = users[1];
 
-  function handlePublish(title, description, listingType, img, price) {
+  function handlePublish(title, description, listingType, img, price, date) {
     const newListing = {
       title: title,
       description: description,
@@ -58,7 +58,8 @@ function App() {
       id: uid(),
       user: user.id_,
       img: img,
-      price: price
+      price: price,
+      created: date
     };
     setListings([...listings, newListing]);
   }

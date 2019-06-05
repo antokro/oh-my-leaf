@@ -51,8 +51,12 @@ const StyledGoBack = styled.div`
   margin: 5px 0;
 `;
 
+const StyledCreationDate = styled.div`
+  margin: 10px 0;
+`;
+
 function ListingDetails({ content, history }) {
-  const { title, type, description, img, price } = content.listing;
+  const { title, type, description, img, price, created } = content.listing;
   const { name, city, icon } = content.user;
 
   function handleGoBack() {
@@ -76,6 +80,7 @@ function ListingDetails({ content, history }) {
         <StyledUserInfo className="fas fa-map-marker-alt" />
         <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
+      <StyledCreationDate>Created: {created}</StyledCreationDate>
     </StyledListingDetails>
   );
 }
