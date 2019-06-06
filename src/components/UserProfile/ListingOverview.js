@@ -1,11 +1,11 @@
-import EditListing from '../EditPage/EditListing';
-import Icon from '../../misc/Icon';
+import EditForm from '../Edit/EditForm';
+import Icon from '../common/Icon/StyledIcon';
 import { Link as Listing } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const StyledUserListings = styled.section``;
+const StyledListingOverview = styled.section``;
 
 const StyledListingWrapper = styled.section`
   align-items: center;
@@ -29,13 +29,13 @@ const StyledShowIcon = styled(Listing)`
   text-decoration: none;
 `;
 
-function ListingUserFeed({ listings, onDelete, history, onSaveChanges }) {
+function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
 
   function handleDeleteClick(id) {
     onDelete(id);
-    history.push('/');
+    history.goBack();
   }
 
   function handleEditClick(id) {
@@ -54,7 +54,7 @@ function ListingUserFeed({ listings, onDelete, history, onSaveChanges }) {
   }
 
   return (
-    <StyledUserListings>
+    <StyledListingOverview>
       {listings.map(listing => (
         <StyledListingWrapper key={listing.id} opacity={editMode ? '0.1' : '1'}>
           <StyledTitle>{listing.title}</StyledTitle>
@@ -73,21 +73,21 @@ function ListingUserFeed({ listings, onDelete, history, onSaveChanges }) {
         </StyledListingWrapper>
       ))}
       {editMode === true && (
-        <EditListing
+        <EditForm
           listing={editedListing}
           onSave={listing => handleSave(listing)}
           onClose={handleClose}
         />
       )}
-    </StyledUserListings>
+    </StyledListingOverview>
   );
 }
 
-ListingUserFeed.propTypes = {
+ListingOverview.propTypes = {
   listings: PropTypes.array,
   onDelete: PropTypes.func,
   history: PropTypes.object,
   onSaveChanges: PropTypes.func
 };
 
-export default ListingUserFeed;
+export default ListingOverview;

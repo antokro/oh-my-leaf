@@ -1,12 +1,12 @@
 import axios from 'axios';
-import Close from '../../misc/CircleCloseDelete';
-import Icon from '../../misc/Icon';
-import Label from '../../misc/Label';
+import Close from '../common/Icon/CloseIcon';
+import Icon from '../common/Icon/StyledIcon';
+import Label from '../common/FormElements/Label';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
-import { TextInput, Textarea } from '../../misc/Input';
-import TypeButton from '../createListingPage/TypeButton';
+import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
+import { TextInput, Textarea } from '../common/FormElements/Input';
+import TypeButton from '../Create/TypeButton';
 import styled from 'styled-components';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -86,7 +86,7 @@ const StyledClose = styled(Close)`
   top: 3px;
 `;
 
-function EditListing({ listing, onSave, onClose }) {
+function EditForm({ listing, onSave, onClose }) {
   const [editedListing, setEditedListing] = useState(listing);
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(listing.img);
@@ -205,10 +205,10 @@ function EditListing({ listing, onSave, onClose }) {
   );
 }
 
-EditListing.propTypes = {
+EditForm.propTypes = {
   listing: PropTypes.object.isRequired,
   onSave: PropTypes.func,
   onClose: PropTypes.func
 };
 
-export default EditListing;
+export default EditForm;

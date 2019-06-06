@@ -1,14 +1,14 @@
-import { Link as Listing } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TypeTag from '../../misc/TypeTag';
+import TypeTag from '../FormElements/TypeTag';
 
 const Wrapper = styled.section`
   position: relative;
 `;
 
-const StyledListing = styled(Listing)`
+const StyledListing = styled(Link)`
   background: #fcfbf6;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
@@ -106,7 +106,7 @@ const StyledHeart = styled.div`
   }
 `;
 
-class ListingItem extends React.Component {
+class Listing extends React.Component {
   state = {
     animate: false
   };
@@ -153,12 +153,11 @@ class ListingItem extends React.Component {
   }
 }
 
-ListingItem.propTypes = {
+Listing.propTypes = {
   onFavourise: PropTypes.func,
   content: PropTypes.object,
   user: PropTypes.object,
   isFavourite: PropTypes.bool
 };
 
-export default ListingItem;
-/* title.length >= 13 ? title.slice(0, 13) + '...' : */
+export default Listing;

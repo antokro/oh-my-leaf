@@ -1,11 +1,11 @@
 import axios from 'axios';
-import Label from '../../misc/Label';
+import Label from '../common/FormElements/Label';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
+import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import styled from 'styled-components';
-import { TextInput, Textarea } from '../../misc/Input';
+import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from './TypeButton';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -71,7 +71,7 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function CreateListing({ handlePublish, history }) {
+function CreateForm({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
@@ -169,8 +169,8 @@ function CreateListing({ handlePublish, history }) {
     </StyledForm>
   );
 }
-CreateListing.propTypes = {
+CreateForm.propTypes = {
   handlePublish: PropTypes.func,
   history: PropTypes.object
 };
-export default CreateListing;
+export default CreateForm;

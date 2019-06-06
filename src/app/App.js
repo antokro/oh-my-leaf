@@ -3,15 +3,16 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { getLocal, setLocal } from '../services';
 import uid from 'uid';
-import GlobalStyles from '../misc/GlobalStyles';
-import Header from '../components/header/Header';
-import HomeFeed from '../components/feedPage/HomeFeed';
-import FavouritesFeed from '../components/feedPage/FavouritesFeed';
-import CreateListing from '../components/createListingPage/CreateListing';
-import ListingDetails from '../components/detailsPage/ListingDetails';
-import Footer from '../components/footer/Footer';
-import SearchResultFeed from '../components/feedPage/SearchResultFeed';
-import ListingsUserFeed from '../components/feedPage/ListingsUserFeed';
+import GlobalStyles from '../components/common/Styles/GlobalStyles';
+import Header from '../components/Header/Header';
+import Home from '../components/Home/Home';
+import FavouritesList from '../components/Favourites/FavouritesList';
+import CreateForm from '../components/Create/CreateForm';
+import DetailsPage from '../components/Details/DetailsPage';
+import Footer from '../components/Footer/Footer';
+import SearchResult from '../components/Search/SearchResult';
+import ListingOverview from '../components/UserProfile/ListingOverview';
+
 const users = require('./mockUsers.json');
 const mockListings = require('./mockListings.json');
 
@@ -142,7 +143,7 @@ function App() {
             exact
             path="/"
             render={props => (
-              <HomeFeed
+              <Home
                 listings={listings}
                 users={users}
                 onFavourise={handleFavourise}
@@ -157,13 +158,13 @@ function App() {
           <Route
             path="/:username/create"
             render={props => (
-              <CreateListing handlePublish={handlePublish} {...props} />
+              <CreateForm handlePublish={handlePublish} {...props} />
             )}
           />
           <Route
             path="/:username/favourites"
             render={() => (
-              <FavouritesFeed
+              <FavouritesList
                 listings={findFavourites()}
                 users={users}
                 onFavourise={handleFavourise}
@@ -174,7 +175,7 @@ function App() {
           <Route
             path="/details/:id"
             render={props => (
-              <ListingDetails
+              <DetailsPage
                 content={findDetails(props.match.params.id)}
                 {...props}
               />
@@ -183,7 +184,7 @@ function App() {
           <Route
             path="/:username/search/:searchParam"
             render={() => (
-              <SearchResultFeed
+              <SearchResult
                 listings={searchResult}
                 users={users}
                 onFavourise={handleFavourise}
@@ -194,7 +195,7 @@ function App() {
           <Route
             path="/:username/listings"
             render={props => (
-              <ListingsUserFeed
+              <ListingOverview
                 listings={findUserListings()}
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}

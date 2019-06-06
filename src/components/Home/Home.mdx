@@ -1,0 +1,28 @@
+---
+name: Home
+---
+
+import Listing from '../common/Listing/ListingItem.js';
+import Home from './Home.js';
+import { Playground, Props } from 'docz';
+
+# Layout of a Listing
+
+<Playground>
+  <ListingItem
+    content={{
+      title: 'Monstera',
+      type: 'give away',
+      price: '30€',
+      city: 'Hamburg'
+    }}
+  />
+</Playground>
+
+## Properties of Listing Feed
+
+<Props of={Home} />
+
+## Properties of one individual Listing
+
+<Props of={ListingItem} />
