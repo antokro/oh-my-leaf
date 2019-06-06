@@ -1,8 +1,8 @@
+import Image from '../../misc/Image';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import TypeTag from '../../misc/TypeTag';
-import Image from '../../misc/Image';
 
 const StyledListingDetails = styled.section``;
 
@@ -26,43 +26,38 @@ const StyledDescription = styled.p`
 `;
 
 const StyledUser = styled.div`
-  align-self: center;
-  font-size: 15px;
+  display: flex;
   margin: 3px 0;
 `;
 
-const StyledUserIcon = styled.i`
-  font-size: 30px;
+const StyledUserIcon = styled.p`
+  align-items: center;
+  background: ${props => `hsl(${props.color}deg, 50%, 67%)`};
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  height: 40px;
+  justify-content: center;
   margin: 0 5px;
+  width: 40px;
 `;
 
-const StyledLocationIcon = styled.i`
-  margin: 0 3px 0 5px;
-`;
-
-const StyledDelete = styled.div`
-  font-size: 15px;
-  margin: 8px 0;
-`;
-
-const StyledDeleteIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
+const StyledUserInfo = styled.p`
+  margin: auto 5px;
 `;
 
 const StyledGoBack = styled.div`
   margin: 5px 0;
 `;
 
-function ListingDetails({ content, creator, onDelete, history }) {
-  const { title, type, description, img, id, price } = content.listing;
-  const { firstname, city, userId } = content.user;
+const StyledCreationDate = styled.div`
+  margin: 10px 0;
+`;
 
-  function handleDeleteClick() {
-    onDelete(id);
-    history.push('/');
-  }
+function ListingDetails({ content, history }) {
+  const { title, type, description, img, price, created } = content.listing;
+  const { name, city, icon } = content.user;
 
   function handleGoBack() {
     history.goBack();
@@ -72,39 +67,27 @@ function ListingDetails({ content, creator, onDelete, history }) {
       <StyledGoBack onClick={handleGoBack}>
         <i className="fas fa-arrow-circle-left" /> Go Back
       </StyledGoBack>
-      <Image src={img} alt="a plant" />
+      <Image src={img} alt="plant" />
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
-        <StyledUserIcon className="far fa-smile" />
-        {firstname}
-        <StyledLocationIcon className="fas fa-map-marker-alt" />
-        {city}
+        <StyledUserIcon color={icon}>
+          {name.firstname.slice(0, 1)}
+        </StyledUserIcon>
+        <StyledUserInfo>{name.firstname}</StyledUserInfo>
+        <StyledUserInfo className="fas fa-map-marker-alt" />
+        <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
-      {creator === userId && (
-        <StyledDelete>
-          <StyledDeleteIcon
-            className="far fa-trash-alt"
-            onClick={handleDeleteClick}
-          />
-          Delete this listing
-        </StyledDelete>
-      )}
+      <StyledCreationDate>Created: {created}</StyledCreationDate>
     </StyledListingDetails>
   );
 }
 ListingDetails.propTypes = {
-  title: PropTypes.string,
-  type: PropTypes.string,
-  description: PropTypes.string,
-  firstname: PropTypes.string,
-  city: PropTypes.string,
+  history: PropTypes.object,
   listing: PropTypes.object,
-  user: PropTypes.object,
-  id: PropTypes.string,
-  onDelete: PropTypes.func
+  user: PropTypes.object
 };
 
 export default ListingDetails;

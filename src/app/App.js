@@ -5,18 +5,19 @@ import { getLocal, setLocal } from '../services';
 import uid from 'uid';
 import GlobalStyles from '../misc/GlobalStyles';
 import Header from '../components/header/Header';
-import ListingFeed from '../components/feedPage/ListingFeed';
+import HomeFeed from '../components/feedPage/HomeFeed';
 import FavouritesFeed from '../components/feedPage/FavouritesFeed';
 import CreateListing from '../components/createListingPage/CreateListing';
 import ListingDetails from '../components/detailsPage/ListingDetails';
 import Footer from '../components/footer/Footer';
 import SearchResultFeed from '../components/feedPage/SearchResultFeed';
+import ListingsUserFeed from '../components/feedPage/ListingsUserFeed';
 const users = require('./mockUsers.json');
 const mockListings = require('./mockListings.json');
 
 const GridBody = styled.section`
   display: grid;
-  grid-template-rows: 58px auto 55px;
+  grid-template-rows: 58px auto 50px;
   height: 100vh;
 `;
 
@@ -28,6 +29,7 @@ const GridMain = styled.main`
   grid-row: 2;
   overflow: scroll;
   padding: 5px;
+  position: relative;
 `;
 
 const GridFooter = styled.footer`
@@ -48,17 +50,29 @@ function App() {
 
   const user = users[1];
 
-  function handlePublish(title, description, listingType, img, price) {
+  function handlePublish(title, description, listingType, img, price, date) {
     const newListing = {
-      title: title,
-      description: description,
+      title,
+      description,
       type: listingType,
       id: uid(),
-      user: user.userId,
-      img: img,
-      price: price
+      user: user.id_,
+      img,
+      price,
+      created: date
     };
     setListings([...listings, newListing]);
+  }
+
+  function handleChanges(editedListing) {
+    const index = listings.findIndex(
+      listing => listing.id === editedListing.id
+    );
+    setListings([
+      ...listings.slice(0, index),
+      editedListing,
+      ...listings.slice(index + 1)
+    ]);
   }
 
   function handleFavourise(id) {
@@ -77,15 +91,16 @@ function App() {
 
   function findDetails(id) {
     const listing = listings.find(listing => listing.id === id);
-    const user = users.find(user => user.userId === listing.user);
+    const user = users.find(user => user.id_ === listing.user);
     return { listing, user };
   }
 
   function findFavourites() {
-    const favouriteListings = listings
-      .slice()
-      .filter(listing => favourites.includes(listing.id));
-    return favouriteListings;
+    return listings.slice().filter(listing => favourites.includes(listing.id));
+  }
+
+  function findUserListings() {
+    return listings.slice().filter(listing => listing.user === user.id_);
   }
 
   function handleTypeFilter(type) {
@@ -112,7 +127,7 @@ function App() {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`/search/${searchParam}`);
+    history.push(`${user.username}/search/${searchParam}`);
   }
 
   return (
@@ -127,7 +142,7 @@ function App() {
             exact
             path="/"
             render={props => (
-              <ListingFeed
+              <HomeFeed
                 listings={listings}
                 users={users}
                 onFavourise={handleFavourise}
@@ -140,13 +155,13 @@ function App() {
             )}
           />
           <Route
-            path="/create"
+            path="/:username/create"
             render={props => (
               <CreateListing handlePublish={handlePublish} {...props} />
             )}
           />
           <Route
-            path="/favourites"
+            path="/:username/favourites"
             render={() => (
               <FavouritesFeed
                 listings={findFavourites()}
@@ -161,14 +176,12 @@ function App() {
             render={props => (
               <ListingDetails
                 content={findDetails(props.match.params.id)}
-                creator={user.userId}
-                onDelete={handleDelete}
                 {...props}
               />
             )}
           />
           <Route
-            path="/search/:seachParam"
+            path="/:username/search/:searchParam"
             render={() => (
               <SearchResultFeed
                 listings={searchResult}
@@ -178,9 +191,20 @@ function App() {
               />
             )}
           />
+          <Route
+            path="/:username/listings"
+            render={props => (
+              <ListingsUserFeed
+                listings={findUserListings()}
+                onDelete={handleDelete}
+                onSaveChanges={handleChanges}
+                {...props}
+              />
+            )}
+          />
         </GridMain>
         <GridFooter>
-          <Footer />
+          <Footer user={user} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>

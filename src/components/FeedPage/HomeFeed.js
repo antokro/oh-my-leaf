@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import FeedGrid from '../../misc/FeedGrid';
+import Fuse from 'fuse.js';
+import Label from '../../misc/Label';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-import Label from '../../misc/Label';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { TextInput } from '../../misc/Input';
-import Fuse from 'fuse.js';
 
-const StyledListingFeed = styled.section``;
+const StyledHome = styled.section``;
 
-const StyledSearchBar = styled.div`
+const StyledSearchBar = styled.section`
   display: grid;
   font-family: 'PT Mono', monospace;
 `;
@@ -22,12 +23,7 @@ const StyledSelect = styled.select`
   padding: 3px;
 `;
 
-const StyledListingList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-function ListingFeed({
+function HomeFeed({
   listings,
   users,
   onFavourise,
@@ -42,7 +38,6 @@ function ListingFeed({
       listing => typeFilter === 'all' || listing.type === typeFilter
     )
   );
-
   function onChangeTypeSelect(event) {
     const filter = event.target.value;
     onTypeFilter(filter);
@@ -66,7 +61,7 @@ function ListingFeed({
   }
 
   return (
-    <StyledListingFeed>
+    <StyledHome>
       <StyledSearchBar>
         <Label htmlFor="filter">
           <i className="fas fa-search" /> Filter for type
@@ -88,28 +83,30 @@ function ListingFeed({
           onKeyPress={event => event.charCode === 13 && onKeyPressSearch(event)}
         />
       </StyledSearchBar>
-      <StyledListingList>
+      <FeedGrid>
         {filteredListings.map(listing => (
           <ListingItem
             key={listing.id}
             content={listing}
-            user={users.find(user => user.userId === listing.user)}
+            user={users.find(user => user.id_ === listing.user)}
             onFavourise={() => onFavourise(listing.id)}
             isFavourite={favourites.includes(listing.id)}
           />
         ))}
-      </StyledListingList>
-    </StyledListingFeed>
+      </FeedGrid>
+    </StyledHome>
   );
 }
 
-ListingFeed.propTypes = {
+HomeFeed.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
   onTypeFilter: PropTypes.func,
-  typeFilter: PropTypes.string
+  typeFilter: PropTypes.string,
+  handleSearch: PropTypes.func,
+  history: PropTypes.object
 };
 
-export default ListingFeed;
+export default HomeFeed;

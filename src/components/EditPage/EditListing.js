@@ -1,19 +1,29 @@
 import axios from 'axios';
+import Close from '../../misc/CircleCloseDelete';
+import Icon from '../../misc/Icon';
 import Label from '../../misc/Label';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
-import styled from 'styled-components';
 import { TextInput, Textarea } from '../../misc/Input';
-import TypeButton from './TypeButton';
+import TypeButton from '../createListingPage/TypeButton';
+import styled from 'styled-components';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const StyledForm = styled.form`
+  background: white;
+  border-radius: 11px;
+  bottom: 5%;
+  box-shadow: 3px 3px 9px -2px #c9cac8;
   display: flex;
   flex-direction: column;
+  left: 5%;
+  padding: 5px;
+  position: absolute;
+  right: 5%;
+  top: 5%;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -37,12 +47,6 @@ const StyledButton = styled.button`
   padding: 9px;
 `;
 
-const StyledImgIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
-`;
-
 const StyledAddImg = styled.div`
   display: flex;
   margin: 10px;
@@ -53,12 +57,17 @@ const StyledAddImg = styled.div`
 const StyledFileInput = styled(TextInput)`
   color: #201f1d;
   font-size: 12px;
-  margin: 5px;
+  margin: 5px 0;
 `;
 
 const ImgPreview = styled.img`
   max-width: 60px;
   max-height: 60px;
+`;
+
+const PreviewWrapper = styled.div`
+  align-items: center;
+  display: flex;
 `;
 
 const StyledLoadIcon = styled(LoadIcon)`
@@ -71,37 +80,51 @@ const StyledPriceInput = styled(TextInput)`
 
 const StyledPriceInputWrapper = styled.div``;
 
-function CreateListing({ handlePublish, history }) {
+const StyledClose = styled(Close)`
+  position: absolute;
+  right: 3px;
+  top: 3px;
+`;
+
+function EditListing({ listing, onSave, onClose }) {
+  const [editedListing, setEditedListing] = useState(listing);
   const [listingType, setListingType] = useState('give away');
-  const [image, setImage] = useState(
-    'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
-  );
-  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
-  const [isAddImage, setAddImage] = useState(false);
-  const [isUploadSuccess, setUploadSuccess] = useState(false);
+  const [image, setImage] = useState(listing.img);
+  const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const types = ['give away', 'swap', 'for sale'];
 
-  function onPublish(event) {
+  function onClickSave(event) {
     event.preventDefault();
     const form = event.target;
-    const title = form.title.value.trim();
-    const description = form.description.value.trim();
+    const title = form.title.value;
+    const description = form.description.value;
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
-    handlePublish(title, description, listingType, img, price, date);
-    form.reset();
-    history.push('/');
+
+    const listingEdit = {
+      title,
+      description,
+      type: listingType,
+      img,
+      price,
+      id: editedListing.id,
+      user: editedListing.user
+    };
+
+    onSave(listingEdit);
   }
 
   function handleTypeButtonClick(event) {
-    const type = event.target.value;
-    setListingType(type);
+    setListingType(event.target.value);
   }
 
-  function onAddImage() {
-    setAddImage(!isAddImage);
+  function onImgDelete() {
+    setImage(
+      'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
+    );
+    setUploadSuccess(!isUploadSuccess);
   }
 
   function uploadImage(event) {
@@ -125,28 +148,40 @@ function CreateListing({ handlePublish, history }) {
   }
 
   return (
-    <StyledForm onSubmit={onPublish}>
+    <StyledForm onSubmit={onClickSave}>
+      <StyledClose onClick={onClose}>x</StyledClose>
       <Label htmlFor="title">Title</Label>
       <StyledInput
+        onChange={event =>
+          setEditedListing({ ...editedListing, title: event.target.value })
+        }
         type="text"
-        placeholder="type title here..."
         id="title"
         name="title"
+        defaultValue={listing.title}
       />
       <Label htmlFor="description">Description</Label>
       <StyledTextarea
+        onChange={event =>
+          setEditedListing({
+            ...editedListing,
+            description: event.target.value
+          })
+        }
         type="textarea"
-        placeholder="type description here..."
         id="description"
         name="description"
+        defaultValue={listing.description}
       />
       <StyledAddImg>
-        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
-        {isAddImage && (
-          <StyledFileInput onChange={uploadImage} type="file" name="file" />
-        )}
+        <StyledFileInput onChange={uploadImage} type="file" name="file" />
         {isImageUploading && <StyledLoadIcon />}
-        {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
+        {isUploadSuccess && (
+          <PreviewWrapper>
+            <ImgPreview src={image} alt="uploaded image" />
+            <Icon onClick={onImgDelete} className="far fa-trash-alt" />
+          </PreviewWrapper>
+        )}
       </StyledAddImg>
       <Label>Listing Type</Label>
       <StyledTypeButtonGroup>
@@ -165,12 +200,15 @@ function CreateListing({ handlePublish, history }) {
           <StyledPriceInput id="price" name="price" />
         </StyledPriceInputWrapper>
       )}
-      <StyledButton>PUBLISH</StyledButton>
+      <StyledButton>SAVE CHANGES</StyledButton>
     </StyledForm>
   );
 }
-CreateListing.propTypes = {
-  handlePublish: PropTypes.func,
-  history: PropTypes.object
+
+EditListing.propTypes = {
+  listing: PropTypes.object.isRequired,
+  onSave: PropTypes.func,
+  onClose: PropTypes.func
 };
-export default CreateListing;
+
+export default EditListing;

@@ -1,23 +1,38 @@
 [
   {
-    "firstname": "Sabine",
-    "lastname": "Gerner",
-    "userId": "User1",
+    "name": {
+      "firstname": "Sabine",
+      "lastname": "Gerner"
+    },
+    "id_": "User1",
+    "username": "SabineHH",
     "city": "Hamburg",
-    "email": "sabinetest@googlemail.com"
+    "email": "sabinetest@googlemail.com",
+    "img": "",
+    "icon": "330"
   },
   {
-    "firstname": "Antonia",
-    "lastname": "Krohn",
-    "userId": "User2",
+    "name": {
+      "firstname": "Antonia",
+      "lastname": "Krohn"
+    },
+    "id_": "User2",
+    "username": "Plant_Toni",
     "city": "Hamburg",
-    "email": "antoniatest@googlemail.com"
+    "email": "antoniatest@googlemail.com",
+    "img": "",
+    "icon": "170"
   },
   {
-    "firstname": "Anna",
-    "lastname": "Rahm",
-    "userId": "User3",
+    "name": {
+      "firstname": "Anna",
+      "lastname": "Rahm"
+    },
+    "id_": "User3",
+    "username": "AnnaMUC",
     "city": "München",
-    "email": "annatest@googlemail.com"
+    "email": "annatest@googlemail.com",
+    "img": "",
+    "icon": "200"
   }
 ]

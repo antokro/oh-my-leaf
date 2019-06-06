@@ -1,23 +1,20 @@
+import { Link as Listing } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { Link as Listing } from 'react-router-dom';
 import TypeTag from '../../misc/TypeTag';
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: relative;
-  height: 255px;
-  margin: 15px auto;
-  width: 156px;
 `;
 
 const StyledListing = styled(Listing)`
-  color: #201f1d;
   background: #fcfbf6;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
+  color: #201f1d;
   display: grid;
-  grid-template-rows: 120px 60px 35px 40px;
+  grid-template-rows: 120px 60px 30px 35px 30px;
   text-decoration: none;
 
   &:visited {
@@ -26,32 +23,38 @@ const StyledListing = styled(Listing)`
   }
 `;
 const StyledImgWrapper = styled.div`
-  grid-row: 1;
   background-image: url(${props => props.img});
   background-size: cover;
+  grid-row: 1;
 `;
 
 const StyledTitle = styled.h3`
-  font-size: 20px;
+  font-size: 15px;
   grid-row: 2;
-  margin: 9px;
+  margin: 3px 9px;
   text-align: start;
 `;
 
 const StyledTypeWrapper = styled.div`
-  grid-row: 3;
+  grid-row: 4;
   margin: 8px 0;
 `;
 const StyledType = styled(TypeTag)`
+  font-size: 13px;
   margin: 3px 9px;
 `;
 
-const StyledPrice = styled.span``;
-
-const StyledUser = styled.p`
+const StyledPrice = styled.div`
   align-self: center;
-  font-size: 15px;
-  grid-row: 4;
+  font-size: 13px;
+  grid-row: 3;
+  margin: 3px 9px;
+`;
+
+const StyledLocation = styled.p`
+  align-self: center;
+  font-size: 13px;
+  grid-row: 5;
   margin: 3px 9px;
 `;
 
@@ -60,53 +63,102 @@ const StyledIcon = styled.i`
 `;
 
 const StyledHeart = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: ${props => props.color};
+  ${props =>
+    props.animate
+      ? props.isFavourite
+        ? 'animation: isFavourite ease-in-out 0.5s'
+        : 'animation: isNotFavourite ease-in-out 0.5s'
+      : ''};
+  color: ${props => (props.isFavourite ? '#E79796' : '#201f1d')};
   font-size: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+
+  @keyframes isFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes isNotFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
-function ListingItem(props) {
-  const { title, type, id, img, price } = props.content;
-  const { city } = props.user;
-  const { onFavourise, isFavourite } = props;
+class ListingItem extends React.Component {
+  state = {
+    animate: false
+  };
 
-  return (
-    <Wrapper>
-      <StyledHeart
-        onClick={onFavourise}
-        className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
-        color={isFavourite ? '#E79796' : '#201f1d'}
-      />
-      <StyledListing to={`/details/${id}`}>
-        <StyledImgWrapper img={img} />
-        <StyledTitle>
-          {title.length >= 15 ? title.slice(0, 15) + '...' : title}
-        </StyledTitle>
-        <StyledTypeWrapper>
-          <StyledType>{type}</StyledType>
+  componentDidUpdate(prevProps) {
+    const { isFavourite } = this.props;
+    if (prevProps.isFavourite !== isFavourite) {
+      this.setState({ animate: true });
+    }
+  }
+
+  render() {
+    const { user, onFavourise, content, isFavourite } = this.props;
+    const { title, type, id, img, price } = content;
+    const { city } = user;
+    const { animate } = this.state;
+    function onClickFavourise(id) {
+      onFavourise(id);
+    }
+    return (
+      <Wrapper>
+        <StyledHeart
+          onClick={() => onClickFavourise(id)}
+          className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
+          isFavourite={isFavourite}
+          animate={animate}
+        />
+        <StyledListing to={`/details/${id}`}>
+          <StyledImgWrapper img={img} />
+          <StyledTitle>
+            {title.length >= 40 ? title.slice(0, 39) + '...' : title}
+          </StyledTitle>
           {price !== '' && <StyledPrice>{price}€</StyledPrice>}
-        </StyledTypeWrapper>
-        <StyledUser>
-          <StyledIcon className="fas fa-map-marker-alt" />
-          {city}
-        </StyledUser>
-      </StyledListing>
-    </Wrapper>
-  );
+          <StyledTypeWrapper>
+            <StyledType>{type}</StyledType>
+          </StyledTypeWrapper>
+          <StyledLocation>
+            <StyledIcon className="fas fa-map-marker-alt" />
+            <span>{city}</span>
+          </StyledLocation>
+        </StyledListing>
+      </Wrapper>
+    );
+  }
 }
 
 ListingItem.propTypes = {
-  title: PropTypes.string,
-  type: PropTypes.string,
-  city: PropTypes.string,
-  id: PropTypes.string,
-  img: PropTypes.string,
-  price: PropTypes.string,
   onFavourise: PropTypes.func,
   content: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  isFavourite: PropTypes.bool
 };
 
 export default ListingItem;
+/* title.length >= 13 ? title.slice(0, 13) + '...' : */

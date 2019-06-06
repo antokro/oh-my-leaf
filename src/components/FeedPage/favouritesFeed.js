@@ -1,26 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
+import FeedGrid from '../../misc/FeedGrid';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-
-const StyledFavouritesFeed = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-`;
+import React from 'react';
 
 function FavouritesFeed({ listings, users, onFavourise, favourites }) {
   return (
-    <StyledFavouritesFeed>
+    <FeedGrid>
       {listings.map(listing => (
         <ListingItem
           key={listing.id}
           content={listing}
-          user={users.find(user => user.userId === listing.user)}
+          user={users.find(user => user.id_ === listing.user)}
           onFavourise={() => onFavourise(listing.id)}
           isFavourite={favourites.includes(listing.id)}
         />
       ))}
-    </StyledFavouritesFeed>
+    </FeedGrid>
   );
 }
 
@@ -28,7 +23,7 @@ FavouritesFeed.propTypes = {
   listings: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
-  isFavourites: PropTypes.bool
+  favourites: PropTypes.array
 };
 
 export default FavouritesFeed;

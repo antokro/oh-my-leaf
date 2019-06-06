@@ -1,31 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
+import FeedGrid from '../../misc/FeedGrid';
+import Label from '../../misc/Label';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-import Label from '../../misc/Label';
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledSearchResultFeed = styled.section``;
-
-const StyledListingList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 function SearchResultFeed({ listings, users, onFavourise, favourites }) {
   return (
     <StyledSearchResultFeed>
       <Label>Search Results</Label>
-      <StyledListingList>
+      <FeedGrid>
         {listings.map(listing => (
           <ListingItem
             key={listing.id}
             content={listing}
-            user={users.find(user => user.userId === listing.user)}
+            user={users.find(user => user.id_ === listing.user)}
             onFavourise={() => onFavourise(listing.id)}
             isFavourite={favourites.includes(listing.id)}
           />
         ))}
-      </StyledListingList>
+      </FeedGrid>
     </StyledSearchResultFeed>
   );
 }
