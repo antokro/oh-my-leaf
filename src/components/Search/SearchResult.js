@@ -1,5 +1,5 @@
 import FeedGrid from '../common/Grid/FeedGrid';
-import Label from '../common/Label';
+import Label from '../common/FormElements/Label';
 import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
 import React from 'react';

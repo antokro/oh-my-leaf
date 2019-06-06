@@ -10,7 +10,7 @@ import FavouritesList from '../components/Favourites/FavouritesList';
 import CreateForm from '../components/Create/CreateForm';
 import DetailsPage from '../components/Details/DetailsPage';
 import Footer from '../components/Footer/Footer';
-import SearchResult from '../components/Home/SearchResult';
+import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
 const users = require('./mockUsers.json');

@@ -1,7 +1,7 @@
-import React from './node_modules/react';
-import styled from './node_modules/styled-components';
-import { NavLink } from './node_modules/react-router-dom';
-import PropTypes from './node_modules/prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const StyledFooter = styled.footer`
   background: #abc38e;
