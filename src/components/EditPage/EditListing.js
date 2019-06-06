@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { TextInput, Textarea } from '../../misc/Input';
-import Label from '../../misc/Label';
-import TypeButton from '../createListingPage/TypeButton';
-import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 import axios from 'axios';
 import Close from '../../misc/CircleCloseDelete';
 import Icon from '../../misc/Icon';
+import Label from '../../misc/Label';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
+import { TextInput, Textarea } from '../../misc/Input';
+import TypeButton from '../createListingPage/TypeButton';
+import styled from 'styled-components';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const StyledForm = styled.form`
+  background: white;
+  border-radius: 11px;
+  bottom: 5%;
+  box-shadow: 3px 3px 9px -2px #c9cac8;
   display: flex;
   flex-direction: column;
-  background: white;
-  position: absolute;
-  top: 5%;
-  bottom: 5%;
-  right: 5%;
   left: 5%;
-  border-radius: 11px;
   padding: 5px;
-  box-shadow: 3px 3px 9px -2px #c9cac8;
+  position: absolute;
+  right: 5%;
+  top: 5%;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -48,10 +48,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledAddImg = styled.div`
-  padding: 5px;
   display: flex;
   margin: 10px;
   flex-direction: column;
+  padding: 5px;
 `;
 
 const StyledFileInput = styled(TextInput)`
@@ -66,8 +66,8 @@ const ImgPreview = styled.img`
 `;
 
 const PreviewWrapper = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 
 const StyledLoadIcon = styled(LoadIcon)`
@@ -81,9 +81,9 @@ const StyledPriceInput = styled(TextInput)`
 const StyledPriceInputWrapper = styled.div``;
 
 const StyledClose = styled(Close)`
-  top: 3px;
-  right: 3px;
   position: absolute;
+  right: 3px;
+  top: 3px;
 `;
 
 function EditListing({ listing, onSave, onClose }) {
@@ -117,8 +117,7 @@ function EditListing({ listing, onSave, onClose }) {
   }
 
   function handleTypeButtonClick(event) {
-    const type = event.target.value;
-    setListingType(type);
+    setListingType(event.target.value);
   }
 
   function onImgDelete() {
@@ -207,7 +206,7 @@ function EditListing({ listing, onSave, onClose }) {
 }
 
 EditListing.propTypes = {
-  listing: PropTypes.object,
+  listing: PropTypes.object.isRequired,
   onSave: PropTypes.func,
   onClose: PropTypes.func
 };

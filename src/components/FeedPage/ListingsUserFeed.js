@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import EditListing from '../EditPage/EditListing';
 import Icon from '../../misc/Icon';
 import { Link as Listing } from 'react-router-dom';
-import EditListing from '../EditPage/EditListing';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const StyledUserListings = styled.section``;
 
-const StyledListingWrapper = styled.div`
+const StyledListingWrapper = styled.section`
+  align-items: center;
   border: 2px solid #abc38e;
   border-radius: 11px;
   font-size: 15px;
-  padding: 5px;
-  align-items: center;
   margin: 8px 0;
   opacity: ${props => props.opacity};
+  padding: 5px;
 `;
 
 const StyledTitle = styled.h3`

@@ -52,26 +52,26 @@ function App() {
 
   function handlePublish(title, description, listingType, img, price, date) {
     const newListing = {
-      title: title,
-      description: description,
+      title,
+      description,
       type: listingType,
       id: uid(),
       user: user.id_,
-      img: img,
-      price: price,
+      img,
+      price,
       created: date
     };
     setListings([...listings, newListing]);
   }
 
   function handleChanges(editedListing) {
-    const indexListing = listings.findIndex(
+    const index = listings.findIndex(
       listing => listing.id === editedListing.id
     );
     setListings([
-      ...listings.slice(0, indexListing),
+      ...listings.slice(0, index),
       editedListing,
-      ...listings.slice(indexListing + 1)
+      ...listings.slice(index + 1)
     ]);
   }
 
@@ -96,17 +96,11 @@ function App() {
   }
 
   function findFavourites() {
-    const favouriteListings = listings
-      .slice()
-      .filter(listing => favourites.includes(listing.id));
-    return favouriteListings;
+    return listings.slice().filter(listing => favourites.includes(listing.id));
   }
 
   function findUserListings() {
-    const userListings = listings
-      .slice()
-      .filter(listing => listing.user === user.id_);
-    return userListings;
+    return listings.slice().filter(listing => listing.user === user.id_);
   }
 
   function handleTypeFilter(type) {

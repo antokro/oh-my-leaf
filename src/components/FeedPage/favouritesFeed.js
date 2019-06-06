@@ -1,7 +1,7 @@
-import React from 'react';
+import FeedGrid from '../../misc/FeedGrid';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-import FeedGrid from '../../misc/FeedGrid';
+import React from 'react';
 
 function FavouritesFeed({ listings, users, onFavourise, favourites }) {
   return (

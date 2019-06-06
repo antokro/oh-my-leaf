@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import FeedGrid from '../../misc/FeedGrid';
+import Label from '../../misc/Label';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-import Label from '../../misc/Label';
-import FeedGrid from '../../misc/FeedGrid';
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledSearchResultFeed = styled.section``;
 

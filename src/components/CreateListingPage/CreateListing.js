@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { TextInput, Textarea } from '../../misc/Input';
-import Label from '../../misc/Label';
-import TypeButton from './TypeButton';
-import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
 import axios from 'axios';
+import Label from '../../misc/Label';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { ReactComponent as LoadIcon } from '../../img/loadingIcon.svg';
+import styled from 'styled-components';
+import { TextInput, Textarea } from '../../misc/Input';
+import TypeButton from './TypeButton';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -44,10 +44,10 @@ const StyledImgIcon = styled.i`
 `;
 
 const StyledAddImg = styled.div`
-  padding: 5px;
   display: flex;
   margin: 10px;
   flex-direction: column;
+  padding: 5px;
 `;
 
 const StyledFileInput = styled(TextInput)`

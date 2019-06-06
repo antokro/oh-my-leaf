@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import FeedGrid from '../../misc/FeedGrid';
+import Fuse from 'fuse.js';
+import Label from '../../misc/Label';
 import ListingItem from './ListingItem';
 import PropTypes from 'prop-types';
-import Label from '../../misc/Label';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { TextInput } from '../../misc/Input';
-import Fuse from 'fuse.js';
-import FeedGrid from '../../misc/FeedGrid';
 
 const StyledHome = styled.section``;
 
-const StyledSearchBar = styled.div`
+const StyledSearchBar = styled.section`
   display: grid;
   font-family: 'PT Mono', monospace;
 `;

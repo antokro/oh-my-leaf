@@ -1,8 +1,8 @@
+import Image from '../../misc/Image';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import TypeTag from '../../misc/TypeTag';
-import Image from '../../misc/Image';
 
 const StyledListingDetails = styled.section``;
 
@@ -31,16 +31,16 @@ const StyledUser = styled.div`
 `;
 
 const StyledUserIcon = styled.p`
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  margin: 0 5px;
   align-items: center;
-  justify-content: center;
   background: ${props => `hsl(${props.color}deg, 50%, 67%)`};
+  border-radius: 50%;
   color: white;
-  font-size: 20px;
   display: flex;
+  font-size: 20px;
+  height: 40px;
+  justify-content: center;
+  margin: 0 5px;
+  width: 40px;
 `;
 
 const StyledUserInfo = styled.p`

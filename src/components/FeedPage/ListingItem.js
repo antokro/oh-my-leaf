@@ -1,18 +1,18 @@
+import { Link as Listing } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { Link as Listing } from 'react-router-dom';
 import TypeTag from '../../misc/TypeTag';
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   position: relative;
 `;
 
 const StyledListing = styled(Listing)`
-  color: #201f1d;
   background: #fcfbf6;
   border-radius: 11px;
   box-shadow: 3px 3px 9px -2px #c9cac8;
+  color: #201f1d;
   display: grid;
   grid-template-rows: 120px 60px 30px 35px 30px;
   text-decoration: none;
@@ -23,9 +23,9 @@ const StyledListing = styled(Listing)`
   }
 `;
 const StyledImgWrapper = styled.div`
-  grid-row: 1;
   background-image: url(${props => props.img});
   background-size: cover;
+  grid-row: 1;
 `;
 
 const StyledTitle = styled.h3`
@@ -45,10 +45,10 @@ const StyledType = styled(TypeTag)`
 `;
 
 const StyledPrice = styled.div`
+  align-self: center;
   font-size: 13px;
   grid-row: 3;
   margin: 3px 9px;
-  align-self: center;
 `;
 
 const StyledLocation = styled.p`
@@ -63,17 +63,17 @@ const StyledIcon = styled.i`
 `;
 
 const StyledHeart = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: ${props => (props.isFavourite ? '#E79796' : '#201f1d')};
-  font-size: 20px;
   ${props =>
     props.animate
       ? props.isFavourite
         ? 'animation: isFavourite ease-in-out 0.5s'
         : 'animation: isNotFavourite ease-in-out 0.5s'
       : ''};
+  color: ${props => (props.isFavourite ? '#E79796' : '#201f1d')};
+  font-size: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
 
   @keyframes isFavourite {
     0% {

@@ -6,10 +6,10 @@ export default createGlobalStyle`
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'PT Mono', monospace;
   color: #201F1D;
+  font-family: 'PT Mono', monospace;
+  margin: 0;
   overflow:hidden;
+  padding: 0;
 }
 `;
