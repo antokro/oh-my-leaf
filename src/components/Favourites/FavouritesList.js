@@ -1,12 +1,13 @@
 import FeedGrid from '../common/Grid/FeedGrid';
 import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 function FavouritesList({ listings, users, onFavourise, favourites }) {
+  const [favouriteListings] = useState(listings);
   return (
     <FeedGrid>
-      {listings.map(listing => (
+      {favouriteListings.map(listing => (
         <Listing
           key={listing.id}
           content={listing}

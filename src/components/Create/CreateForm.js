@@ -69,7 +69,18 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-const StyledPriceInputWrapper = styled.div``;
+const StyledPriceInputWrapper = styled.div`
+  animation: slideOpen 0.3s linear;
+
+  @keyframes slideOpen {
+    from {
+      height: 0;
+    }
+    to {
+      height: 50px;
+    }
+  }
+`;
 
 function CreateForm({ handlePublish, history }) {
   const [listingType, setListingType] = useState('give away');

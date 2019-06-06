@@ -69,8 +69,8 @@ const StyledHeart = styled.div`
         ? 'animation: isFavourite ease-in-out 0.5s'
         : 'animation: isNotFavourite ease-in-out 0.5s'
       : ''};
-  color: ${props => (props.isFavourite ? '#E79796' : '#201f1d')};
-  font-size: 20px;
+  color: ${props => (props.isFavourite ? '#E79796' : '#585655')};
+  font-size: 25px;
   position: absolute;
   right: 5px;
   top: 5px;
