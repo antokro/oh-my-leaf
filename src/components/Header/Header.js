@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from './node_modules/react';
+import styled from './node_modules/styled-components';
 import logo from '../../img/Logo-oh-my-leaf.png';
 
 const StyledHeader = styled.header`

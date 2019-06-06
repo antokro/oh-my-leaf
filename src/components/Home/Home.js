@@ -1,11 +1,11 @@
-import FeedGrid from '../../misc/FeedGrid';
+import FeedGrid from '../common/Grid/FeedGrid';
 import Fuse from 'fuse.js';
-import Label from '../../misc/Label';
-import ListingItem from './ListingItem';
+import Label from '../common/FormElements/Label';
+import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TextInput } from '../../misc/Input';
+import { TextInput } from '../common/FormElements/Input';
 
 const StyledHome = styled.section``;
 
@@ -23,7 +23,7 @@ const StyledSelect = styled.select`
   padding: 3px;
 `;
 
-function HomeFeed({
+function Home({
   listings,
   users,
   onFavourise,
@@ -85,7 +85,7 @@ function HomeFeed({
       </StyledSearchBar>
       <FeedGrid>
         {filteredListings.map(listing => (
-          <ListingItem
+          <Listing
             key={listing.id}
             content={listing}
             user={users.find(user => user.id_ === listing.user)}
@@ -98,7 +98,7 @@ function HomeFeed({
   );
 }
 
-HomeFeed.propTypes = {
+Home.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
   users: PropTypes.array,
@@ -109,4 +109,4 @@ HomeFeed.propTypes = {
   history: PropTypes.object
 };
 
-export default HomeFeed;
+export default Home;

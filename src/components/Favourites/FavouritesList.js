@@ -1,13 +1,13 @@
-import FeedGrid from '../../misc/FeedGrid';
-import ListingItem from './ListingItem';
+import FeedGrid from '../common/Grid/FeedGrid';
+import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function FavouritesFeed({ listings, users, onFavourise, favourites }) {
+function FavouritesList({ listings, users, onFavourise, favourites }) {
   return (
     <FeedGrid>
       {listings.map(listing => (
-        <ListingItem
+        <Listing
           key={listing.id}
           content={listing}
           user={users.find(user => user.id_ === listing.user)}
@@ -19,11 +19,11 @@ function FavouritesFeed({ listings, users, onFavourise, favourites }) {
   );
 }
 
-FavouritesFeed.propTypes = {
+FavouritesList.propTypes = {
   listings: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func,
   favourites: PropTypes.array
 };
 
-export default FavouritesFeed;
+export default FavouritesList;

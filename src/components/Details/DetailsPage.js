@@ -1,10 +1,10 @@
-import Image from '../../misc/Image';
+import Image from '../common/Image';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TypeTag from '../../misc/TypeTag';
+import TypeTag from '../common/FormElements/TypeTag';
 
-const StyledListingDetails = styled.section``;
+const StyledDetailsPage = styled.section``;
 
 const StyledTitle = styled.h3`
   font-size: 30px;
@@ -55,7 +55,7 @@ const StyledCreationDate = styled.div`
   margin: 10px 0;
 `;
 
-function ListingDetails({ content, history }) {
+function DetailsPage({ content, history }) {
   const { title, type, description, img, price, created } = content.listing;
   const { name, city, icon } = content.user;
 
@@ -63,7 +63,7 @@ function ListingDetails({ content, history }) {
     history.goBack();
   }
   return (
-    <StyledListingDetails>
+    <StyledDetailsPage>
       <StyledGoBack onClick={handleGoBack}>
         <i className="fas fa-arrow-circle-left" /> Go Back
       </StyledGoBack>
@@ -81,13 +81,13 @@ function ListingDetails({ content, history }) {
         <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
       <StyledCreationDate>Created: {created}</StyledCreationDate>
-    </StyledListingDetails>
+    </StyledDetailsPage>
   );
 }
-ListingDetails.propTypes = {
+DetailsPage.propTypes = {
   history: PropTypes.object,
   listing: PropTypes.object,
   user: PropTypes.object
 };
 
-export default ListingDetails;
+export default DetailsPage;

@@ -1,19 +1,19 @@
-import FeedGrid from '../../misc/FeedGrid';
-import Label from '../../misc/Label';
-import ListingItem from './ListingItem';
+import FeedGrid from '../common/Grid/FeedGrid';
+import Label from '../common/Label';
+import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledSearchResultFeed = styled.section``;
+const StyledSearchResult = styled.section``;
 
-function SearchResultFeed({ listings, users, onFavourise, favourites }) {
+function SearchResult({ listings, users, onFavourise, favourites }) {
   return (
-    <StyledSearchResultFeed>
+    <StyledSearchResult>
       <Label>Search Results</Label>
       <FeedGrid>
         {listings.map(listing => (
-          <ListingItem
+          <Listing
             key={listing.id}
             content={listing}
             user={users.find(user => user.id_ === listing.user)}
@@ -22,15 +22,15 @@ function SearchResultFeed({ listings, users, onFavourise, favourites }) {
           />
         ))}
       </FeedGrid>
-    </StyledSearchResultFeed>
+    </StyledSearchResult>
   );
 }
 
-SearchResultFeed.propTypes = {
+SearchResult.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
   users: PropTypes.array,
   onFavourise: PropTypes.func
 };
 
-export default SearchResultFeed;
+export default SearchResult;
