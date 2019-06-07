@@ -7,58 +7,24 @@ import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import styled from 'styled-components';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from './TypeButton';
+import SwapTags from './SwapTags';
+import {
+  Form,
+  Button,
+  ImgIcon,
+  AddImg,
+  ImgPreview,
+  TypeButtonGroup,
+  PriceInputWrapper
+} from '../common/FormElements/Forms';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledInput = styled(TextInput)`
-  height: 32px;
-  margin: 10px 0;
-`;
-
-const StyledTextarea = styled(Textarea)`
-  height: 150px;
-  margin: 10px 0;
-`;
-
-const StyledTypeButtonGroup = styled.div``;
-
-const StyledButton = styled.button`
-  background-color: #abc38e;
-  border-radius: 11px;
-  font-family: 'PT Mono', monospace;
-  font-size: 20px;
-  margin-top: 15px;
-  padding: 9px;
-`;
-
-const StyledImgIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
-`;
-
-const StyledAddImg = styled.div`
-  display: flex;
-  margin: 10px;
-  flex-direction: column;
-  padding: 5px;
-`;
 
 const StyledFileInput = styled(TextInput)`
   color: #201f1d;
   font-size: 12px;
   margin: 5px;
-`;
-
-const ImgPreview = styled.img`
-  max-width: 60px;
-  max-height: 60px;
 `;
 
 const StyledLoadIcon = styled(LoadIcon)`
@@ -69,28 +35,16 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-const StyledPriceInputWrapper = styled.div`
-  animation: slideOpen 0.3s linear;
-
-  @keyframes slideOpen {
-    from {
-      height: 0;
-    }
-    to {
-      height: 50px;
-    }
-  }
-`;
-
 function CreateForm({ handlePublish, history }) {
-  const [listingType, setListingType] = useState('give away');
+  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
-  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
+  const [listingType, setListingType] = useState('give away');
+  const [swapTags, setSwapTags] = useState(['Cactus', 'exotic plants']);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -101,7 +55,8 @@ function CreateForm({ handlePublish, history }) {
     const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
-    handlePublish(title, description, listingType, img, price, date);
+    const tags = swapTags;
+    handlePublish(title, description, listingType, img, price, date, tags);
     form.reset();
     history.push('/');
   }
@@ -135,32 +90,43 @@ function CreateForm({ handlePublish, history }) {
     setImage(response.data.url);
   }
 
+  function handleTagInput(event) {
+    const tag = event.target.value.split(',');
+    tag[0] === '' || setSwapTags([...swapTags, tag[0]]);
+    event.target.value = '';
+  }
+
+  function handleTagDelete(tag) {
+    const index = swapTags.indexOf(tag);
+    setSwapTags([...swapTags.slice(0, index), ...swapTags.slice(index + 1)]);
+  }
+
   return (
-    <StyledForm onSubmit={onPublish}>
+    <Form onSubmit={onPublish}>
       <Label htmlFor="title">Title</Label>
-      <StyledInput
+      <TextInput
         type="text"
         placeholder="type title here..."
         id="title"
         name="title"
       />
       <Label htmlFor="description">Description</Label>
-      <StyledTextarea
+      <Textarea
         type="textarea"
         placeholder="type description here..."
         id="description"
         name="description"
       />
-      <StyledAddImg>
-        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
+      <AddImg>
+        <ImgIcon onClick={onAddImage} className="far fa-images" />
         {isAddImage && (
           <StyledFileInput onChange={uploadImage} type="file" name="file" />
         )}
         {isImageUploading && <StyledLoadIcon />}
         {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
-      </StyledAddImg>
+      </AddImg>
       <Label>Listing Type</Label>
-      <StyledTypeButtonGroup>
+      <TypeButtonGroup>
         {types.map(type => (
           <TypeButton
             handleClick={handleTypeButtonClick}
@@ -169,15 +135,22 @@ function CreateForm({ handlePublish, history }) {
             filled={listingType}
           />
         ))}
-      </StyledTypeButtonGroup>
+      </TypeButtonGroup>
       {listingType === 'for sale' && (
-        <StyledPriceInputWrapper>
-          <Label>Price in €</Label>
+        <PriceInputWrapper>
+          <Label htmlFor="price">Price in €</Label>
           <StyledPriceInput id="price" name="price" />
-        </StyledPriceInputWrapper>
+        </PriceInputWrapper>
       )}
-      <StyledButton>PUBLISH</StyledButton>
-    </StyledForm>
+      {listingType === 'swap' && (
+        <SwapTags
+          tags={swapTags}
+          onDelete={handleTagDelete}
+          onInput={handleTagInput}
+        />
+      )}
+      <Button>PUBLISH</Button>
+    </Form>
   );
 }
 CreateForm.propTypes = {

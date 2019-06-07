@@ -2,7 +2,7 @@ import Image from '../common/Image';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TypeTag from '../common/FormElements/TypeTag';
+import { TypeTag, SwapTag } from '../common/FormElements/Tags';
 
 const StyledDetailsPage = styled.section``;
 
@@ -55,8 +55,24 @@ const StyledCreationDate = styled.div`
   margin: 10px 0;
 `;
 
+const StyledTags = styled.div`
+  padding: 5px 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 0;
+  align-items: center;
+`;
+
 function DetailsPage({ content, history }) {
-  const { title, type, description, img, price, created } = content.listing;
+  const {
+    title,
+    type,
+    description,
+    img,
+    price,
+    created,
+    tags
+  } = content.listing;
   const { name, city, icon } = content.user;
 
   function handleGoBack() {
@@ -71,6 +87,15 @@ function DetailsPage({ content, history }) {
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
+      {type === 'swap' &&
+        (tags !== '' && (
+          <StyledTags>
+            Possible swaps:
+            {tags.map(tag => (
+              <SwapTag key={tag}>{tag}</SwapTag>
+            ))}
+          </StyledTags>
+        ))}
       <StyledDescription>{description}</StyledDescription>
       <StyledUser>
         <StyledUserIcon color={icon}>

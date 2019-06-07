@@ -8,61 +8,36 @@ import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from '../Create/TypeButton';
 import styled from 'styled-components';
+import SwapTags from '../Create/SwapTags';
+import {
+  Form,
+  TypeButtonGroup,
+  Button,
+  AddImg,
+  ImgPreview,
+  PriceInputWrapper
+} from '../common/FormElements/Forms';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-const StyledForm = styled.form`
+const StyledForm = styled(Form)`
   background: white;
   border-radius: 11px;
   bottom: 5%;
   box-shadow: 3px 3px 9px -2px #c9cac8;
-  display: flex;
-  flex-direction: column;
   left: 5%;
   padding: 5px;
   position: absolute;
   right: 5%;
   top: 5%;
-`;
-
-const StyledInput = styled(TextInput)`
-  height: 32px;
-  margin: 10px 0;
-`;
-
-const StyledTextarea = styled(Textarea)`
-  height: 150px;
-  margin: 10px 0;
-`;
-
-const StyledTypeButtonGroup = styled.div``;
-
-const StyledButton = styled.button`
-  background-color: #abc38e;
-  border-radius: 11px;
-  font-family: 'PT Mono', monospace;
-  font-size: 20px;
-  margin-top: 15px;
-  padding: 9px;
-`;
-
-const StyledAddImg = styled.div`
-  display: flex;
-  margin: 10px;
-  flex-direction: column;
-  padding: 5px;
+  overflow: scroll;
 `;
 
 const StyledFileInput = styled(TextInput)`
   color: #201f1d;
   font-size: 12px;
   margin: 5px 0;
-`;
-
-const ImgPreview = styled.img`
-  max-width: 60px;
-  max-height: 60px;
 `;
 
 const PreviewWrapper = styled.div`
@@ -78,12 +53,10 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-const StyledPriceInputWrapper = styled.div``;
-
 const StyledClose = styled(Close)`
-  position: absolute;
-  right: 3px;
-  top: 3px;
+  position: sticky;
+  left: 90%;
+  top: 5px;
 `;
 
 function EditForm({ listing, onSave, onClose }) {
@@ -92,6 +65,7 @@ function EditForm({ listing, onSave, onClose }) {
   const [image, setImage] = useState(listing.img);
   const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
+  const [swapTags, setSwapTags] = useState(listing.tags || []);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -110,7 +84,8 @@ function EditForm({ listing, onSave, onClose }) {
       img,
       price,
       id: editedListing.id,
-      user: editedListing.user
+      user: editedListing.user,
+      tags: swapTags
     };
 
     onSave(listingEdit);
@@ -147,11 +122,22 @@ function EditForm({ listing, onSave, onClose }) {
     setImage(response.data.url);
   }
 
+  function handleTagInput(event) {
+    const tag = event.target.value.split(',');
+    tag[0] === '' || setSwapTags([...swapTags, tag[0]]);
+    event.target.value = '';
+  }
+
+  function handleTagDelete(tag) {
+    const index = swapTags.indexOf(tag);
+    setSwapTags([...swapTags.slice(0, index), ...swapTags.slice(index + 1)]);
+  }
+
   return (
     <StyledForm onSubmit={onClickSave}>
       <StyledClose onClick={onClose}>x</StyledClose>
       <Label htmlFor="title">Title</Label>
-      <StyledInput
+      <TextInput
         onChange={event =>
           setEditedListing({ ...editedListing, title: event.target.value })
         }
@@ -161,7 +147,7 @@ function EditForm({ listing, onSave, onClose }) {
         defaultValue={listing.title}
       />
       <Label htmlFor="description">Description</Label>
-      <StyledTextarea
+      <Textarea
         onChange={event =>
           setEditedListing({
             ...editedListing,
@@ -173,7 +159,7 @@ function EditForm({ listing, onSave, onClose }) {
         name="description"
         defaultValue={listing.description}
       />
-      <StyledAddImg>
+      <AddImg>
         <StyledFileInput onChange={uploadImage} type="file" name="file" />
         {isImageUploading && <StyledLoadIcon />}
         {isUploadSuccess && (
@@ -182,9 +168,9 @@ function EditForm({ listing, onSave, onClose }) {
             <Icon onClick={onImgDelete} className="far fa-trash-alt" />
           </PreviewWrapper>
         )}
-      </StyledAddImg>
+      </AddImg>
       <Label>Listing Type</Label>
-      <StyledTypeButtonGroup>
+      <TypeButtonGroup>
         {types.map(type => (
           <TypeButton
             handleClick={handleTypeButtonClick}
@@ -193,14 +179,21 @@ function EditForm({ listing, onSave, onClose }) {
             filled={listingType}
           />
         ))}
-      </StyledTypeButtonGroup>
+      </TypeButtonGroup>
       {listingType === 'for sale' && (
-        <StyledPriceInputWrapper>
+        <PriceInputWrapper>
           <Label>Price in €</Label>
           <StyledPriceInput id="price" name="price" />
-        </StyledPriceInputWrapper>
+        </PriceInputWrapper>
       )}
-      <StyledButton>SAVE CHANGES</StyledButton>
+      {listingType === 'swap' && (
+        <SwapTags
+          tags={swapTags}
+          onDelete={handleTagDelete}
+          onInput={handleTagInput}
+        />
+      )}
+      <Button>SAVE CHANGES</Button>
     </StyledForm>
   );
 }

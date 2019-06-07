@@ -6,6 +6,8 @@ export const TextInput = styled.input`
   font-family: 'PT Mono', monospace;
   font-size: 15px;
   padding: 5px;
+  min-height: 32px;
+  margin: 10px 0;
 `;
 
 export const Textarea = styled.textarea`
@@ -14,4 +16,6 @@ export const Textarea = styled.textarea`
   font-family: 'PT Mono', monospace;
   font-size: 15px;
   padding: 5px;
+  min-height: 150px;
+  margin: 10px 0;
 `;
