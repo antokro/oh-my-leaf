@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TypeTag from '../FormElements/TypeTag';
+import { TypeTag } from '../FormElements/Tags';
 
 const Wrapper = styled.section`
   position: relative;

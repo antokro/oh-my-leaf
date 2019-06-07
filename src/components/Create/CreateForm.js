@@ -7,6 +7,7 @@ import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import styled from 'styled-components';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from './TypeButton';
+import { SwapTag } from '../common/FormElements/Tags';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -69,8 +70,10 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-const StyledPriceInputWrapper = styled.div`
+const StyledPriceInputWrapper = styled.section`
   animation: slideOpen 0.3s linear;
+  display: flex;
+  flex-direction: column;
 
   @keyframes slideOpen {
     from {
@@ -82,15 +85,56 @@ const StyledPriceInputWrapper = styled.div`
   }
 `;
 
+const StyledTagInputWrapper = styled.section`
+  animation: slideOpen 0.3s linear;
+  display: flex;
+  flex-direction: column;
+
+  @keyframes slideOpen {
+    from {
+      height: 0;
+    }
+    to {
+      height: 50px;
+    }
+  }
+`;
+
+const StyledTags = styled.div`
+  margin: 5px 0;
+  display: flex;
+  flex-wrap: wrap;
+`;
+const StyledDelete = styled.b`
+  margin-left: 3px;
+`;
+const StyledTagInput = styled.div`
+  border: 2px solid #abc38e;
+  border-radius: 11px;
+  display: inline-block;
+  font-family: 'PT Mono', monospace;
+  font-size: 15px;
+  padding: 5px;
+`;
+
+const StyledTagInputField = styled.input`
+  border: 0;
+  outline: 0;
+  padding: 5px;
+  font-size: 15px;
+  font-family: 'PT Mono', monospace;
+`;
+
 function CreateForm({ handlePublish, history }) {
-  const [listingType, setListingType] = useState('give away');
+  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
-  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
+  const [listingType, setListingType] = useState('give away');
+  const [swapTags, setSwapTags] = useState(['Cactus', 'exotic plants']);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -101,7 +145,8 @@ function CreateForm({ handlePublish, history }) {
     const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
-    handlePublish(title, description, listingType, img, price, date);
+    const tags = swapTags;
+    handlePublish(title, description, listingType, img, price, date, tags);
     form.reset();
     history.push('/');
   }
@@ -133,6 +178,17 @@ function CreateForm({ handlePublish, history }) {
     setIsImageUploading(false);
     setUploadSuccess(!isUploadSuccess);
     setImage(response.data.url);
+  }
+
+  function handleTagInput(event) {
+    const tag = event.target.value.split(',');
+    tag[0] === '' || setSwapTags([...swapTags, tag[0]]);
+    event.target.value = '';
+  }
+
+  function deleteTag(tag) {
+    const index = swapTags.indexOf(tag);
+    setSwapTags([...swapTags.slice(0, index), ...swapTags.slice(index + 1)]);
   }
 
   return (
@@ -172,9 +228,31 @@ function CreateForm({ handlePublish, history }) {
       </StyledTypeButtonGroup>
       {listingType === 'for sale' && (
         <StyledPriceInputWrapper>
-          <Label>Price in €</Label>
+          <Label htmlFor="price">Price in €</Label>
           <StyledPriceInput id="price" name="price" />
         </StyledPriceInputWrapper>
+      )}
+      {listingType === 'swap' && (
+        <StyledTagInputWrapper>
+          <Label htmlFor="swaps">Swap against (seperate by comma)</Label>
+          <StyledTagInput>
+            <StyledTags>
+              {swapTags.map(tag => (
+                <SwapTag key={tag}>
+                  {tag}{' '}
+                  <StyledDelete onClick={() => deleteTag(tag)}>x</StyledDelete>
+                </SwapTag>
+              ))}
+            </StyledTags>
+            <StyledTagInputField
+              id="swaps"
+              name="swaps"
+              onInput={event =>
+                event.target.value.includes(',') && handleTagInput(event)
+              }
+            />
+          </StyledTagInput>
+        </StyledTagInputWrapper>
       )}
       <StyledButton>PUBLISH</StyledButton>
     </StyledForm>

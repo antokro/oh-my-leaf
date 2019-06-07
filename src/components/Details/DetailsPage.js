@@ -2,7 +2,7 @@ import Image from '../common/Image';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import TypeTag from '../common/FormElements/TypeTag';
+import { TypeTag } from '../common/FormElements/Tags';
 
 const StyledDetailsPage = styled.section``;
 
