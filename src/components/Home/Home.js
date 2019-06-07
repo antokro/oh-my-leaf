@@ -49,7 +49,7 @@ function Home({
   function onKeyPressSearch(event) {
     const searchParam = event.target.value;
     var options = {
-      keys: ['title', 'description'],
+      keys: ['title', 'description', 'tags'],
       minMatchCharLength: 3,
       threshold: 0.3,
       maxPatternLength: 32,

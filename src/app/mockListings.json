@@ -7,7 +7,7 @@
     "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1559139915/david-vazquez-463841-unsplash_pag7kf.jpg",
     "price": "",
-    "tags": "",
+    "tags": ["monstera"],
     "created": "Thursday, May 16th 2019"
   },
   {
@@ -18,7 +18,7 @@
     "user": "User1",
     "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
     "price": "",
-    "tags": "",
+    "tags": ["begonia", "exoctic fruits"],
     "created": "Monday, May 27th 2019"
   },
   {

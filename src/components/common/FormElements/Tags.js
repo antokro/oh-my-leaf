@@ -7,8 +7,9 @@ export const TypeTag = styled.span`
 `;
 
 export const SwapTag = styled.span`
-  background: #ffd084;
+  border: 2px solid #abc38e;
   border-radius: 11px;
   padding: 5px 6px;
   margin: 3px;
+  font-size: 13px;
 `;

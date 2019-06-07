@@ -105,9 +105,11 @@ const StyledTags = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
+
 const StyledDelete = styled.b`
   margin-left: 3px;
 `;
+
 const StyledTagInput = styled.div`
   border: 2px solid #abc38e;
   border-radius: 11px;
@@ -247,6 +249,7 @@ function CreateForm({ handlePublish, history }) {
             <StyledTagInputField
               id="swaps"
               name="swaps"
+              placeholder="type new tag here..."
               onInput={event =>
                 event.target.value.includes(',') && handleTagInput(event)
               }
