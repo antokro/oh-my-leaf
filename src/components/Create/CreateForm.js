@@ -8,59 +8,23 @@ import styled from 'styled-components';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from './TypeButton';
 import SwapTags from './SwapTags';
+import {
+  Form,
+  Button,
+  ImgIcon,
+  AddImg,
+  ImgPreview,
+  TypeButtonGroup,
+  PriceInputWrapper
+} from '../common/FormElements/Forms';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledInput = styled(TextInput)`
-  height: 32px;
-  margin: 10px 0;
-`;
-
-const StyledTextarea = styled(Textarea)`
-  height: 150px;
-  margin: 10px 0;
-`;
-
-const StyledTypeButtonGroup = styled.div``;
-
-const StyledButton = styled.button`
-  background-color: #abc38e;
-  border-radius: 11px;
-  font-family: 'PT Mono', monospace;
-  font-size: 20px;
-  margin-top: 15px;
-  padding: 9px;
-  transition: margin-top 0.1s linear;
-`;
-
-const StyledImgIcon = styled.i`
-  color: #abc38e;
-  font-size: 30px;
-  margin: 5px;
-`;
-
-const StyledAddImg = styled.div`
-  display: flex;
-  margin: 10px;
-  flex-direction: column;
-  padding: 5px;
-`;
 
 const StyledFileInput = styled(TextInput)`
   color: #201f1d;
   font-size: 12px;
   margin: 5px;
-`;
-
-const ImgPreview = styled.img`
-  max-width: 60px;
-  max-height: 60px;
 `;
 
 const StyledLoadIcon = styled(LoadIcon)`
@@ -69,11 +33,6 @@ const StyledLoadIcon = styled(LoadIcon)`
 
 const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
-`;
-
-const StyledPriceInputWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
 `;
 
 function CreateForm({ handlePublish, history }) {
@@ -143,31 +102,31 @@ function CreateForm({ handlePublish, history }) {
   }
 
   return (
-    <StyledForm onSubmit={onPublish}>
+    <Form onSubmit={onPublish}>
       <Label htmlFor="title">Title</Label>
-      <StyledInput
+      <TextInput
         type="text"
         placeholder="type title here..."
         id="title"
         name="title"
       />
       <Label htmlFor="description">Description</Label>
-      <StyledTextarea
+      <Textarea
         type="textarea"
         placeholder="type description here..."
         id="description"
         name="description"
       />
-      <StyledAddImg>
-        <StyledImgIcon onClick={onAddImage} className="far fa-images" />
+      <AddImg>
+        <ImgIcon onClick={onAddImage} className="far fa-images" />
         {isAddImage && (
           <StyledFileInput onChange={uploadImage} type="file" name="file" />
         )}
         {isImageUploading && <StyledLoadIcon />}
         {isUploadSuccess && <ImgPreview src={image} alt="uploaded image" />}
-      </StyledAddImg>
+      </AddImg>
       <Label>Listing Type</Label>
-      <StyledTypeButtonGroup>
+      <TypeButtonGroup>
         {types.map(type => (
           <TypeButton
             handleClick={handleTypeButtonClick}
@@ -176,12 +135,12 @@ function CreateForm({ handlePublish, history }) {
             filled={listingType}
           />
         ))}
-      </StyledTypeButtonGroup>
+      </TypeButtonGroup>
       {listingType === 'for sale' && (
-        <StyledPriceInputWrapper>
+        <PriceInputWrapper>
           <Label htmlFor="price">Price in €</Label>
           <StyledPriceInput id="price" name="price" />
-        </StyledPriceInputWrapper>
+        </PriceInputWrapper>
       )}
       {listingType === 'swap' && (
         <SwapTags
@@ -190,8 +149,8 @@ function CreateForm({ handlePublish, history }) {
           onInput={handleTagInput}
         />
       )}
-      <StyledButton>PUBLISH</StyledButton>
-    </StyledForm>
+      <Button>PUBLISH</Button>
+    </Form>
   );
 }
 CreateForm.propTypes = {
