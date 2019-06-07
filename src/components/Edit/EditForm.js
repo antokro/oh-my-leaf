@@ -8,6 +8,7 @@ import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from '../Create/TypeButton';
 import styled from 'styled-components';
+import SwapTags from '../Create/SwapTags';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -92,6 +93,7 @@ function EditForm({ listing, onSave, onClose }) {
   const [image, setImage] = useState(listing.img);
   const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
+  const [swapTags, setSwapTags] = useState(listing.tags || []);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -110,7 +112,8 @@ function EditForm({ listing, onSave, onClose }) {
       img,
       price,
       id: editedListing.id,
-      user: editedListing.user
+      user: editedListing.user,
+      tags: swapTags
     };
 
     onSave(listingEdit);
@@ -145,6 +148,17 @@ function EditForm({ listing, onSave, onClose }) {
     setIsImageUploading(false);
     setUploadSuccess(!isUploadSuccess);
     setImage(response.data.url);
+  }
+
+  function handleTagInput(event) {
+    const tag = event.target.value.split(',');
+    tag[0] === '' || setSwapTags([...swapTags, tag[0]]);
+    event.target.value = '';
+  }
+
+  function handleTagDelete(tag) {
+    const index = swapTags.indexOf(tag);
+    setSwapTags([...swapTags.slice(0, index), ...swapTags.slice(index + 1)]);
   }
 
   return (
@@ -199,6 +213,13 @@ function EditForm({ listing, onSave, onClose }) {
           <Label>Price in €</Label>
           <StyledPriceInput id="price" name="price" />
         </StyledPriceInputWrapper>
+      )}
+      {listingType === 'swap' && (
+        <SwapTags
+          tags={swapTags}
+          onDelete={handleTagDelete}
+          onInput={handleTagInput}
+        />
       )}
       <StyledButton>SAVE CHANGES</StyledButton>
     </StyledForm>

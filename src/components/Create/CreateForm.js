@@ -7,7 +7,7 @@ import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
 import styled from 'styled-components';
 import { TextInput, Textarea } from '../common/FormElements/Input';
 import TypeButton from './TypeButton';
-import { SwapTag } from '../common/FormElements/Tags';
+import SwapTags from './SwapTags';
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -36,6 +36,7 @@ const StyledButton = styled.button`
   font-size: 20px;
   margin-top: 15px;
   padding: 9px;
+  transition: margin-top 0.1s linear;
 `;
 
 const StyledImgIcon = styled.i`
@@ -71,60 +72,8 @@ const StyledPriceInput = styled(TextInput)`
 `;
 
 const StyledPriceInputWrapper = styled.section`
-  animation: slideOpen 0.3s linear;
   display: flex;
   flex-direction: column;
-
-  @keyframes slideOpen {
-    from {
-      height: 0;
-    }
-    to {
-      height: 50px;
-    }
-  }
-`;
-
-const StyledTagInputWrapper = styled.section`
-  animation: slideOpen 0.3s linear;
-  display: flex;
-  flex-direction: column;
-
-  @keyframes slideOpen {
-    from {
-      height: 0;
-    }
-    to {
-      height: 50px;
-    }
-  }
-`;
-
-const StyledTags = styled.div`
-  margin: 5px 0;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const StyledDelete = styled.b`
-  margin-left: 3px;
-`;
-
-const StyledTagInput = styled.div`
-  border: 2px solid #abc38e;
-  border-radius: 11px;
-  display: inline-block;
-  font-family: 'PT Mono', monospace;
-  font-size: 15px;
-  padding: 5px;
-`;
-
-const StyledTagInputField = styled.input`
-  border: 0;
-  outline: 0;
-  padding: 5px;
-  font-size: 15px;
-  font-family: 'PT Mono', monospace;
 `;
 
 function CreateForm({ handlePublish, history }) {
@@ -188,7 +137,7 @@ function CreateForm({ handlePublish, history }) {
     event.target.value = '';
   }
 
-  function deleteTag(tag) {
+  function handleTagDelete(tag) {
     const index = swapTags.indexOf(tag);
     setSwapTags([...swapTags.slice(0, index), ...swapTags.slice(index + 1)]);
   }
@@ -235,27 +184,11 @@ function CreateForm({ handlePublish, history }) {
         </StyledPriceInputWrapper>
       )}
       {listingType === 'swap' && (
-        <StyledTagInputWrapper>
-          <Label htmlFor="swaps">Swap against (seperate by comma)</Label>
-          <StyledTagInput>
-            <StyledTags>
-              {swapTags.map(tag => (
-                <SwapTag key={tag}>
-                  {tag}{' '}
-                  <StyledDelete onClick={() => deleteTag(tag)}>x</StyledDelete>
-                </SwapTag>
-              ))}
-            </StyledTags>
-            <StyledTagInputField
-              id="swaps"
-              name="swaps"
-              placeholder="type new tag here..."
-              onInput={event =>
-                event.target.value.includes(',') && handleTagInput(event)
-              }
-            />
-          </StyledTagInput>
-        </StyledTagInputWrapper>
+        <SwapTags
+          tags={swapTags}
+          onDelete={handleTagDelete}
+          onInput={handleTagInput}
+        />
       )}
       <StyledButton>PUBLISH</StyledButton>
     </StyledForm>
