@@ -61,7 +61,7 @@ const StyledClose = styled(Close)`
 
 function EditForm({ listing, onSave, onClose }) {
   const [editedListing, setEditedListing] = useState(listing);
-  const [listingType, setListingType] = useState('give away');
+  const [listingType, setListingType] = useState(listing.type);
   const [image, setImage] = useState(listing.img);
   const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
