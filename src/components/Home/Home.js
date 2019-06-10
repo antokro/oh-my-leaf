@@ -66,7 +66,7 @@ function Home({
     <StyledHome>
       <StyledSearchBar>
         <Label htmlFor="filter" onClick={() => setShowFilter(!showFilter)}>
-          <i className="fas fa-filter" /> Filter for type
+          <i className="fas fa-filter" /> Filter for type &#709;
         </Label>
         {showFilter && (
           <StyledSelect
