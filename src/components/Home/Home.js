@@ -39,6 +39,7 @@ function Home({
       listing => typeFilter === 'all' || listing.type === typeFilter
     )
   );
+  const [showFilter, setShowFilter] = useState(false);
   function onChangeTypeSelect(event) {
     const filter = event.target.value;
     onTypeFilter(filter);
@@ -64,19 +65,21 @@ function Home({
   return (
     <StyledHome>
       <StyledSearchBar>
-        <Label htmlFor="filter">
-          <i class="fas fa-filter" /> Filter for type
+        <Label htmlFor="filter" onClick={() => setShowFilter(!showFilter)}>
+          <i className="fas fa-filter" /> Filter for type
         </Label>
-        <StyledSelect
-          id="filter"
-          defaultValue={typeFilter}
-          onChange={onChangeTypeSelect}
-        >
-          <option value="all">all</option>
-          <option value="give away">give away</option>
-          <option value="swap">swap</option>
-          <option value="for sale">for sale</option>
-        </StyledSelect>
+        {showFilter && (
+          <StyledSelect
+            id="filter"
+            defaultValue={typeFilter}
+            onChange={onChangeTypeSelect}
+          >
+            <option value="all">all</option>
+            <option value="give away">give away</option>
+            <option value="swap">swap</option>
+            <option value="for sale">for sale</option>
+          </StyledSelect>
+        )}
         <Label>
           <i className="fas fa-search" /> Search For
         </Label>

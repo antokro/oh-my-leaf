@@ -11,6 +11,17 @@
     "created": "Thursday, May 16th 2019"
   },
   {
+    "description": "I have this big Monstera for sale. I can't take it with me since I'm moving abroad. Price is 30€",
+    "id": "whsrua4",
+    "title": "Monstera for sale",
+    "type": "for sale",
+    "user": "User3",
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg",
+    "price": "30",
+    "tags": "",
+    "created": "Saturday, June 1st 2019"
+  },
+  {
     "description": "I'm swapping my very picky peperomia (watermelon) against an easier plant. Any suggestions are welcome",
     "id": "00k047c",
     "title": "watermelon peperomia",
@@ -20,17 +31,6 @@
     "price": "",
     "tags": ["begonia", "exoctic fruits"],
     "created": "Monday, May 27th 2019"
-  },
-  {
-    "description": "Hello all, I'm giving away babies of my spider plant. They all have roots and are ready to be potted",
-    "id": "3untw1n",
-    "title": "Spider plant",
-    "type": "give away",
-    "user": "User3",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
-    "price": "",
-    "tags": "",
-    "created": "Tuesday, May 28th 2019"
   },
   {
     "description": "Hello, I'm giving away this pretty Zig Zag Cactus. It is really pretty when they bloom :)",
@@ -44,14 +44,14 @@
     "created": "Wednesday, May 29th 2019"
   },
   {
-    "description": "I have this big Monstera for sale. I can't take it with me since I'm moving abroad. Price is 30€",
-    "id": "whsrua4",
-    "title": "Monstera for sale",
-    "type": "for sale",
+    "description": "Hello all, I'm giving away babies of my spider plant. They all have roots and are ready to be potted",
+    "id": "3untw1n",
+    "title": "Spider plant",
+    "type": "give away",
     "user": "User3",
-    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558972868/mike-marquez-445115-unsplash_s3kxfp.jpg",
-    "price": "30",
+    "img": "https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png",
+    "price": "",
     "tags": "",
-    "created": "Saturday, June 1st 2019"
+    "created": "Tuesday, May 28th 2019"
   }
 ]
