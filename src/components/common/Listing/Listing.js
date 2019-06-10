@@ -123,6 +123,7 @@ class Listing extends React.Component {
     const { title, type, id, img, price } = content;
     const { city } = user;
     const { animate } = this.state;
+
     function onClickFavourise(id) {
       onFavourise(id);
     }

@@ -186,6 +186,8 @@ function App() {
             render={props => (
               <DetailsPage
                 content={findDetails(props.match.params.id)}
+                onFavourise={handleFavourise}
+                favourites={favourites}
                 {...props}
               />
             )}

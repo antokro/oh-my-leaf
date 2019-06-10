@@ -21,6 +21,7 @@ const StyledSelect = styled.select`
   font-size: 15px;
   margin-top: 5px;
   padding: 3px;
+  background-color: transparent;
 `;
 
 function Home({
@@ -38,6 +39,7 @@ function Home({
       listing => typeFilter === 'all' || listing.type === typeFilter
     )
   );
+  const [showFilter, setShowFilter] = useState(false);
   function onChangeTypeSelect(event) {
     const filter = event.target.value;
     onTypeFilter(filter);
@@ -63,20 +65,24 @@ function Home({
   return (
     <StyledHome>
       <StyledSearchBar>
-        <Label htmlFor="filter">
-          <i className="fas fa-search" /> Filter for type
+        <Label htmlFor="filter" onClick={() => setShowFilter(!showFilter)}>
+          <i className="fas fa-filter" /> Filter for type &#709;
         </Label>
-        <StyledSelect
-          id="filter"
-          defaultValue={typeFilter}
-          onChange={onChangeTypeSelect}
-        >
-          <option value="all">all</option>
-          <option value="give away">give away</option>
-          <option value="swap">swap</option>
-          <option value="for sale">for sale</option>
-        </StyledSelect>
-        <Label>Search For</Label>
+        {showFilter && (
+          <StyledSelect
+            id="filter"
+            defaultValue={typeFilter}
+            onChange={onChangeTypeSelect}
+          >
+            <option value="all">all</option>
+            <option value="give away">give away</option>
+            <option value="swap">swap</option>
+            <option value="for sale">for sale</option>
+          </StyledSelect>
+        )}
+        <Label>
+          <i className="fas fa-search" /> Search For
+        </Label>
         <TextInput
           type="text"
           placeholder="Search here..."

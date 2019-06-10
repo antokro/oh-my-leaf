@@ -9,7 +9,9 @@
     "city": "Hamburg",
     "email": "sabinetest@googlemail.com",
     "img": "",
-    "icon": "330"
+    "icon": "330",
+    "password": "",
+    "favourites": ""
   },
   {
     "name": {
@@ -21,7 +23,9 @@
     "city": "Hamburg",
     "email": "antoniatest@googlemail.com",
     "img": "",
-    "icon": "170"
+    "icon": "170",
+    "password": "",
+    "favourites": ""
   },
   {
     "name": {
@@ -33,6 +37,8 @@
     "city": "München",
     "email": "annatest@googlemail.com",
     "img": "",
-    "icon": "200"
+    "icon": "200",
+    "password": "",
+    "favourites": ""
   }
 ]

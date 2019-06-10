@@ -85,7 +85,8 @@ function EditForm({ listing, onSave, onClose }) {
       price,
       id: editedListing.id,
       user: editedListing.user,
-      tags: swapTags
+      tags: swapTags,
+      created: editedListing.created
     };
 
     onSave(listingEdit);

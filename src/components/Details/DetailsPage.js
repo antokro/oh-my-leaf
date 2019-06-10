@@ -1,6 +1,6 @@
 import Image from '../common/Image';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TypeTag, SwapTag } from '../common/FormElements/Tags';
 
@@ -63,7 +63,51 @@ const StyledTags = styled.div`
   align-items: center;
 `;
 
-function DetailsPage({ content, history }) {
+const StyledHeart = styled.div`
+  ${props =>
+    props.animate
+      ? props.isFavourite
+        ? 'animation: isFavourite ease-in-out 0.5s'
+        : 'animation: isNotFavourite ease-in-out 0.5s'
+      : ''};
+  color: ${props => (props.isFavourite ? '#E79796' : '#585655')};
+  font-size: 40px;
+  position: absolute;
+  right: 10px;
+  top: 40px;
+
+  @keyframes isFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes isNotFavourite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.6);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+`;
+
+function DetailsPage({ content, history, onFavourise, favourites }) {
   const {
     title,
     type,
@@ -71,18 +115,32 @@ function DetailsPage({ content, history }) {
     img,
     price,
     created,
-    tags
+    tags,
+    id
   } = content.listing;
   const { name, city, icon } = content.user;
+  const [animate, setAnimate] = useState(false);
 
   function handleGoBack() {
     history.goBack();
   }
+
+  function onClickFavourise(id) {
+    setAnimate(true);
+    onFavourise(id);
+  }
+
   return (
     <StyledDetailsPage>
       <StyledGoBack onClick={handleGoBack}>
         <i className="fas fa-arrow-circle-left" /> Go Back
       </StyledGoBack>
+      <StyledHeart
+        onClick={() => onClickFavourise(id)}
+        className={favourites.includes(id) ? 'fas fa-heart' : 'far fa-heart'}
+        isFavourite={favourites.includes(id)}
+        animate={animate}
+      />
       <Image src={img} alt="plant" />
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
