@@ -21,6 +21,7 @@ const StyledSelect = styled.select`
   font-size: 15px;
   margin-top: 5px;
   padding: 3px;
+  background-color: transparent;
 `;
 
 function Home({
@@ -64,7 +65,7 @@ function Home({
     <StyledHome>
       <StyledSearchBar>
         <Label htmlFor="filter">
-          <i className="fas fa-search" /> Filter for type
+          <i class="fas fa-filter" /> Filter for type
         </Label>
         <StyledSelect
           id="filter"
@@ -76,7 +77,9 @@ function Home({
           <option value="swap">swap</option>
           <option value="for sale">for sale</option>
         </StyledSelect>
-        <Label>Search For</Label>
+        <Label>
+          <i className="fas fa-search" /> Search For
+        </Label>
         <TextInput
           type="text"
           placeholder="Search here..."

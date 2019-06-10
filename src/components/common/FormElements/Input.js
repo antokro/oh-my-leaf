@@ -7,7 +7,7 @@ export const TextInput = styled.input`
   font-size: 15px;
   padding: 5px;
   min-height: 32px;
-  margin: 10px 0;
+  margin: 5px 0 10px 0;
 `;
 
 export const Textarea = styled.textarea`
