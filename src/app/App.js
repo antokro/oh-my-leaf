@@ -35,11 +35,10 @@ const GridFooter = styled.footer`
 
 function App() {
   const [listings, setListings] = useState([]);
-  const [favourites, setFavourites] = useState(getLocal('favourites') || []);
+  const [favourites, setFavourites] = useState([]);
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(() => setLocal('favourites', favourites), [favourites]);
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   useEffect(() => {
@@ -47,31 +46,31 @@ function App() {
       .then(data => setListings(data))
       .catch(error => console.log(error));
   }, []);
+
   function handlePublish(
     title,
     description,
-    listingType,
-    img,
+    type,
+    image,
     price,
     date,
-    tags
+    swapTags
   ) {
     const newListing = {
       title,
       description,
-      type: listingType,
-      user: getLocal('user'),
-      img,
+      type,
+      user_id: getLocal('user'),
+      img_path: image,
       price,
-      tags,
-      created: date
+      swap_tags: swapTags
     };
     setListings([...listings, newListing]);
   }
 
   function handleChanges(editedListing) {
     const index = listings.findIndex(
-      listing => listing.id === editedListing.id
+      listing => listing._id === editedListing.id
     );
     setListings([
       ...listings.slice(0, index),
@@ -101,7 +100,7 @@ function App() {
   }
 
   function findFavourites() {
-    return listings.slice().filter(listing => favourites.includes(listing.id));
+    return listings.slice().filter(listing => favourites.includes(listing._id));
   }
 
   function findUserListings() {
@@ -113,7 +112,7 @@ function App() {
   }
 
   function handleDelete(id) {
-    const indexListing = listings.findIndex(listing => listing.id === id);
+    const indexListing = listings.findIndex(listing => listing._id === id);
     setListings([
       ...listings.slice(0, indexListing),
       ...listings.slice(indexListing + 1)
@@ -208,7 +207,7 @@ function App() {
           />
         </GridMain>
         <GridFooter>
-          <Footer username={'Toni_plant'} />
+          <Footer username={'plant_toni'} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>

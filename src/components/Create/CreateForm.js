@@ -43,7 +43,7 @@ function CreateForm({ handlePublish, history }) {
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [listingType, setListingType] = useState('give away');
+  const [type, setType] = useState('give away');
   const [swapTags, setSwapTags] = useState(['Cactus', 'exotic plants']);
 
   const types = ['give away', 'swap', 'for sale'];
@@ -54,17 +54,15 @@ function CreateForm({ handlePublish, history }) {
     const title = form.title.value.trim();
     const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
-    const img = image;
-    const tags = swapTags;
 
-    handlePublish(title, description, listingType, img, price, date, tags);
+    handlePublish(title, description, type, image, price, date, swapTags);
     form.reset();
     history.push('/');
   }
 
   function handleTypeButtonClick(event) {
     const type = event.target.value;
-    setListingType(type);
+    setType(type);
   }
 
   function onAddImage() {
@@ -133,17 +131,17 @@ function CreateForm({ handlePublish, history }) {
             handleClick={handleTypeButtonClick}
             value={type}
             key={type}
-            filled={listingType}
+            filled={type}
           />
         ))}
       </TypeButtonGroup>
-      {listingType === 'for sale' && (
+      {type === 'for sale' && (
         <PriceInputWrapper>
           <Label htmlFor="price">Price in €</Label>
           <StyledPriceInput id="price" name="price" />
         </PriceInputWrapper>
       )}
-      {listingType === 'swap' && (
+      {type === 'swap' && (
         <SwapTags
           tags={swapTags}
           onDelete={handleTagDelete}

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   city: { type: String, trim: true },
   email: { type: String, required: true },
-  icon: { type: Number, default: Math.random() * 360 },
+  icon: { type: Number, default: 330 },
   password: { type: String, required: true },
   favourites: { type: [String] },
   listings: { type: [Schema.Types.ObjectId], ref: 'Listing' }
