@@ -12,7 +12,7 @@ import Footer from '../components/Footer/Footer';
 import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
-const activeUser = require('./mockUsers.json');
+const localUsers = require('./mockUsers.json');
 
 const GridBody = styled.section`
   display: grid;
@@ -46,7 +46,7 @@ function App() {
       .then(data => setListings(data))
       .catch(error => console.log(error));
 
-    setLocal('activeUser', activeUser[1]);
+    setLocal('localUsers', localUsers);
   }, []);
 
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
@@ -100,7 +100,7 @@ function App() {
   function findDetails(id) {
     const listing = listings.find(listing => listing._id === id);
     //const user = users.find(user => user.id_ === listing.user);
-    return { listing };
+    return listing;
   }
 
   function findFavourites() {
@@ -211,7 +211,7 @@ function App() {
           />
         </GridMain>
         <GridFooter>
-          <Footer username={'plant_toni'} />
+          <Footer username={localUsers[1].username} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>

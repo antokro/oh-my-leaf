@@ -4,41 +4,29 @@
       "firstname": "Sabine",
       "lastname": "Gerner"
     },
-    "id_": "User1",
+    "_id": "5cff7213e03dd0116fde8ed1",
     "username": "SabineHH",
     "city": "Hamburg",
-    "email": "sabinetest@googlemail.com",
-    "img": "",
-    "icon": "330",
-    "password": "",
-    "favourites": ""
+    "icon": "330"
   },
   {
     "name": {
       "firstname": "Antonia",
       "lastname": "Krohn"
     },
-    "id_": "User2",
+    "_id": "5cff728ce03dd0116fde8ed2",
     "username": "Plant_Toni",
     "city": "Hamburg",
-    "email": "antoniatest@googlemail.com",
-    "img": "",
-    "icon": "170",
-    "password": "",
-    "favourites": ""
+    "icon": "170"
   },
   {
     "name": {
       "firstname": "Anna",
       "lastname": "Rahm"
     },
-    "id_": "User3",
+    "_id": "5cff72bde03dd0116fde8ed3",
     "username": "AnnaMUC",
     "city": "München",
-    "email": "annatest@googlemail.com",
-    "img": "",
-    "icon": "200",
-    "password": "",
-    "favourites": ""
+    "icon": "200"
   }
 ]

@@ -112,13 +112,13 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
     title,
     type,
     description,
-    img,
+    img_path,
     price,
-    created,
-    tags,
-    id
-  } = content.listing;
-  const { name, city, icon } = content.user;
+    createdAt,
+    swapTags,
+    _id
+  } = content;
+  const { name, city, icon } = content.user_id;
   const [animate, setAnimate] = useState(false);
 
   function handleGoBack() {
@@ -136,20 +136,20 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
         <i className="fas fa-arrow-circle-left" /> Go Back
       </StyledGoBack>
       <StyledHeart
-        onClick={() => onClickFavourise(id)}
-        className={favourites.includes(id) ? 'fas fa-heart' : 'far fa-heart'}
-        isFavourite={favourites.includes(id)}
+        onClick={() => onClickFavourise(_id)}
+        className={favourites.includes(_id) ? 'fas fa-heart' : 'far fa-heart'}
+        isFavourite={favourites.includes(_id)}
         animate={animate}
       />
-      <Image src={img} alt="plant" />
+      <Image src={img_path} alt="plant" />
       <StyledTitle>{title}</StyledTitle>
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
       {type === 'swap' &&
-        (tags !== '' && (
+        (swapTags !== '' && (
           <StyledTags>
             Possible swaps:
-            {tags.map(tag => (
+            {swapTags.map(tag => (
               <SwapTag key={tag}>{tag}</SwapTag>
             ))}
           </StyledTags>
@@ -163,7 +163,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
         <StyledUserInfo className="fas fa-map-marker-alt" />
         <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
-      <StyledCreationDate>Created: {created}</StyledCreationDate>
+      <StyledCreationDate>Created: {createdAt}</StyledCreationDate>
     </StyledDetailsPage>
   );
 }
