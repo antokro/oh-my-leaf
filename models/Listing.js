@@ -18,8 +18,8 @@ const listingSchema = new mongoose.Schema({
     default:
       'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   },
-  price: { type: Number },
-  swap_tags: { type: [String] },
+  price: { type: Number, default: null },
+  swap_tags: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now }
 });
 

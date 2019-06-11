@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "server": "nodemon -w server.js -w models/* server.js"
+    "server": "nodemon -w server.js -w models server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
