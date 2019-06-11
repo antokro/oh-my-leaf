@@ -117,26 +117,26 @@ class Listing extends React.Component {
       this.setState({ animate: true });
     }
   }
-
   render() {
     const { user, onFavourise, content, isFavourite } = this.props;
-    const { title, type, id, img, price } = content;
+    const { title, type, _id, img_path, price } = content;
     const { city } = user;
     const { animate } = this.state;
 
+    console.log(content, 'listing');
     function onClickFavourise(id) {
       onFavourise(id);
     }
     return (
       <Wrapper>
         <StyledHeart
-          onClick={() => onClickFavourise(id)}
+          onClick={() => onClickFavourise(_id)}
           className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
           isFavourite={isFavourite}
           animate={animate}
         />
-        <StyledListing to={`/details/${id}`}>
-          <StyledImgWrapper img={img} />
+        <StyledListing to={`/details/${_id}`}>
+          <StyledImgWrapper img={img_path} />
           <StyledTitle>
             {title.length >= 40 ? title.slice(0, 39) + '...' : title}
           </StyledTitle>

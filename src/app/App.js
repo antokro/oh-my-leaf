@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { getLocal, setLocal } from '../services';
+import { getLocal, setLocal, getData } from '../services';
 import uid from 'uid';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
@@ -12,9 +12,6 @@ import DetailsPage from '../components/Details/DetailsPage';
 import Footer from '../components/Footer/Footer';
 import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
-
-const users = require('./mockUsers.json');
-const mockListings = require('./mockListings.json');
 
 const GridBody = styled.section`
   display: grid;
@@ -38,18 +35,43 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  const [listings, setListings] = useState(
-    getLocal('listings') || mockListings
-  );
+  const [listings, setListings] = useState([]);
   const [favourites, setFavourites] = useState(getLocal('favourites') || []);
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(() => setLocal('listings', listings), [listings]);
+  //useEffect(() => setLocal('listings', listings), [listings]);
   useEffect(() => setLocal('favourites', favourites), [favourites]);
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
-  const user = users[1];
+  useEffect(() => {
+    getData('listing')
+      .then(data => setListings(data))
+      .catch(error => console.log(error));
+  }, []);
+
+  const users = () => {
+    getData('user').then(data => {
+      console.log(data);
+    });
+  };
+
+  /*import React, { useState, useEffect } from "react";
+
+const Fetch = () => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      let res = await fetch(
+        "https://api.coindesk.com/v1/bpi/currentprice.json"
+      ); // sample
+      let response = await res.json();
+      setData(response.disclaimer); // parse json
+    };
+    fetchData();
+  }, []);
+  return <div>{data}</div>; //here will be shown data
+};*/
 
   function handlePublish(
     title,
@@ -65,7 +87,7 @@ function App() {
       description,
       type: listingType,
       id: uid(),
-      user: user.id_,
+      user: users[1]._id,
       img,
       price,
       tags,
@@ -110,7 +132,7 @@ function App() {
   }
 
   function findUserListings() {
-    return listings.slice().filter(listing => listing.user === user.id_);
+    return listings.slice().filter(listing => listing.user === users[1]._id);
   }
 
   function handleTypeFilter(type) {
@@ -137,7 +159,7 @@ function App() {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`${user.username}/search/${searchParam}`);
+    history.push(`${users[1].username}/search/${searchParam}`);
   }
 
   return (
@@ -216,7 +238,7 @@ function App() {
           />
         </GridMain>
         <GridFooter>
-          <Footer user={user} />
+          <Footer user={users[1]} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>
