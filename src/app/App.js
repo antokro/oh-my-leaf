@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { getLocal, setLocal, getData } from '../services';
-import uid from 'uid';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
 import Home from '../components/Home/Home';
@@ -40,7 +39,6 @@ function App() {
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
 
-  //useEffect(() => setLocal('listings', listings), [listings]);
   useEffect(() => setLocal('favourites', favourites), [favourites]);
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
@@ -49,30 +47,6 @@ function App() {
       .then(data => setListings(data))
       .catch(error => console.log(error));
   }, []);
-
-  const users = () => {
-    getData('user').then(data => {
-      console.log(data);
-    });
-  };
-
-  /*import React, { useState, useEffect } from "react";
-
-const Fetch = () => {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      let res = await fetch(
-        "https://api.coindesk.com/v1/bpi/currentprice.json"
-      ); // sample
-      let response = await res.json();
-      setData(response.disclaimer); // parse json
-    };
-    fetchData();
-  }, []);
-  return <div>{data}</div>; //here will be shown data
-};*/
-
   function handlePublish(
     title,
     description,
@@ -86,8 +60,7 @@ const Fetch = () => {
       title,
       description,
       type: listingType,
-      id: uid(),
-      user: users[1]._id,
+      user: getLocal('user'),
       img,
       price,
       tags,
@@ -122,9 +95,9 @@ const Fetch = () => {
   }
 
   function findDetails(id) {
-    const listing = listings.find(listing => listing.id === id);
-    const user = users.find(user => user.id_ === listing.user);
-    return { listing, user };
+    const listing = listings.find(listing => listing._id === id);
+    //const user = users.find(user => user.id_ === listing.user);
+    return { listing };
   }
 
   function findFavourites() {
@@ -132,7 +105,7 @@ const Fetch = () => {
   }
 
   function findUserListings() {
-    return listings.slice().filter(listing => listing.user === users[1]._id);
+    //return listings.slice().filter(listing => listing.user === users[1]._id);
   }
 
   function handleTypeFilter(type) {
@@ -159,7 +132,7 @@ const Fetch = () => {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`${users[1].username}/search/${searchParam}`);
+    //history.push(`${users[1].username}/search/${searchParam}`);
   }
 
   return (
@@ -176,7 +149,6 @@ const Fetch = () => {
             render={props => (
               <Home
                 listings={listings}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
                 onTypeFilter={handleTypeFilter}
@@ -197,7 +169,6 @@ const Fetch = () => {
             render={() => (
               <FavouritesList
                 listings={findFavourites()}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
               />
@@ -219,7 +190,6 @@ const Fetch = () => {
             render={() => (
               <SearchResult
                 listings={searchResult}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
               />
@@ -238,7 +208,7 @@ const Fetch = () => {
           />
         </GridMain>
         <GridFooter>
-          <Footer user={users[1]} />
+          <Footer username={'Toni_plant'} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>

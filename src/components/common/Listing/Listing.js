@@ -118,9 +118,8 @@ class Listing extends React.Component {
     }
   }
   render() {
-    const { user, onFavourise, content, isFavourite } = this.props;
-    const { title, type, _id, img_path, price } = content;
-    const { city } = user;
+    const { onFavourise, content, isFavourite } = this.props;
+    const { title, type, _id, img_path, price, user_id } = content;
     const { animate } = this.state;
 
     console.log(content, 'listing');
@@ -146,7 +145,7 @@ class Listing extends React.Component {
           </StyledTypeWrapper>
           <StyledLocation>
             <StyledIcon className="fas fa-map-marker-alt" />
-            <span>{city}</span>
+            <span>{user_id.city}</span>
           </StyledLocation>
         </StyledListing>
       </Wrapper>
@@ -157,7 +156,6 @@ class Listing extends React.Component {
 Listing.propTypes = {
   onFavourise: PropTypes.func,
   content: PropTypes.object,
-  user: PropTypes.object,
   isFavourite: PropTypes.bool
 };
 

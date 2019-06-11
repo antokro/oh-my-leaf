@@ -21,9 +21,7 @@ const StyledIcon = styled(NavLink)`
   }
 `;
 
-function Footer({ user }) {
-  const { username } = user;
-  console.log(user);
+function Footer({ username }) {
   return (
     <StyledFooter>
       <StyledIcon exact to={'/'} className="fas fa-home" />

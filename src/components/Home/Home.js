@@ -26,7 +26,6 @@ const StyledSelect = styled.select`
 
 function Home({
   listings,
-  users,
   onFavourise,
   favourites,
   onTypeFilter,
@@ -39,9 +38,7 @@ function Home({
   );
   const [filteredListings, setFilteredListings] = useState(listingsHome);
   const [showFilter, setShowFilter] = useState(false);
-
   useEffect(() => setFilteredListings(listingsHome), [listingsHome]);
-
   function onChangeTypeSelect(event) {
     const filter = event.target.value;
     onTypeFilter(filter);
@@ -95,7 +92,6 @@ function Home({
           <Listing
             key={listing._id}
             content={listing}
-            user={users.find(user => user.id_ === listing.user)}
             onFavourise={() => onFavourise(listing.id)}
             isFavourite={favourites.includes(listing.id)}
           />

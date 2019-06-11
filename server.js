@@ -6,6 +6,7 @@ const Listing = require('./models/Listing');
 
 app.get('/listing', (req, res) => {
   Listing.find()
+    .populate('user_id')
     .then(listing => res.json(listing))
     .catch(err => res.json(err));
 });
@@ -24,6 +25,13 @@ app.get('/user', (req, res) => {
 
 app.post('/user', function(req, res) {
   User.create(req.body)
+    .then(user => res.json(user))
+    .catch(err => res.json(err));
+});
+
+app.get('/getUserById', function(req, res) {
+  User.findById(req.body.userId)
+    .populate('listings')
     .then(user => res.json(user))
     .catch(err => res.json(err));
 });

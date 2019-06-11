@@ -56,6 +56,7 @@ function CreateForm({ handlePublish, history }) {
     const price = form.price === undefined ? '' : form.price.value;
     const img = image;
     const tags = swapTags;
+
     handlePublish(title, description, listingType, img, price, date, tags);
     form.reset();
     history.push('/');
