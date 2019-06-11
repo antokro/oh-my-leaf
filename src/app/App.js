@@ -12,6 +12,8 @@ import Footer from '../components/Footer/Footer';
 import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
+const activeUser = require('./mockUsers.json');
+
 const GridBody = styled.section`
   display: grid;
   grid-template-rows: 58px auto 50px;
@@ -39,13 +41,15 @@ function App() {
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
-
   useEffect(() => {
     getData('listing')
       .then(data => setListings(data))
       .catch(error => console.log(error));
+
+    setLocal('activeUser', activeUser[1]);
   }, []);
+
+  useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   function handlePublish(
     title,
