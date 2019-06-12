@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Label from '../common/FormElements/Label';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
@@ -36,7 +35,6 @@ const StyledPriceInput = styled(TextInput)`
 `;
 
 function CreateForm({ handlePublish, history }) {
-  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
@@ -55,14 +53,14 @@ function CreateForm({ handlePublish, history }) {
     const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
 
-    handlePublish(title, description, type, image, price, date, swapTags);
+    handlePublish(title, description, type, image, price, swapTags);
     form.reset();
     history.push('/');
   }
 
   function handleTypeButtonClick(event) {
-    const type = event.target.value;
-    setType(type);
+    const newType = event.target.value;
+    setType(newType);
   }
 
   function onAddImage() {
@@ -126,11 +124,11 @@ function CreateForm({ handlePublish, history }) {
       </AddImg>
       <Label>Listing Type</Label>
       <TypeButtonGroup>
-        {types.map(type => (
+        {types.map(typeBtn => (
           <TypeButton
             handleClick={handleTypeButtonClick}
-            value={type}
-            key={type}
+            value={typeBtn}
+            key={typeBtn}
             filled={type}
           />
         ))}

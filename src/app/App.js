@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { getLocal, setLocal, getData } from '../services';
+import {
+  getLocal,
+  setLocal,
+  getData,
+  postListing,
+  saveFavourites,
+  getFavouritesByUserId
+} from '../services';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
 import Home from '../components/Home/Home';
@@ -42,34 +49,28 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    getData('listing')
+    getData('listings')
       .then(data => setListings(data))
       .catch(error => console.log(error));
 
     setLocal('localUsers', localUsers);
+
+    getFavouritesByUserId(localUsers[1]._id);
   }, []);
 
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
-  function handlePublish(
-    title,
-    description,
-    type,
-    image,
-    price,
-    date,
-    swapTags
-  ) {
+  function handlePublish(title, description, type, image, price, swapTags) {
     const newListing = {
       title,
       description,
       type,
-      user_id: getLocal('user'),
+      user_id: localUsers[1]._id,
       img_path: image,
       price,
       swap_tags: swapTags
     };
-    setListings([...listings, newListing]);
+    postListing(newListing).then(data => setListings([...listings, data]));
   }
 
   function handleChanges(editedListing) {
@@ -84,23 +85,26 @@ function App() {
   }
 
   function handleFavourise(id) {
-    const index = favourites.indexOf(id);
-
-    setFavourites(NewFavourites(index, id));
+    saveFavourites(localUsers[1]._id, id).then(data =>
+      setFavourites(data.favourites)
+    );
+    console.log(favourites);
   }
 
-  function NewFavourites(index, id) {
-    if (favourites.includes(id)) {
-      return [...favourites.slice(0, index), ...favourites.slice(index + 1)];
+  /*function NewFavourites(index, id) {
+    const newFavourites = favourites.slice();
+    if (newFavourites.includes(id)) {
+      return [
+        ...newFavourites.slice(0, index),
+        ...newFavourites.slice(index + 1)
+      ];
     } else {
-      return [...favourites, id];
+      return [...newFavourites, id];
     }
-  }
+  }*/
 
   function findDetails(id) {
-    const listing = listings.find(listing => listing._id === id);
-    //const user = users.find(user => user.id_ === listing.user);
-    return listing;
+    return listings.find(listing => listing._id === id);
   }
 
   function findFavourites() {

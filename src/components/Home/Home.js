@@ -92,8 +92,8 @@ function Home({
           <Listing
             key={listing._id}
             content={listing}
-            onFavourise={() => onFavourise(listing.id)}
-            isFavourite={favourites.includes(listing.id)}
+            onFavourise={() => onFavourise(listing._id)}
+            isFavourite={favourites.includes(listing._id)}
           />
         ))}
       </FeedGrid>

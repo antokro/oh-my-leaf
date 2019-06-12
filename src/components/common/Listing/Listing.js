@@ -122,7 +122,6 @@ class Listing extends React.Component {
     const { title, type, _id, img_path, price, user_id } = content;
     const { animate } = this.state;
 
-    console.log(content, 'listing');
     function onClickFavourise(id) {
       onFavourise(id);
     }

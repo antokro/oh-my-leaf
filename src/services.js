@@ -10,6 +10,10 @@ export function getData(path) {
   return fetch(`/${path}`).then(res => res.json());
 }
 
+export function getFavouritesByUserId(id) {
+  return fetch(`/users/${id}`).then(res => res.json());
+}
+
 export function postListing(listing) {
   const {
     title,
@@ -18,10 +22,9 @@ export function postListing(listing) {
     swap_tags,
     user_id,
     img_path,
-    price,
-    createdAt
+    price
   } = listing;
-  return fetch('/listing', {
+  return fetch('/listings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -31,8 +34,17 @@ export function postListing(listing) {
       type,
       user_id,
       img_path,
-      price,
-      createdAt
+      price
+    })
+  }).then(res => res.json());
+}
+
+export function saveFavourites(user_id, listing_id) {
+  return fetch(`/users/${user_id}/favourites`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      listing_id
     })
   }).then(res => res.json());
 }

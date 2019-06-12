@@ -115,7 +115,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
     img_path,
     price,
     createdAt,
-    swapTags,
+    swap_tags,
     _id
   } = content;
   const { name, city, icon } = content.user_id;
@@ -146,10 +146,10 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
       {price !== '' && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
       {type === 'swap' &&
-        (swapTags !== '' && (
+        (swap_tags !== [] && (
           <StyledTags>
             Possible swaps:
-            {swapTags.map(tag => (
+            {swap_tags.map(tag => (
               <SwapTag key={tag}>{tag}</SwapTag>
             ))}
           </StyledTags>

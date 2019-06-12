@@ -12,8 +12,8 @@ function FavouritesList({ listings, users, onFavourise, favourites }) {
           key={listing.id}
           content={listing}
           user={users.find(user => user.id_ === listing.user)}
-          onFavourise={() => onFavourise(listing.id)}
-          isFavourite={favourites.includes(listing.id)}
+          onFavourise={() => onFavourise(listing._id)}
+          isFavourite={favourites.includes(listing._id)}
         />
       ))}
     </FeedGrid>
