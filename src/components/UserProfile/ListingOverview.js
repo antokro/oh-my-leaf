@@ -32,7 +32,6 @@ const StyledShowIcon = styled(Listing)`
 function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
-  console.log(listings, 'profile');
   function handleDeleteClick(id) {
     onDelete(id);
     history.goBack();

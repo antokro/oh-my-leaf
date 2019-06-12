@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   icon: { type: Number, default: 330 },
   password: { type: String, required: true },
   favourites: { type: [String] },
-  listings: { type: [Schema.Types.ObjectId], ref: 'Listing' }
+  listings: [{ type: Schema.Types.ObjectId, ref: 'Listing' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

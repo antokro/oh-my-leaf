@@ -100,9 +100,12 @@ function App() {
   function findFavourites() {
     return listings.slice().filter(listing => favourites.includes(listing._id));
   }
-
+  let userListings = [];
   function findUserListings() {
-    getListingsByUserId(localUsers[1]._id).then(data => console.log(data));
+    getListingsByUserId(localUsers[1]._id).then(data => {
+      userListings = data.listings;
+    });
+    return userListings;
   }
 
   function handleTypeFilter(type) {
