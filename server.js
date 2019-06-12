@@ -39,24 +39,44 @@ app.get('/users', (req, res) => {
 
 app.get('/users/:id', function(req, res) {
   const id = req.params.id;
-  User.findUserById(id).then(user => res.json(user.favourites));
+  User.findById(id).then(user => res.json(user.favourites));
 });
 
 app.patch('/users/:id/favourites', function(req, res) {
-  const id = req.params.id;
-  User.findById(id).then(user => {
-    const index = user.listings.indexOf(req.body);
-    const newFavourites = user.listings.includes(req.body)
-      ? [...user.listings.slice(0, index), ...user.listings.slice(index + 1)]
-      : [...user.listings, id];
-    User.findByIdAndUpdate(id, newFavourites, { new: true })
-      .then(favourites => res.json(favourites))
-      .catch(err => res.json(err));
-  });
+  const user_id = req.params.id;
+  const listing_id = req.body.listing_id;
+  User.findByIdAndUpdate(user_id, listing_id, { new: true })
+    .then(user => {
+      const index = user.favourites.indexOf(listing_id);
+      user.favourites = user.favourites.includes(listing_id)
+        ? [
+            ...user.favourites.slice(0, index),
+            ...user.favourites.slice(index + 1)
+          ]
+        : [...user.favourites, listing_id];
+      user.save();
+      res.json(user);
+    })
+    .catch(err => console.log(err));
 });
 
 app.get('/getUserById', function(req, res) {
   User.findById(req.body.userId)
+    .populate('listings')
+    .then(user => res.json(user))
+    .catch(err => res.json(err));
+});
+
+app.patch('/users/:id', function(req, res) {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, { new: true })
+    .then(user => res.json(user))
+    .catch(err => res.json(err));
+});
+
+app.get('/users/:id/listings', function(req, res) {
+  const id = req.params.id;
+  User.findById(id)
     .populate('listings')
     .then(user => res.json(user))
     .catch(err => res.json(err));

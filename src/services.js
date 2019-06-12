@@ -14,6 +14,16 @@ export function getFavouritesByUserId(id) {
   return fetch(`/users/${id}`).then(res => res.json());
 }
 
+export function toggleFavourites(user_id, listing_id) {
+  return fetch(`/users/${user_id}/favourites`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      listing_id
+    })
+  }).then(res => res.json());
+}
+
 export function postListing(listing) {
   const {
     title,
@@ -39,12 +49,6 @@ export function postListing(listing) {
   }).then(res => res.json());
 }
 
-export function saveFavourites(user_id, listing_id) {
-  return fetch(`/users/${user_id}/favourites`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      listing_id
-    })
-  }).then(res => res.json());
+export function getListingsByUserId(user_id) {
+  return fetch(`/users/${user_id}/listings`).then(res => res.json());
 }

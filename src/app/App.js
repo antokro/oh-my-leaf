@@ -6,8 +6,9 @@ import {
   setLocal,
   getData,
   postListing,
-  saveFavourites,
-  getFavouritesByUserId
+  toggleFavourites,
+  getFavouritesByUserId,
+  getListingsByUserId
 } from '../services';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
@@ -55,7 +56,9 @@ function App() {
 
     setLocal('localUsers', localUsers);
 
-    getFavouritesByUserId(localUsers[1]._id);
+    getFavouritesByUserId(localUsers[1]._id).then(favourites => {
+      setFavourites(favourites);
+    });
   }, []);
 
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
@@ -85,23 +88,10 @@ function App() {
   }
 
   function handleFavourise(id) {
-    saveFavourites(localUsers[1]._id, id).then(data =>
+    toggleFavourites(localUsers[1]._id, id).then(data =>
       setFavourites(data.favourites)
     );
-    console.log(favourites);
   }
-
-  /*function NewFavourites(index, id) {
-    const newFavourites = favourites.slice();
-    if (newFavourites.includes(id)) {
-      return [
-        ...newFavourites.slice(0, index),
-        ...newFavourites.slice(index + 1)
-      ];
-    } else {
-      return [...newFavourites, id];
-    }
-  }*/
 
   function findDetails(id) {
     return listings.find(listing => listing._id === id);
@@ -112,7 +102,7 @@ function App() {
   }
 
   function findUserListings() {
-    //return listings.slice().filter(listing => listing.user === users[1]._id);
+    getListingsByUserId(localUsers[1]._id).then(data => console.log(data));
   }
 
   function handleTypeFilter(type) {
