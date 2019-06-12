@@ -32,6 +32,7 @@ const StyledShowIcon = styled(Listing)`
 function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
+
   function handleDeleteClick(id) {
     onDelete(id);
     history.goBack();
@@ -69,7 +70,7 @@ function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
             className="far fa-edit"
           />
           <StyledShowIcon
-            to={`/details/${listing.id}`}
+            to={`/details/${listing._id}`}
             className="fas fa-eye"
           />
         </StyledListingWrapper>

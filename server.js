@@ -11,6 +11,25 @@ app.get('/listings', (req, res) => {
     .catch(err => res.json(err));
 });
 
+app.get('/users', (req, res) => {
+  User.find()
+    .then(listing => res.json(listing))
+    .catch(err => res.json(err));
+});
+
+app.get('/users/:id', function(req, res) {
+  const id = req.params.id;
+  User.findById(id).then(user => res.json(user.favourites));
+});
+
+app.get('/users/:id/listings', function(req, res) {
+  const id = req.params.id;
+  User.findById(id)
+    .populate('listings')
+    .then(user => res.json(user))
+    .catch(err => res.json(err));
+});
+
 app.post('/listings', function(req, res) {
   Listing.create(req.body)
     .then(listing => {
@@ -23,23 +42,18 @@ app.post('/listings', function(req, res) {
     .catch(err => res.json(err));
 });
 
-/*app.delete('/listing', (req, res) => {
-  Listing.findByIdAndDelete(req.body.listibgID).then(deletedListing => {
-    User.findById(deletedListing.user).then(user => {
-      const listingIndex = user.listings.i;
-    });
-  });
-});*/
-
-app.get('/users', (req, res) => {
-  User.find()
+app.patch('/listings/:id', function(req, res) {
+  const id = req.params.id;
+  Listing.findByIdAndUpdate(id, req.body, { new: true })
     .then(listing => res.json(listing))
     .catch(err => res.json(err));
 });
 
-app.get('/users/:id', function(req, res) {
+app.patch('/users/:id', function(req, res) {
   const id = req.params.id;
-  User.findById(id).then(user => res.json(user.favourites));
+  User.findByIdAndUpdate(id, req.body, { new: true })
+    .then(user => res.json(user))
+    .catch(err => res.json(err));
 });
 
 app.patch('/users/:id/favourites', function(req, res) {
@@ -60,24 +74,10 @@ app.patch('/users/:id/favourites', function(req, res) {
     .catch(err => console.log(err));
 });
 
-app.get('/getUserById', function(req, res) {
-  User.findById(req.body.userId)
-    .populate('listings')
-    .then(user => res.json(user))
-    .catch(err => res.json(err));
-});
-
-app.patch('/users/:id', function(req, res) {
-  const id = req.params.id;
-  User.findByIdAndUpdate(id, req.body, { new: true })
-    .then(user => res.json(user))
-    .catch(err => res.json(err));
-});
-
-app.get('/users/:id/listings', function(req, res) {
-  const id = req.params.id;
-  User.findById(id)
-    .populate('listings')
-    .then(user => res.json(user))
-    .catch(err => res.json(err));
-});
+/*app.delete('/listing', (req, res) => {
+  Listing.findByIdAndDelete(req.body.listibgID).then(deletedListing => {
+    User.findById(deletedListing.user).then(user => {
+      const listingIndex = user.listings.i;
+    });
+  });
+});*/

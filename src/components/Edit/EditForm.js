@@ -62,10 +62,10 @@ const StyledClose = styled(Close)`
 function EditForm({ listing, onSave, onClose }) {
   const [editedListing, setEditedListing] = useState(listing);
   const [listingType, setListingType] = useState(listing.type);
-  const [image, setImage] = useState(listing.img);
+  const [image, setImage] = useState(listing.img_path);
   const [isUploadSuccess, setUploadSuccess] = useState(true);
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [swapTags, setSwapTags] = useState(listing.tags || []);
+  const [swapTags, setSwapTags] = useState(listing.swap_tags || []);
 
   const types = ['give away', 'swap', 'for sale'];
 
@@ -75,18 +75,15 @@ function EditForm({ listing, onSave, onClose }) {
     const title = form.title.value;
     const description = form.description.value;
     const price = form.price === undefined ? '' : form.price.value;
-    const img = image;
 
     const listingEdit = {
       title,
       description,
       type: listingType,
-      img,
+      img_path: image,
       price,
-      id: editedListing.id,
-      user: editedListing.user,
       tags: swapTags,
-      created: editedListing.created
+      _id: editedListing._id
     };
 
     onSave(listingEdit);

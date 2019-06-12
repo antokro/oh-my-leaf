@@ -8,7 +8,8 @@ import {
   postListing,
   toggleFavourites,
   getFavouritesByUserId,
-  getListingsByUserId
+  getListingsByUserId,
+  editListing
 } from '../services';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
@@ -48,6 +49,7 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
+  const [userListings, setUserListings] = useState([]);
 
   useEffect(() => {
     getData('listings')
@@ -58,6 +60,10 @@ function App() {
 
     getFavouritesByUserId(localUsers[1]._id).then(favourites => {
       setFavourites(favourites);
+    });
+
+    getListingsByUserId(localUsers[1]._id).then(data => {
+      setUserListings(data.listings);
     });
   }, []);
 
@@ -78,13 +84,15 @@ function App() {
 
   function handleChanges(editedListing) {
     const index = listings.findIndex(
-      listing => listing._id === editedListing.id
+      listing => listing._id === editedListing._id
     );
-    setListings([
-      ...listings.slice(0, index),
-      editedListing,
-      ...listings.slice(index + 1)
-    ]);
+    editListing(editedListing).then(listing =>
+      setListings([
+        ...listings.slice(0, index),
+        listing,
+        ...listings.slice(index + 1)
+      ])
+    );
   }
 
   function handleFavourise(id) {
@@ -99,13 +107,6 @@ function App() {
 
   function findFavourites() {
     return listings.slice().filter(listing => favourites.includes(listing._id));
-  }
-  let userListings = [];
-  function findUserListings() {
-    getListingsByUserId(localUsers[1]._id).then(data => {
-      userListings = data.listings;
-    });
-    return userListings;
   }
 
   function handleTypeFilter(type) {
@@ -199,7 +200,7 @@ function App() {
             path="/:username/listings"
             render={props => (
               <ListingOverview
-                listings={findUserListings()}
+                listings={userListings}
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}
                 {...props}

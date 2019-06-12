@@ -52,3 +52,13 @@ export function postListing(listing) {
 export function getListingsByUserId(user_id) {
   return fetch(`/users/${user_id}/listings`).then(res => res.json());
 }
+
+export function editListing(listing) {
+  return fetch(`/listings/${listing._id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      listing
+    })
+  }).then(res => res.json());
+}
