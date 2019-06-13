@@ -14,7 +14,7 @@ const StyledListing = styled(Link)`
   box-shadow: 3px 3px 9px -2px #c9cac8;
   color: #201f1d;
   display: grid;
-  grid-template-rows: 120px 60px 30px 35px 30px;
+  grid-template-rows: 120px 40px 30px 35px 30px;
   text-decoration: none;
 
   &:visited {
@@ -117,11 +117,9 @@ class Listing extends React.Component {
       this.setState({ animate: true });
     }
   }
-
   render() {
-    const { user, onFavourise, content, isFavourite } = this.props;
-    const { title, type, id, img, price } = content;
-    const { city } = user;
+    const { onFavourise, content, isFavourite } = this.props;
+    const { title, type, _id, img_path, price, user_id } = content;
     const { animate } = this.state;
 
     function onClickFavourise(id) {
@@ -130,23 +128,23 @@ class Listing extends React.Component {
     return (
       <Wrapper>
         <StyledHeart
-          onClick={() => onClickFavourise(id)}
+          onClick={() => onClickFavourise(_id)}
           className={isFavourite ? 'fas fa-heart' : 'far fa-heart'}
           isFavourite={isFavourite}
           animate={animate}
         />
-        <StyledListing to={`/details/${id}`}>
-          <StyledImgWrapper img={img} />
+        <StyledListing to={`/details/${_id}`}>
+          <StyledImgWrapper img={img_path} />
           <StyledTitle>
             {title.length >= 40 ? title.slice(0, 39) + '...' : title}
           </StyledTitle>
-          {price !== '' && <StyledPrice>{price}€</StyledPrice>}
+          {price !== null && <StyledPrice>{price}€</StyledPrice>}
           <StyledTypeWrapper>
             <StyledType>{type}</StyledType>
           </StyledTypeWrapper>
           <StyledLocation>
             <StyledIcon className="fas fa-map-marker-alt" />
-            <span>{city}</span>
+            <span>{user_id.city}</span>
           </StyledLocation>
         </StyledListing>
       </Wrapper>
@@ -157,7 +155,6 @@ class Listing extends React.Component {
 Listing.propTypes = {
   onFavourise: PropTypes.func,
   content: PropTypes.object,
-  user: PropTypes.object,
   isFavourite: PropTypes.bool
 };
 

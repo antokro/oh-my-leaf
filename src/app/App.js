@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { getLocal, setLocal } from '../services';
-import uid from 'uid';
+import {
+  getLocal,
+  setLocal,
+  getData,
+  postListing,
+  toggleFavourites,
+  getFavouritesByUserId,
+  getListingsByUserId,
+  editListing,
+  deleteListing
+} from '../services';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
 import Home from '../components/Home/Home';
@@ -13,8 +22,7 @@ import Footer from '../components/Footer/Footer';
 import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
-const users = require('./mockUsers.json');
-const mockListings = require('./mockListings.json');
+const localUsers = require('./mockUsers.json');
 
 const GridBody = styled.section`
   display: grid;
@@ -38,79 +46,74 @@ const GridFooter = styled.footer`
 `;
 
 function App() {
-  const [listings, setListings] = useState(
-    getLocal('listings') || mockListings
-  );
-  const [favourites, setFavourites] = useState(getLocal('favourites') || []);
+  const [listings, setListings] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
+  const [userListings, setUserListings] = useState([]);
 
-  useEffect(() => setLocal('listings', listings), [listings]);
-  useEffect(() => setLocal('favourites', favourites), [favourites]);
+  useEffect(() => {
+    getData('listings')
+      .then(data => setListings(data))
+      .catch(error => console.log(error));
+
+    setLocal('localUsers', localUsers);
+
+    getFavouritesByUserId(localUsers[1]._id).then(favourites => {
+      setFavourites(favourites);
+    });
+
+    getListingsByUserId(localUsers[1]._id).then(data => {
+      setUserListings(data.listings);
+    });
+  }, []);
+
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
-  const user = users[1];
-
-  function handlePublish(
-    title,
-    description,
-    listingType,
-    img,
-    price,
-    date,
-    tags
-  ) {
+  function handlePublish(title, description, type, image, price, swapTags) {
     const newListing = {
       title,
       description,
-      type: listingType,
-      id: uid(),
-      user: user.id_,
-      img,
+      type,
+      user_id: localUsers[1]._id,
+      img_path: image,
       price,
-      tags,
-      created: date
+      swap_tags: swapTags
     };
-    setListings([...listings, newListing]);
+    postListing(newListing).then(text => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+      });
+      console.log(text);
+    });
   }
 
   function handleChanges(editedListing) {
-    const index = listings.findIndex(
-      listing => listing.id === editedListing.id
-    );
-    setListings([
-      ...listings.slice(0, index),
-      editedListing,
-      ...listings.slice(index + 1)
-    ]);
+    editListing(editedListing).then(() => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+      });
+    });
   }
 
   function handleFavourise(id) {
-    const index = favourites.indexOf(id);
-
-    setFavourites(NewFavourites(index, id));
-  }
-
-  function NewFavourites(index, id) {
-    if (favourites.includes(id)) {
-      return [...favourites.slice(0, index), ...favourites.slice(index + 1)];
-    } else {
-      return [...favourites, id];
-    }
+    toggleFavourites(localUsers[1]._id, id).then(data =>
+      setFavourites(data.favourites)
+    );
   }
 
   function findDetails(id) {
-    const listing = listings.find(listing => listing.id === id);
-    const user = users.find(user => user.id_ === listing.user);
-    return { listing, user };
+    return listings.find(listing => listing._id === id);
   }
 
   function findFavourites() {
-    return listings.slice().filter(listing => favourites.includes(listing.id));
-  }
-
-  function findUserListings() {
-    return listings.slice().filter(listing => listing.user === user.id_);
+    return listings.slice().filter(listing => favourites.includes(listing._id));
   }
 
   function handleTypeFilter(type) {
@@ -118,26 +121,20 @@ function App() {
   }
 
   function handleDelete(id) {
-    const indexListing = listings.findIndex(listing => listing.id === id);
-    setListings([
-      ...listings.slice(0, indexListing),
-      ...listings.slice(indexListing + 1)
-    ]);
-
-    const indexFavourites = favourites.indexOf(id);
-    let updateFavourites = favourites;
-    if (favourites.includes(id)) {
-      updateFavourites = [
-        ...favourites.slice(0, indexFavourites),
-        ...favourites.slice(indexFavourites + 1)
-      ];
-    }
-    setFavourites(updateFavourites);
+    deleteListing(id).then(text => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+      });
+      console.log(text);
+    });
   }
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`${user.username}/search/${searchParam}`);
+    //history.push(`${users[1].username}/search/${searchParam}`);
   }
 
   return (
@@ -154,7 +151,6 @@ function App() {
             render={props => (
               <Home
                 listings={listings}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
                 onTypeFilter={handleTypeFilter}
@@ -167,7 +163,11 @@ function App() {
           <Route
             path="/:username/create"
             render={props => (
-              <CreateForm handlePublish={handlePublish} {...props} />
+              <CreateForm
+                handlePublish={handlePublish}
+                {...props}
+                username={localUsers[1].username}
+              />
             )}
           />
           <Route
@@ -175,7 +175,6 @@ function App() {
             render={() => (
               <FavouritesList
                 listings={findFavourites()}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
               />
@@ -197,7 +196,6 @@ function App() {
             render={() => (
               <SearchResult
                 listings={searchResult}
-                users={users}
                 onFavourise={handleFavourise}
                 favourites={favourites}
               />
@@ -207,7 +205,7 @@ function App() {
             path="/:username/listings"
             render={props => (
               <ListingOverview
-                listings={findUserListings()}
+                listings={userListings}
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}
                 {...props}
@@ -216,7 +214,7 @@ function App() {
           />
         </GridMain>
         <GridFooter>
-          <Footer user={user} />
+          <Footer username={localUsers[1].username} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>

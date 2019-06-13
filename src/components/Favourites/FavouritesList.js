@@ -3,17 +3,16 @@ import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-function FavouritesList({ listings, users, onFavourise, favourites }) {
+function FavouritesList({ listings, onFavourise, favourites }) {
   const [favouriteListings] = useState(listings);
   return (
     <FeedGrid>
       {favouriteListings.map(listing => (
         <Listing
-          key={listing.id}
+          key={listing._id}
           content={listing}
-          user={users.find(user => user.id_ === listing.user)}
-          onFavourise={() => onFavourise(listing.id)}
-          isFavourite={favourites.includes(listing.id)}
+          onFavourise={() => onFavourise(listing._id)}
+          isFavourite={favourites.includes(listing._id)}
         />
       ))}
     </FeedGrid>

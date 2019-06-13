@@ -35,12 +35,11 @@ function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
 
   function handleDeleteClick(id) {
     onDelete(id);
-    history.goBack();
   }
 
   function handleEditClick(id) {
     setEditMode(!editMode);
-    const toEdit = listings.find(listing => listing.id === id);
+    const toEdit = listings.find(listing => listing._id === id);
     setEditedListing(toEdit);
   }
 
@@ -56,18 +55,21 @@ function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
   return (
     <StyledListingOverview>
       {listings.map(listing => (
-        <StyledListingWrapper key={listing.id} opacity={editMode ? '0.1' : '1'}>
+        <StyledListingWrapper
+          key={listing._id}
+          opacity={editMode ? '0.1' : '1'}
+        >
           <StyledTitle>{listing.title}</StyledTitle>
           <Icon
-            onClick={() => handleDeleteClick(listing.id)}
+            onClick={() => handleDeleteClick(listing._id)}
             className="far fa-trash-alt"
           />
           <Icon
-            onClick={() => handleEditClick(listing.id)}
+            onClick={() => handleEditClick(listing._id)}
             className="far fa-edit"
           />
           <StyledShowIcon
-            to={`/details/${listing.id}`}
+            to={`/details/${listing._id}`}
             className="fas fa-eye"
           />
         </StyledListingWrapper>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Label from '../common/FormElements/Label';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { ReactComponent as LoadIcon } from '../../svg/loadingIcon.svg';
@@ -35,15 +34,14 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-function CreateForm({ handlePublish, history }) {
-  const [date] = useState(moment().format('dddd, MMMM Do YYYY'));
+function CreateForm({ handlePublish, history, username }) {
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
   const [isAddImage, setAddImage] = useState(false);
   const [isUploadSuccess, setUploadSuccess] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [listingType, setListingType] = useState('give away');
+  const [type, setType] = useState('give away');
   const [swapTags, setSwapTags] = useState(['Cactus', 'exotic plants']);
 
   const types = ['give away', 'swap', 'for sale'];
@@ -54,16 +52,15 @@ function CreateForm({ handlePublish, history }) {
     const title = form.title.value.trim();
     const description = form.description.value.trim();
     const price = form.price === undefined ? '' : form.price.value;
-    const img = image;
-    const tags = swapTags;
-    handlePublish(title, description, listingType, img, price, date, tags);
+
+    handlePublish(title, description, type, image, price, swapTags);
     form.reset();
-    history.push('/');
+    history.push(`/${username}/listings`);
   }
 
   function handleTypeButtonClick(event) {
-    const type = event.target.value;
-    setListingType(type);
+    const newType = event.target.value;
+    setType(newType);
   }
 
   function onAddImage() {
@@ -127,22 +124,22 @@ function CreateForm({ handlePublish, history }) {
       </AddImg>
       <Label>Listing Type</Label>
       <TypeButtonGroup>
-        {types.map(type => (
+        {types.map(typeBtn => (
           <TypeButton
             handleClick={handleTypeButtonClick}
-            value={type}
-            key={type}
-            filled={listingType}
+            value={typeBtn}
+            key={typeBtn}
+            filled={type}
           />
         ))}
       </TypeButtonGroup>
-      {listingType === 'for sale' && (
+      {type === 'for sale' && (
         <PriceInputWrapper>
           <Label htmlFor="price">Price in €</Label>
           <StyledPriceInput id="price" name="price" />
         </PriceInputWrapper>
       )}
-      {listingType === 'swap' && (
+      {type === 'swap' && (
         <SwapTags
           tags={swapTags}
           onDelete={handleTagDelete}
