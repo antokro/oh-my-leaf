@@ -9,7 +9,8 @@ import {
   toggleFavourites,
   getFavouritesByUserId,
   getListingsByUserId,
-  editListing
+  editListing,
+  deleteListing
 } from '../services';
 import GlobalStyles from '../components/common/Styles/GlobalStyles';
 import Header from '../components/Header/Header';
@@ -67,6 +68,8 @@ function App() {
     });
   }, []);
 
+
+
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   function handlePublish(title, description, type, image, price, swapTags) {
@@ -83,16 +86,14 @@ function App() {
   }
 
   function handleChanges(editedListing) {
-    const index = listings.findIndex(
-      listing => listing._id === editedListing._id
-    );
-    editListing(editedListing).then(listing =>
-      setListings([
-        ...listings.slice(0, index),
-        listing,
-        ...listings.slice(index + 1)
-      ])
-    );
+    editListing(editedListing).then(() => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+        });
+    });
   }
 
   function handleFavourise(id) {
@@ -129,6 +130,16 @@ function App() {
       ];
     }
     setFavourites(updateFavourites);
+
+
+    deleteListing(id).then(() => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+        });
+    });
   }
 
   function showSearchResults(results, history, searchParam) {

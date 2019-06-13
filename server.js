@@ -44,7 +44,7 @@ app.post('/listings', function(req, res) {
 
 app.patch('/listings/:id', function(req, res) {
   const id = req.params.id;
-  Listing.findByIdAndUpdate(id, req.body, { new: true })
+  Listing.findByIdAndUpdate(id, req.body.listing, { new: true })
     .then(listing => res.json(listing))
     .catch(err => res.json(err));
 });
@@ -74,10 +74,11 @@ app.patch('/users/:id/favourites', function(req, res) {
     .catch(err => console.log(err));
 });
 
-/*app.delete('/listing', (req, res) => {
-  Listing.findByIdAndDelete(req.body.listibgID).then(deletedListing => {
+app.delete('/listings/:id', function(req, res) {
+  const id = req.params.id;
+  Listing.findByIdAndDelete(id).then(deletedListing => {
     User.findById(deletedListing.user).then(user => {
       const listingIndex = user.listings.i;
     });
   });
-});*/
+});

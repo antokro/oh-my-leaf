@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TextInput } from '../common/FormElements/Input';
+import  SearchIcon  from '../../svg/iconfinder_icon-111-search_314807.svg';
 
 const StyledHome = styled.section``;
 
@@ -22,6 +23,12 @@ const StyledSelect = styled.select`
   margin-top: 5px;
   padding: 3px;
   background-color: transparent;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  background-image: url(${SearchIcon});
+  background-repeat: no-repeat;
+  background-position: 325px 4px;
 `;
 
 function Home({
@@ -78,10 +85,7 @@ function Home({
             <option value="for sale">for sale</option>
           </StyledSelect>
         )}
-        <Label>
-          <i className="fas fa-search" /> Search For
-        </Label>
-        <TextInput
+        <StyledTextInput
           type="text"
           placeholder="Search here..."
           onKeyPress={event => event.charCode === 13 && onKeyPressSearch(event)}

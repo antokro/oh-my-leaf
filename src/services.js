@@ -62,3 +62,13 @@ export function editListing(listing) {
     })
   }).then(res => res.json());
 }
+
+export function deleteListing(id) {
+  return fetch(`/listings/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id
+    })
+  }).then(res => res.json());
+}

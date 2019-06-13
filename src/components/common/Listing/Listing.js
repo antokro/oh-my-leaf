@@ -14,7 +14,7 @@ const StyledListing = styled(Link)`
   box-shadow: 3px 3px 9px -2px #c9cac8;
   color: #201f1d;
   display: grid;
-  grid-template-rows: 120px 60px 30px 35px 30px;
+  grid-template-rows: 120px 40px 30px 35px 30px;
   text-decoration: none;
 
   &:visited {
@@ -138,7 +138,7 @@ class Listing extends React.Component {
           <StyledTitle>
             {title.length >= 40 ? title.slice(0, 39) + '...' : title}
           </StyledTitle>
-          {price !== '' && <StyledPrice>{price}€</StyledPrice>}
+          {price !== null && <StyledPrice>{price}€</StyledPrice>}
           <StyledTypeWrapper>
             <StyledType>{type}</StyledType>
           </StyledTypeWrapper>

@@ -82,8 +82,10 @@ function EditForm({ listing, onSave, onClose }) {
       type: listingType,
       img_path: image,
       price,
-      tags: swapTags,
-      _id: editedListing._id
+      swap_tags: swapTags,
+      _id: editedListing._id,
+      user_id: editedListing.user_id,
+      createdAt: editedListing.createdAt
     };
 
     onSave(listingEdit);
@@ -181,7 +183,7 @@ function EditForm({ listing, onSave, onClose }) {
       {listingType === 'for sale' && (
         <PriceInputWrapper>
           <Label>Price in €</Label>
-          <StyledPriceInput id="price" name="price" />
+          <StyledPriceInput id="price" name="price" defaultValue={listing.price} />
         </PriceInputWrapper>
       )}
       {listingType === 'swap' && (
