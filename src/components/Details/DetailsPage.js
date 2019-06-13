@@ -163,7 +163,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
         <StyledUserInfo className="fas fa-map-marker-alt" />
         <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
-      <StyledCreationDate>Created: {createdAt}</StyledCreationDate>
+      <StyledCreationDate>Created: {createdAt.slice(0, 10)}</StyledCreationDate>
     </StyledDetailsPage>
   );
 }

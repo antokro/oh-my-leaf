@@ -134,7 +134,7 @@ function App() {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    //history.push(`${users[1].username}/search/${searchParam}`);
+    history.push(`${localUsers[1].username}/search/${searchParam}`);
   }
 
   return (
@@ -144,7 +144,7 @@ function App() {
         <GridHeader>
           <Header />
         </GridHeader>
-        <GridMain>
+        <GridMain onScroll={event => console.log(event.target.scrollTop)}>
           <Route
             exact
             path="/"
