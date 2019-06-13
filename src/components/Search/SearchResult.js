@@ -7,18 +7,17 @@ import styled from 'styled-components';
 
 const StyledSearchResult = styled.section``;
 
-function SearchResult({ listings, users, onFavourise, favourites }) {
+function SearchResult({ listings, onFavourise, favourites }) {
   return (
     <StyledSearchResult>
       <Label>Search Results</Label>
       <FeedGrid>
         {listings.map(listing => (
           <Listing
-            key={listing.id}
+            key={listing._id}
             content={listing}
-            user={users.find(user => user.id_ === listing.user)}
-            onFavourise={() => onFavourise(listing.id)}
-            isFavourite={favourites.includes(listing.id)}
+            onFavourise={() => onFavourise(listing._id)}
+            isFavourite={favourites.includes(listing._id)}
           />
         ))}
       </FeedGrid>
