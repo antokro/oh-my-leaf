@@ -34,7 +34,7 @@ const StyledPriceInput = styled(TextInput)`
   margin: 9px 0;
 `;
 
-function CreateForm({ handlePublish, history }) {
+function CreateForm({ handlePublish, history, username }) {
   const [image, setImage] = useState(
     'https://res.cloudinary.com/doirkiciq/image/upload/v1558965891/Sorry-noImg_iwodnp.png'
   );
@@ -55,7 +55,7 @@ function CreateForm({ handlePublish, history }) {
 
     handlePublish(title, description, type, image, price, swapTags);
     form.reset();
-    history.push('/');
+    history.push(`/${username}/listings`);
   }
 
   function handleTypeButtonClick(event) {

@@ -68,8 +68,6 @@ function App() {
     });
   }, []);
 
-
-
   useEffect(() => setLocal('typeFilter', typeFilter), [typeFilter]);
 
   function handlePublish(title, description, type, image, price, swapTags) {
@@ -82,7 +80,15 @@ function App() {
       price,
       swap_tags: swapTags
     };
-    postListing(newListing).then(data => setListings([...listings, data]));
+    postListing(newListing).then(text => {
+      getData('listings')
+        .then(data => setListings(data))
+        .catch(error => console.log(error));
+      getListingsByUserId(localUsers[1]._id).then(data => {
+        setUserListings(data.listings);
+      });
+      console.log(text);
+    });
   }
 
   function handleChanges(editedListing) {
@@ -92,7 +98,7 @@ function App() {
         .catch(error => console.log(error));
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
-        });
+      });
     });
   }
 
@@ -115,30 +121,14 @@ function App() {
   }
 
   function handleDelete(id) {
-    const indexListing = listings.findIndex(listing => listing._id === id);
-    setListings([
-      ...listings.slice(0, indexListing),
-      ...listings.slice(indexListing + 1)
-    ]);
-
-    const indexFavourites = favourites.indexOf(id);
-    let updateFavourites = favourites;
-    if (favourites.includes(id)) {
-      updateFavourites = [
-        ...favourites.slice(0, indexFavourites),
-        ...favourites.slice(indexFavourites + 1)
-      ];
-    }
-    setFavourites(updateFavourites);
-
-
-    deleteListing(id).then(() => {
+    deleteListing(id).then(text => {
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
-        });
+      });
+      console.log(text);
     });
   }
 
@@ -173,7 +163,11 @@ function App() {
           <Route
             path="/:username/create"
             render={props => (
-              <CreateForm handlePublish={handlePublish} {...props} />
+              <CreateForm
+                handlePublish={handlePublish}
+                {...props}
+                username={localUsers[1].username}
+              />
             )}
           />
           <Route

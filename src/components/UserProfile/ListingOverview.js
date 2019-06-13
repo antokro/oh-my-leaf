@@ -35,7 +35,6 @@ function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
 
   function handleDeleteClick(id) {
     onDelete(id);
-    history.goBack();
   }
 
   function handleEditClick(id) {

@@ -37,7 +37,7 @@ app.post('/listings', function(req, res) {
         user.listings.push(listing._id);
         user.save();
       });
-      res.json(listing);
+      res.json('Listing is published');
     })
     .catch(err => res.json(err));
 });
@@ -76,9 +76,21 @@ app.patch('/users/:id/favourites', function(req, res) {
 
 app.delete('/listings/:id', function(req, res) {
   const id = req.params.id;
-  Listing.findByIdAndDelete(id).then(deletedListing => {
-    User.findById(deletedListing.user).then(user => {
-      const listingIndex = user.listings.i;
-    });
-  });
+  Listing.findByIdAndDelete(id)
+    .then(deletedListing => {
+      User.findById(deletedListing.user_id).then(user => {
+        const index = user.listings.indexOf(id);
+        user.listings = user.listings.includes(id) && [
+          ...user.listings.slice(0, index),
+          ...user.listings.slice(index + 1)
+        ];
+        user.favourites = user.favourites.includes(id) && [
+          ...user.favourites.slice(0, index),
+          ...user.favourites.slice(index + 1)
+        ];
+        user.save();
+        res.json('Listing is deleted');
+      });
+    })
+    .catch(err => console.log(err));
 });
