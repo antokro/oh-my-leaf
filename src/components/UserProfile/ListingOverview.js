@@ -34,8 +34,9 @@ const StyledNotification = styled.div`
   background-color: lightgray;
   padding: 5px;
   bottom: 8%;
-  left: 120px;
+  left: 80px;
   justify-self: center;
+  font-size: 12px;
   animation: fadeOut 5s ease-in-out;
   @keyframes fadeOut {
     0% {
@@ -50,14 +51,18 @@ const StyledNotification = styled.div`
   }
 `;
 
-function ListingOverview({ listings, onDelete, onSaveChanges, notification }) {
+function ListingOverview({
+  listings,
+  onDelete,
+  onSaveChanges,
+  notification,
+  isNotified
+}) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
-  const [isNotified, setIsNotified] = useState(false);
 
   function handleDeleteClick(id) {
     onDelete(id);
-    showNotification();
   }
 
   function handleEditClick(id) {
@@ -66,15 +71,9 @@ function ListingOverview({ listings, onDelete, onSaveChanges, notification }) {
     setEditedListing(toEdit);
   }
 
-  function showNotification() {
-    setIsNotified(true);
-    setTimeout(() => setIsNotified(false), 4900);
-  }
-
   function handleSave(listing) {
     setEditMode(!editMode);
     onSaveChanges(listing);
-    showNotification();
   }
 
   function handleClose() {

@@ -51,7 +51,8 @@ function App() {
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
   const [userListings, setUserListings] = useState([]);
-  const [dbReply, setDbReply] = useState('Sorry please try again');
+  const [dbReply, setDbReply] = useState('Sorry, please try again');
+  const [isNotified, setIsNotified] = useState(false);
 
   useEffect(() => {
     getData('listings')
@@ -89,12 +90,14 @@ function App() {
         setUserListings(data.listings);
       });
       setDbReply(text);
+      showNotification();
     });
   }
 
   function handleChanges(editedListing) {
     editListing(editedListing).then(text => {
       setDbReply(text);
+      showNotification();
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
@@ -125,6 +128,7 @@ function App() {
   function handleDelete(id) {
     deleteListing(id).then(text => {
       setDbReply(text);
+      showNotification();
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
@@ -139,6 +143,11 @@ function App() {
     history.push(`${localUsers[1].username}/search/${searchParam}`);
   }
 
+  function showNotification() {
+    setIsNotified(true);
+    setTimeout(() => setIsNotified(false), 4900);
+  }
+
   return (
     <BrowserRouter>
       <GridBody>
@@ -146,7 +155,7 @@ function App() {
         <GridHeader>
           <Header />
         </GridHeader>
-        <GridMain onScroll={event => console.log(event.target.scrollTop)}>
+        <GridMain>
           <Route
             exact
             path="/"
@@ -211,6 +220,7 @@ function App() {
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}
                 notification={dbReply}
+                isNotified={isNotified}
               />
             )}
           />
