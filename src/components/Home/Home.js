@@ -108,7 +108,6 @@ function Home({
 Home.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
-  users: PropTypes.array,
   onFavourise: PropTypes.func,
   onTypeFilter: PropTypes.func,
   typeFilter: PropTypes.string,
