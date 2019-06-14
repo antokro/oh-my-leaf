@@ -51,6 +51,7 @@ function App() {
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
   const [userListings, setUserListings] = useState([]);
+  const [dbReply, setDbReply] = useState('Sorry please try again');
 
   useEffect(() => {
     getData('listings')
@@ -87,12 +88,13 @@ function App() {
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
       });
-      console.log(text);
+      setDbReply(text);
     });
   }
 
   function handleChanges(editedListing) {
-    editListing(editedListing).then(() => {
+    editListing(editedListing).then(text => {
+      setDbReply(text);
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
@@ -122,13 +124,13 @@ function App() {
 
   function handleDelete(id) {
     deleteListing(id).then(text => {
+      setDbReply(text);
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
       });
-      console.log(text);
     });
   }
 
@@ -203,12 +205,12 @@ function App() {
           />
           <Route
             path="/:username/listings"
-            render={props => (
+            render={() => (
               <ListingOverview
                 listings={userListings}
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}
-                {...props}
+                notification={dbReply}
               />
             )}
           />

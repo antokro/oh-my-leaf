@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TextInput } from '../common/FormElements/Input';
-import  SearchIcon  from '../../svg/iconfinder_icon-111-search_314807.svg';
+import SearchIcon from '../../svg/iconfinder_icon-111-search_314807.svg';
 
 const StyledHome = styled.section``;
 

@@ -45,7 +45,7 @@ app.post('/listings', function(req, res) {
 app.patch('/listings/:id', function(req, res) {
   const id = req.params.id;
   Listing.findByIdAndUpdate(id, req.body.listing, { new: true })
-    .then(listing => res.json(listing))
+    .then(() => res.json('Listing is edited'))
     .catch(err => res.json(err));
 });
 
