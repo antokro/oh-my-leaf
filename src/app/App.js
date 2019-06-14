@@ -51,6 +51,8 @@ function App() {
   const [typeFilter, setTypeFilter] = useState(getLocal('typeFilter') || 'all');
   const [searchResult, setSearchResult] = useState([]);
   const [userListings, setUserListings] = useState([]);
+  const [dbReply, setDbReply] = useState('Sorry, please try again');
+  const [isNotified, setIsNotified] = useState(false);
 
   useEffect(() => {
     getData('listings')
@@ -87,12 +89,15 @@ function App() {
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
       });
-      console.log(text);
+      setDbReply(text);
+      showNotification();
     });
   }
 
   function handleChanges(editedListing) {
-    editListing(editedListing).then(() => {
+    editListing(editedListing).then(text => {
+      setDbReply(text);
+      showNotification();
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
@@ -122,19 +127,25 @@ function App() {
 
   function handleDelete(id) {
     deleteListing(id).then(text => {
+      setDbReply(text);
+      showNotification();
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
       getListingsByUserId(localUsers[1]._id).then(data => {
         setUserListings(data.listings);
       });
-      console.log(text);
     });
   }
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    //history.push(`${users[1].username}/search/${searchParam}`);
+    history.push(`${localUsers[1].username}/search/${searchParam}`);
+  }
+
+  function showNotification() {
+    setIsNotified(true);
+    setTimeout(() => setIsNotified(false), 4900);
   }
 
   return (
@@ -203,12 +214,13 @@ function App() {
           />
           <Route
             path="/:username/listings"
-            render={props => (
+            render={() => (
               <ListingOverview
                 listings={userListings}
                 onDelete={handleDelete}
                 onSaveChanges={handleChanges}
-                {...props}
+                notification={dbReply}
+                isNotified={isNotified}
               />
             )}
           />

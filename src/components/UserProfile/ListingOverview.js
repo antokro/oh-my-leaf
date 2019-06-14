@@ -29,7 +29,35 @@ const StyledShowIcon = styled(Listing)`
   text-decoration: none;
 `;
 
-function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
+const StyledNotification = styled.div`
+  position: absolute;
+  background-color: lightgray;
+  padding: 5px;
+  bottom: 8%;
+  left: 80px;
+  justify-self: center;
+  font-size: 12px;
+  animation: fadeOut 5s ease-in-out;
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+`;
+
+function ListingOverview({
+  listings,
+  onDelete,
+  onSaveChanges,
+  notification,
+  isNotified
+}) {
   const [editMode, setEditMode] = useState(false);
   const [editedListing, setEditedListing] = useState({});
 
@@ -74,6 +102,7 @@ function ListingOverview({ listings, onDelete, history, onSaveChanges }) {
           />
         </StyledListingWrapper>
       ))}
+      {isNotified && <StyledNotification>{notification}</StyledNotification>}
       {editMode === true && (
         <EditForm
           listing={editedListing}

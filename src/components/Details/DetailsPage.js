@@ -143,7 +143,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
       />
       <Image src={img_path} alt="plant" />
       <StyledTitle>{title}</StyledTitle>
-      {price !== '' && <StyledPrice>{price}€</StyledPrice>}
+      {price !== null && <StyledPrice>{price}€</StyledPrice>}
       <StyledType>{type}</StyledType>
       {type === 'swap' &&
         (swap_tags !== [] && (
@@ -163,7 +163,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
         <StyledUserInfo className="fas fa-map-marker-alt" />
         <StyledUserInfo>{city}</StyledUserInfo>
       </StyledUser>
-      <StyledCreationDate>Created: {createdAt}</StyledCreationDate>
+      <StyledCreationDate>Created: {createdAt.slice(0, 10)}</StyledCreationDate>
     </StyledDetailsPage>
   );
 }
