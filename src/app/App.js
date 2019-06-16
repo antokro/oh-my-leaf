@@ -23,6 +23,7 @@ import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
 const localUsers = require('./mockUsers.json');
+const currentUser = localUsers[1];
 
 const GridBody = styled.section`
   display: grid;
@@ -61,11 +62,11 @@ function App() {
 
     setLocal('localUsers', localUsers);
 
-    getFavouritesByUserId(localUsers[1]._id).then(favourites => {
+    getFavouritesByUserId(currentUser._id).then(favourites => {
       setFavourites(favourites);
     });
 
-    getListingsByUserId(localUsers[1]._id).then(data => {
+    getListingsByUserId(currentUser._id).then(data => {
       setUserListings(data.listings);
     });
   }, []);
@@ -77,7 +78,7 @@ function App() {
       title,
       description,
       type,
-      user_id: localUsers[1]._id,
+      user_id: currentUser._id,
       img_path: image,
       price,
       swap_tags: swapTags
@@ -86,7 +87,7 @@ function App() {
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
-      getListingsByUserId(localUsers[1]._id).then(data => {
+      getListingsByUserId(currentUser._id).then(data => {
         setUserListings(data.listings);
       });
       setDbReply(text);
@@ -101,14 +102,14 @@ function App() {
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
-      getListingsByUserId(localUsers[1]._id).then(data => {
+      getListingsByUserId(currentUser._id).then(data => {
         setUserListings(data.listings);
       });
     });
   }
 
   function handleFavourise(id) {
-    toggleFavourites(localUsers[1]._id, id).then(data =>
+    toggleFavourites(currentUser._id, id).then(data =>
       setFavourites(data.favourites)
     );
   }
@@ -132,7 +133,7 @@ function App() {
       getData('listings')
         .then(data => setListings(data))
         .catch(error => console.log(error));
-      getListingsByUserId(localUsers[1]._id).then(data => {
+      getListingsByUserId(currentUser._id).then(data => {
         setUserListings(data.listings);
       });
     });
@@ -140,7 +141,7 @@ function App() {
 
   function showSearchResults(results, history, searchParam) {
     setSearchResult(results);
-    history.push(`${localUsers[1].username}/search/${searchParam}`);
+    history.push(`${currentUser.username}/search/${searchParam}`);
   }
 
   function showNotification() {
@@ -177,7 +178,7 @@ function App() {
               <CreateForm
                 handlePublish={handlePublish}
                 {...props}
-                username={localUsers[1].username}
+                username={currentUser.username}
               />
             )}
           />
@@ -226,7 +227,7 @@ function App() {
           />
         </GridMain>
         <GridFooter>
-          <Footer username={localUsers[1].username} />
+          <Footer username={currentUser.username} />
         </GridFooter>
       </GridBody>
     </BrowserRouter>
