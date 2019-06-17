@@ -137,7 +137,7 @@ class Listing extends React.Component {
         <StyledListing to={`/details/${_id}`}>
           <StyledImgWrapper img={img_path} />
           <StyledTitle>
-            {title.length >= 40 ? title.slice(0, 39) + '...' : title}
+            {title.length >= 20 ? title.slice(0, 19) + '...' : title}
           </StyledTitle>
           {price !== null && <StyledPrice>{price}€</StyledPrice>}
           <StyledTypeWrapper>
