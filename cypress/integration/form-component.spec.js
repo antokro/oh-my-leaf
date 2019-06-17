@@ -26,10 +26,5 @@ describe('Oh my leaf Web Application', () => {
       .should('be.visible')
       .get('#swaps')
       .should('not.be.visible');
-
-    cy.get('.Forms__Button-jd8goj-2')
-      .click()
-      .url()
-      .should('include', '/listings');
   });
 });
