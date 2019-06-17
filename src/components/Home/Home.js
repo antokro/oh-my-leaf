@@ -26,9 +26,10 @@ const StyledSelect = styled.select`
 `;
 
 const StyledTextInput = styled(TextInput)`
+  padding: 5px 25px 5px 5px;
   background-image: url(${SearchIcon});
   background-repeat: no-repeat;
-  background-position: 325px 4px;
+  background-position: right;
 `;
 
 function Home({
