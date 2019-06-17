@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Type Button Component renders three buttons in the form component to choose the type of a listing 1`] = `
+<input
+  className="TypeButton__StyledInputButton-p6v7sf-0 izjMxW"
+  type="button"
+  value="give away"
+/>
+`;

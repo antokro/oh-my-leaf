@@ -13,10 +13,10 @@ const StyledInputButton = styled.input`
 `;
 
 function TypeButton(props) {
-  const { handleClick, value, filled } = props;
+  const { onClick, value, filled } = props;
   return (
     <StyledInputButton
-      onClick={handleClick}
+      onClick={onClick}
       type="button"
       value={value}
       filling={value === filled}
