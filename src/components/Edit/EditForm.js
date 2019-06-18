@@ -137,6 +137,7 @@ function EditForm({ listing, onSave, onClose }) {
         id="title"
         name="title"
         defaultValue={listing.title}
+        required
       />
       <Label htmlFor="description">Description</Label>
       <Textarea
@@ -179,6 +180,7 @@ function EditForm({ listing, onSave, onClose }) {
             id="price"
             name="price"
             defaultValue={listing.price}
+            type="number"
           />
         </PriceInputWrapper>
       )}
