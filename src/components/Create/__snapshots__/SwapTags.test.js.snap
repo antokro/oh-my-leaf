@@ -28,18 +28,6 @@ exports[`Swap tags component renders a section with an input field to add tags t
           x
         </b>
       </span>
-      <span
-        className="Tags__SwapTag-uz6t9v-1 heiBUy"
-      >
-        test
-         
-        <b
-          className="SwapTags__StyledDelete-sc-15dr4e3-2 daIZly"
-          onClick={[Function]}
-        >
-          x
-        </b>
-      </span>
     </div>
     <input
       className="SwapTags__StyledTagInputField-sc-15dr4e3-4 hcXjpB"

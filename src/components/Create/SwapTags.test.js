@@ -14,5 +14,17 @@ describe('Swap tags component', () => {
     const tree = input.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('triggers to callback functions', () => {
+    const callbackDelete = jest.fn();
+    const callbackInput = jest.fn();
+
+    const input = mount(
+      <SwapTags tags={tags} onDelete={callbackDelete} onInput={callbackInput} />
+    );
+
+    input.find('b').simulate('click');
+    expect(callbackDelete).toHaveBeenCalled();
+  });
 });
 /* tags on Delete onInput*/
