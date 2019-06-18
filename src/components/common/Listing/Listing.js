@@ -120,6 +120,7 @@ class Listing extends React.Component {
   render() {
     const { onFavourise, content, isFavourite } = this.props;
     const { title, type, _id, img_path, price, user_id } = content;
+    const { city } = user_id;
     const { animate } = this.state;
 
     function onClickFavourise(id) {
@@ -144,7 +145,7 @@ class Listing extends React.Component {
           </StyledTypeWrapper>
           <StyledLocation>
             <StyledIcon className="fas fa-map-marker-alt" />
-            <span>{user_id.city}</span>
+            <span>{city}</span>
           </StyledLocation>
         </StyledListing>
       </Wrapper>

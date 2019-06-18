@@ -23,14 +23,6 @@ const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const StyledForm = styled(Form)`
   background: white;
-  border-radius: 11px;
-  bottom: 5%;
-  box-shadow: 3px 3px 9px -2px #c9cac8;
-  left: 5%;
-  padding: 5px;
-  position: absolute;
-  right: 5%;
-  top: 5%;
   overflow: scroll;
 `;
 
@@ -54,8 +46,8 @@ const StyledPriceInput = styled(TextInput)`
 `;
 
 const StyledClose = styled(Close)`
-  position: sticky;
-  left: 90%;
+  position: absolute;
+  left: 89%;
   top: 5px;
 `;
 
@@ -183,7 +175,11 @@ function EditForm({ listing, onSave, onClose }) {
       {listingType === 'for sale' && (
         <PriceInputWrapper>
           <Label>Price in €</Label>
-          <StyledPriceInput id="price" name="price" defaultValue={listing.price} />
+          <StyledPriceInput
+            id="price"
+            name="price"
+            defaultValue={listing.price}
+          />
         </PriceInputWrapper>
       )}
       {listingType === 'swap' && (

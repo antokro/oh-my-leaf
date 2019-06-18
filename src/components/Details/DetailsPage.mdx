@@ -8,13 +8,20 @@ import { Playground, Props } from 'docz';
 # Layout of the Details Page of a Listing
 
 <Playground>
-  <Details
+  <DetailsPage
     content={{
       title: 'Monstera',
-      type: 'give away',
+      type: 'for sale',
+      price: 15,
       description:
-        'Hello you plant lovers, I’m giving away propagations of my Monstera plant. They all have roots and are ready to be potted. Pick up only!'
+        'Hello you plant lovers, I’m giving away propagations of my Monstera plant. They all have roots and are ready to be potted. Pick up only!',
+      user_id: {
+        name: { firstname: 'Antonia' },
+        city: 'Hamburg'
+      },
+      createdAt: '2019-06-11T09:24:35.667Z'
     }}
+    favourites={[]}
   />
 </Playground>
 

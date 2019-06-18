@@ -82,28 +82,29 @@ function ListingOverview({
 
   return (
     <StyledListingOverview>
-      {listings.map(listing => (
-        <StyledListingWrapper
-          key={listing._id}
-          opacity={editMode ? '0.1' : '1'}
-        >
-          <StyledTitle>{listing.title}</StyledTitle>
-          <Icon
-            onClick={() => handleDeleteClick(listing._id)}
-            className="far fa-trash-alt"
-          />
-          <Icon
-            onClick={() => handleEditClick(listing._id)}
-            className="far fa-edit"
-          />
-          <StyledShowIcon
-            to={`/details/${listing._id}`}
-            className="fas fa-eye"
-          />
-        </StyledListingWrapper>
-      ))}
+      {editMode ||
+        listings.map(listing => (
+          <StyledListingWrapper
+            key={listing._id}
+            opacity={editMode ? '0.1' : '1'}
+          >
+            <StyledTitle>{listing.title}</StyledTitle>
+            <Icon
+              onClick={() => handleDeleteClick(listing._id)}
+              className="far fa-trash-alt"
+            />
+            <Icon
+              onClick={() => handleEditClick(listing._id)}
+              className="far fa-edit"
+            />
+            <StyledShowIcon
+              to={`/details/${listing._id}`}
+              className="fas fa-eye"
+            />
+          </StyledListingWrapper>
+        ))}
       {isNotified && <StyledNotification>{notification}</StyledNotification>}
-      {editMode === true && (
+      {editMode && (
         <EditForm
           listing={editedListing}
           onSave={listing => handleSave(listing)}
