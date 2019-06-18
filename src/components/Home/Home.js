@@ -26,9 +26,10 @@ const StyledSelect = styled.select`
 `;
 
 const StyledTextInput = styled(TextInput)`
+  padding: 5px 25px 5px 5px;
   background-image: url(${SearchIcon});
   background-repeat: no-repeat;
-  background-position: 325px 4px;
+  background-position: right;
 `;
 
 function Home({
@@ -56,7 +57,7 @@ function Home({
   function onKeyPressSearch(event) {
     const searchParam = event.target.value;
     var options = {
-      keys: ['title', 'description', 'tags'],
+      keys: ['title', 'description', 'tags', 'user_id.city'],
       minMatchCharLength: 3,
       threshold: 0.3,
       maxPatternLength: 32,
@@ -108,7 +109,6 @@ function Home({
 Home.propTypes = {
   listings: PropTypes.array,
   favourites: PropTypes.array,
-  users: PropTypes.array,
   onFavourise: PropTypes.func,
   onTypeFilter: PropTypes.func,
   typeFilter: PropTypes.string,

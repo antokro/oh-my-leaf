@@ -2,21 +2,24 @@
 name: Home
 ---
 
-import Listing from '../common/Listing/ListingItem.js';
+import Listing from '../common/Listing/Listing.js';
 import Home from './Home.js';
 import { Playground, Props } from 'docz';
+import { BrowserRouter } from 'react-router-dom';
 
 # Layout of a Listing
 
 <Playground>
-  <ListingItem
-    content={{
-      title: 'Monstera',
-      type: 'give away',
-      price: '30€',
-      city: 'Hamburg'
-    }}
-  />
+  <BrowserRouter>
+    <Listing
+      content={{
+        title: 'Monstera',
+        type: 'give away',
+        price: '30€',
+        user_id: { city: 'Hamburg' }
+      }}
+    />
+  </BrowserRouter>
 </Playground>
 
 ## Properties of Listing Feed
@@ -25,4 +28,4 @@ import { Playground, Props } from 'docz';
 
 ## Properties of one individual Listing
 
-<Props of={ListingItem} />
+<Props of={Listing} />

@@ -32,6 +32,6 @@ function Footer({ username }) {
   );
 }
 Footer.propTypes = {
-  user: PropTypes.object
+  username: PropTypes.string
 };
 export default Footer;

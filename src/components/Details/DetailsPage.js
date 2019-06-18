@@ -116,9 +116,10 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
     price,
     createdAt,
     swap_tags,
-    _id
+    _id,
+    user_id
   } = content;
-  const { name, city, icon } = content.user_id;
+  const { name, city, icon } = user_id;
   const [animate, setAnimate] = useState(false);
 
   function handleGoBack() {
@@ -170,7 +171,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
 DetailsPage.propTypes = {
   history: PropTypes.object,
   listing: PropTypes.object,
-  user: PropTypes.object
+  favourites: PropTypes.array
 };
 
 export default DetailsPage;
