@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Swap tags component renders a section with an input field to add tags to a tag list 1`] = `
+Array [
+  "test",
+]
+`;
