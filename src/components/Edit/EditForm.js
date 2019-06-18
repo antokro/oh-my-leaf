@@ -165,7 +165,7 @@ function EditForm({ listing, onSave, onClose }) {
       <TypeButtonGroup>
         {types.map(type => (
           <TypeButton
-            handleClick={handleTypeButtonClick}
+            onClick={handleTypeButtonClick}
             value={type}
             key={type}
             filled={listingType}

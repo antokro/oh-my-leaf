@@ -205,11 +205,12 @@ function App() {
           />
           <Route
             path="/:username/search/:searchParam"
-            render={() => (
+            render={props => (
               <SearchResult
                 listings={searchResult}
                 onFavourise={handleFavourise}
                 favourites={favourites}
+                {...props}
               />
             )}
           />

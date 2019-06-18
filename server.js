@@ -8,7 +8,6 @@ app.get('/listings', (req, res) => {
   Listing.find()
     .populate('user_id')
     .then(listing => {
-      console.log(listing);
       res.json(listing);
     })
     .catch(err => res.json(err));
