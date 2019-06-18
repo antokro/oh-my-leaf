@@ -137,6 +137,7 @@ function EditForm({ listing, onSave, onClose }) {
         id="title"
         name="title"
         defaultValue={listing.title}
+        required
       />
       <Label htmlFor="description">Description</Label>
       <Textarea
@@ -165,7 +166,7 @@ function EditForm({ listing, onSave, onClose }) {
       <TypeButtonGroup>
         {types.map(type => (
           <TypeButton
-            handleClick={handleTypeButtonClick}
+            onClick={handleTypeButtonClick}
             value={type}
             key={type}
             filled={listingType}
@@ -179,6 +180,7 @@ function EditForm({ listing, onSave, onClose }) {
             id="price"
             name="price"
             defaultValue={listing.price}
+            type="number"
           />
         </PriceInputWrapper>
       )}

@@ -1,4 +1,5 @@
 import FeedGrid from '../common/Grid/FeedGrid';
+import GoBackIcon from '../common/Icon/GoBackIcon';
 import Label from '../common/FormElements/Label';
 import Listing from '../common/Listing/Listing';
 import PropTypes from 'prop-types';
@@ -7,10 +8,11 @@ import styled from 'styled-components';
 
 const StyledSearchResult = styled.section``;
 
-function SearchResult({ listings, onFavourise, favourites }) {
+function SearchResult({ listings, onFavourise, favourites, match, history }) {
   return (
     <StyledSearchResult>
-      <Label>Search Results</Label>
+      <GoBackIcon history={history} />
+      <Label>Search Results for: {match.params.searchParam}</Label>
       <FeedGrid>
         {listings.map(listing => (
           <Listing
