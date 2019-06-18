@@ -12,10 +12,10 @@ function value() {
   return types[0];
 }
 
-describe('Type Button Component', () => {
-  it('renders three buttons in the form component to choose the type of a listing', () => {
-    const component = renderer.create(<TypeButton value={value()} />);
-    const tree = component.toJSON();
+describe('Type button component', () => {
+  it('renders a button in the form component to choose the type of a listing', () => {
+    const button = renderer.create(<TypeButton value={value()} />);
+    const tree = button.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -26,28 +26,3 @@ describe('Type Button Component', () => {
     expect(callback).toHaveBeenCalled();
   });
 });
-
-/*
-    it('triggers the callback when bookmark is clicked', () => {
-      const callback = jest.fn();
-      const card = shallow(<Card onToggleBookmark={callback} />);
-      
-      card.find('small').simulate('click')
-    
-      expect(callback).toHaveBeenCalled();
-    });
-    });
-
-  it('renders a Card with given title, description and tags ', () => {
-    const component = renderer.create(
-      <Card
-        title="Test Title"
-        description="Test Description"
-        tags={['one', 'two']}
-      />
-    );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-*/

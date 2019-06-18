@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Swap tags component renders a section with an input field to add tags to a tag list 1`] = `
+<section
+  className="SwapTags__StyledTagInputWrapper-sc-15dr4e3-0 eSPwwT"
+>
+  <label
+    className="Label-vlikyy-0 bZPWgf"
+    htmlFor="swaps"
+  >
+    Swap against (seperate by comma)
+  </label>
+  <div
+    className="SwapTags__StyledTagInput-sc-15dr4e3-3 dFkJJT"
+  >
+    <div
+      className="SwapTags__StyledTags-sc-15dr4e3-1 jDvkBJ"
+    >
+      <span
+        className="Tags__SwapTag-uz6t9v-1 heiBUy"
+      >
+        test
+         
+        <b
+          className="SwapTags__StyledDelete-sc-15dr4e3-2 daIZly"
+          onClick={[Function]}
+        >
+          x
+        </b>
+      </span>
+      <span
+        className="Tags__SwapTag-uz6t9v-1 heiBUy"
+      >
+        test
+         
+        <b
+          className="SwapTags__StyledDelete-sc-15dr4e3-2 daIZly"
+          onClick={[Function]}
+        >
+          x
+        </b>
+      </span>
+    </div>
+    <input
+      className="SwapTags__StyledTagInputField-sc-15dr4e3-4 hcXjpB"
+      id="swaps"
+      name="swaps"
+      onInput={[Function]}
+      placeholder="type new tag here..."
+    />
+  </div>
+</section>
+`;
