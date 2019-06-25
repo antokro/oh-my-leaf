@@ -19,6 +19,7 @@ import FavouritesList from '../components/Favourites/FavouritesList';
 import CreateForm from '../components/Create/CreateForm';
 import DetailsPage from '../components/Details/DetailsPage';
 import Footer from '../components/Footer/Footer';
+import Fuse from 'fuse.js';
 import SearchResult from '../components/Search/SearchResult';
 import ListingOverview from '../components/UserProfile/ListingOverview';
 
@@ -139,14 +140,26 @@ function App() {
     });
   }
 
-  function showSearchResults(results, history, searchParam) {
-    setSearchResult(results);
-    history.push(`${currentUser.username}/search/${searchParam}`);
-  }
-
   function showNotification() {
     setIsNotified(true);
     setTimeout(() => setIsNotified(false), 4900);
+  }
+
+  function handleSearch(event) {
+    const searchParam = event.target.value;
+    console.log(searchParam);
+    var options = {
+      keys: ['title', 'description', 'tags', 'user_id.city'],
+      minMatchCharLength: 3,
+      threshold: 0.3,
+      maxPatternLength: 32,
+      shouldSort: true
+    };
+    var fuse = new Fuse(listings, options);
+    const results = fuse.search(searchParam);
+
+    setSearchResult(results);
+    history.push(`${currentUser.username}/search/${searchParam}`);
   }
 
   return (
@@ -154,21 +167,19 @@ function App() {
       <GridBody>
         <GlobalStyles />
         <GridHeader>
-          <Header />
+          <Header onKeyPressSearch={handleSearch} />
         </GridHeader>
         <GridMain>
           <Route
             exact
             path="/"
-            render={props => (
+            render={() => (
               <Home
                 listings={listings}
                 onFavourise={handleFavourise}
                 favourites={favourites}
                 onTypeFilter={handleTypeFilter}
                 typeFilter={typeFilter}
-                handleSearch={showSearchResults}
-                {...props}
               />
             )}
           />

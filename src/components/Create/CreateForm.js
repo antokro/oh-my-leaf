@@ -126,7 +126,7 @@ function CreateForm({ handlePublish, history, username }) {
       <TypeButtonGroup>
         {types.map(typeBtn => (
           <TypeButton
-            handleClick={handleTypeButtonClick}
+            onClick={handleTypeButtonClick}
             value={typeBtn}
             key={typeBtn}
             filled={type}
