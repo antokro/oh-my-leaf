@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo from '../../img/Logo-oh-my-leaf.png';
 import Icon from '../../components/common/Icon/StyledIcon';
+import { withRouter } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   background: #fcfbf6;
@@ -55,12 +56,17 @@ const StyledInput = styled.input`
   font-family: 'PT Mono', monospace;
 `;
 
-function Header({ onKeyPressSearch }) {
+function Header({ onKeyPressSearch, history }) {
   const [isShowing, setIsShowing] = useState(false);
   function handleClick() {
     setIsShowing(!isShowing);
   }
-
+  function onKeyPress(event) {
+    const searchParam = event.target.value;
+    event.target.value = '';
+    onKeyPressSearch(searchParam);
+    history.push(`/search/${searchParam}`);
+  }
   return (
     <StyledHeader>
       <StyledLogo isShowing={isShowing}>
@@ -80,9 +86,7 @@ function Header({ onKeyPressSearch }) {
           <StyledInput
             isShowing={isShowing}
             placeholder="Type here..."
-            onKeyPress={event =>
-              event.charCode === 13 && onKeyPressSearch(event)
-            }
+            onKeyPress={event => event.charCode === 13 && onKeyPress(event)}
           />
         )}
       </StyledSearch>
@@ -90,4 +94,4 @@ function Header({ onKeyPressSearch }) {
   );
 }
 
-export default Header;
+export default withRouter(Header);

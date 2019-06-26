@@ -145,9 +145,7 @@ function App() {
     setTimeout(() => setIsNotified(false), 4900);
   }
 
-  function handleSearch(event) {
-    const searchParam = event.target.value;
-    console.log(searchParam);
+  function handleSearch(searchParam) {
     var options = {
       keys: ['title', 'description', 'tags', 'user_id.city'],
       minMatchCharLength: 3,
@@ -157,9 +155,7 @@ function App() {
     };
     var fuse = new Fuse(listings, options);
     const results = fuse.search(searchParam);
-
     setSearchResult(results);
-    history.push(`${currentUser.username}/search/${searchParam}`);
   }
 
   return (
@@ -167,7 +163,10 @@ function App() {
       <GridBody>
         <GlobalStyles />
         <GridHeader>
-          <Header onKeyPressSearch={handleSearch} />
+          <Header
+            onKeyPressSearch={handleSearch}
+            username={currentUser.username}
+          />
         </GridHeader>
         <GridMain>
           <Route
@@ -215,7 +214,7 @@ function App() {
             )}
           />
           <Route
-            path="/:username/search/:searchParam"
+            path="/search/:searchParam"
             render={() => (
               <SearchResult
                 listings={searchResult}
