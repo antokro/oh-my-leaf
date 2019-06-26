@@ -26,28 +26,3 @@ describe('Type Button Component', () => {
     expect(callback).toHaveBeenCalled();
   });
 });
-
-/*
-    it('triggers the callback when bookmark is clicked', () => {
-      const callback = jest.fn();
-      const card = shallow(<Card onToggleBookmark={callback} />);
-      
-      card.find('small').simulate('click')
-    
-      expect(callback).toHaveBeenCalled();
-    });
-    });
-
-  it('renders a Card with given title, description and tags ', () => {
-    const component = renderer.create(
-      <Card
-        title="Test Title"
-        description="Test Description"
-        tags={['one', 'two']}
-      />
-    );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-*/

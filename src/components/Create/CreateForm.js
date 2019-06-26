@@ -106,6 +106,7 @@ function CreateForm({ handlePublish, history, username }) {
         placeholder="type title here..."
         id="title"
         name="title"
+        required
       />
       <Label htmlFor="description">Description</Label>
       <Textarea
@@ -136,7 +137,7 @@ function CreateForm({ handlePublish, history, username }) {
       {type === 'for sale' && (
         <PriceInputWrapper>
           <Label htmlFor="price">Price in €</Label>
-          <StyledPriceInput id="price" name="price" />
+          <StyledPriceInput id="price" name="price" type="number" />
         </PriceInputWrapper>
       )}
       {type === 'swap' && (

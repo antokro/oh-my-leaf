@@ -220,6 +220,7 @@ function App() {
                 listings={searchResult}
                 onFavourise={handleFavourise}
                 favourites={favourites}
+                {...props}
               />
             )}
           />

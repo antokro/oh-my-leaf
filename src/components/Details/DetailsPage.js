@@ -1,4 +1,5 @@
 import Image from '../common/Image';
+import GoBackIcon from '../common/Icon/GoBackIcon';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -45,10 +46,6 @@ const StyledUserIcon = styled.p`
 
 const StyledUserInfo = styled.p`
   margin: auto 5px;
-`;
-
-const StyledGoBack = styled.div`
-  margin: 5px 0;
 `;
 
 const StyledCreationDate = styled.div`
@@ -122,10 +119,6 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
   const { name, city, icon } = user_id;
   const [animate, setAnimate] = useState(false);
 
-  function handleGoBack() {
-    history.goBack();
-  }
-
   function onClickFavourise(id) {
     setAnimate(true);
     onFavourise(id);
@@ -133,9 +126,7 @@ function DetailsPage({ content, history, onFavourise, favourites }) {
 
   return (
     <StyledDetailsPage>
-      <StyledGoBack onClick={handleGoBack}>
-        <i className="fas fa-arrow-circle-left" /> Go Back
-      </StyledGoBack>
+      <GoBackIcon history={history} />
       <StyledHeart
         onClick={() => onClickFavourise(_id)}
         className={favourites.includes(_id) ? 'fas fa-heart' : 'far fa-heart'}
