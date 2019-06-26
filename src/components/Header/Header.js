@@ -45,7 +45,7 @@ const StyledSearch = styled.div`
 const StyledInput = styled.input`
   ${props =>
     props.isShowing
-      ? 'display: visible; width: 85%; '
+      ? 'display: visible; width: 85%;'
       : 'display:none; width: 0;'};
   transition: all 0.3s ease-in;
   background: #fcfbf6;

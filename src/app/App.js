@@ -146,16 +146,24 @@ function App() {
   }
 
   function handleSearch(searchParam) {
-    var options = {
-      keys: ['title', 'description', 'tags', 'user_id.city'],
+    console.log(searchParam.split(' '));
+    const options = {
+      keys: ['title', 'description', 'tags', 'user_id.city', 'type'],
       minMatchCharLength: 3,
       threshold: 0.3,
       maxPatternLength: 32,
       shouldSort: true
     };
-    var fuse = new Fuse(listings, options);
-    const results = fuse.search(searchParam);
-    setSearchResult(results);
+    const fuse = new Fuse(listings, options);
+    const results = [];
+    searchParam
+      .trim()
+      .split(' ')
+      .forEach(param => results.push(fuse.search(param)));
+    const intersection = results.reduce((acc, cur) =>
+      acc.filter(listing => cur.includes(listing))
+    );
+    setSearchResult(intersection);
   }
 
   return (
@@ -215,7 +223,7 @@ function App() {
           />
           <Route
             path="/search/:searchParam"
-            render={() => (
+            render={props => (
               <SearchResult
                 listings={searchResult}
                 onFavourise={handleFavourise}
